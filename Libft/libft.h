@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:59:44 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/24 13:01:10 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:54:08 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #	define LIBFT_H
 #	include <stdlib.h>
 #	include <unistd.h>
+#	include "get_next_line.h"
 
 typedef	struct	s_list
 {

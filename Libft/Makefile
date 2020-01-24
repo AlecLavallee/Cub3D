@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/01/24 15:10:52 by alelaval         ###   ########.fr        #
+#    Updated: 2020/01/24 15:55:16 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ SRC = ft_isascii.c \
 	  ft_strlcat.c \
 	  ft_strtrim.c \
 	  ft_putstr.c \
-	  ft_putchar.c
+	  ft_putchar.c \
+	  get_next_line.c \
+	  get_next_line_utils.c
 
 SRC_BONUS = ft_lstnew_bonus.c \
 	  ft_lstdelone_bonus.c \

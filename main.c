@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:41 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/24 13:48:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:31:45 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int		main(int ac, char **av)
 {
+	if (ac == 1)
+		ft_putstr("There's no arguments!\n");
 	if (ac == 2)
-		parsing(av);
-	else if (ac == 3)
+		parsing(av[1]);
+	if (ac == 3)
 		save();
-	else
+	if (ac > 3)
 		ft_putstr("Too many arguments!\n");
 	return (0);
 }
