@@ -6,16 +6,16 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/24 12:02:27 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:03:43 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	parsing(char **file)
 {
 	while (*file)
-		ft_putchar(*file++);
+		ft_putstr(*file++);
 }
 
 void	save()
