@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/01/24 15:55:16 by alelaval         ###   ########.fr        #
+#    Updated: 2020/01/27 12:56:26 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC = ft_isascii.c \
 	  ft_strtrim.c \
 	  ft_putstr.c \
 	  ft_putchar.c \
+	  ft_strcmp.c \
 	  get_next_line.c \
 	  get_next_line_utils.c
 

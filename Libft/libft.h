@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:59:44 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/24 15:54:08 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:18:30 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 
-/*ft_putstr*/
+/* added functions*/
 void			ft_putstr(char* str);
 void			ft_putchar(char c);
+int				ft_strcmp(const char *s1, const char *s2);
 #	endif
