@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/01/24 15:16:34 by alelaval         ###   ########.fr        #
+#    Updated: 2020/01/27 16:37:21 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 	make -C Libft/ 
 	make -C Minilibx/
 	mv Libft/libft.a . 
-	mv Minilibx/libmlx.a  .
+	mv Minilibx/libmlx.a .
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft.a libmlx.a
 	make fclean -C Libft/
 	make fclean -C Minilibx/
