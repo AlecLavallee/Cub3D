@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:59:44 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/27 14:18:30 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:58:27 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void			ft_putnbr_fd(int n, int fd);
 /* added functions*/
 void			ft_putstr(char* str);
 void			ft_putchar(char c);
+int				ft_isspace(int c);
 int				ft_strcmp(const char *s1, const char *s2);
 #	endif
