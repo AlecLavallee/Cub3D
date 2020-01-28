@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/01/27 16:37:21 by alelaval         ###   ########.fr        #
+#    Updated: 2020/01/28 10:30:54 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS = -Wall -Werror -Wextra
 INCLUDE = -I.
 
 SRC = parsing.c \
-	 main.c
+	error.c \
+	main.c
 
 OBJ = $(SRC:.c=.o)
 

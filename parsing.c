@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/27 16:34:46 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/01/28 10:34:42 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ int		open_cub(char *file)
 	dot = ft_strrchr(file, '.');
 	if (!dot)
 	{
-		ft_putstr("file does not have an extension at all!\n");
+		display_error("file does not have an extension at all!");
 		return (-1);
 	}
 	if (dot && !ft_strcmp(dot, ".cub"))
 	{
 		if ((fd = open(file, O_RDONLY)) < 0)
 		{
-			ft_putstr(".cub file is not found or cannot be accessed :(\n");
+			display_error(".cub file is not found or cannot be accessed :(");
 			return (-1);
 		}
 	}
 	else
-		ft_putstr("file does not have .cub extension!\n");
+		display_error("file does not have .cub extension!");
 	return (fd);
 }
 
