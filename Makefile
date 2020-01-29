@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/01/28 16:36:17 by alelaval         ###   ########.fr        #
+#    Updated: 2020/01/29 14:32:23 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,6 @@ $(NAME): $(OBJ)
 	mv Libft/libft.a . 
 	mv Minilibx/libmlx.a .
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft.a libmlx.a
-	make fclean -C Libft/
-	make fclean -C Minilibx/
-	make clean
 
 %.o:%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
@@ -46,8 +43,12 @@ $(NAME): $(OBJ)
 
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS) libft.a libmlx.a
+	#make clean -C Libft/
+	#make clean -C Minilibx/
 
 fclean: clean
 	$(RM) $(NAME)
+	#make fclean -C Libft/
+	#make fclean -C Minilibx/
 
 re: fclean all
