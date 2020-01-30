@@ -6,40 +6,85 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/29 16:32:43 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:55:29 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-void	parse_textures(void)
+void	parse_textures(char *texture, t_cub *cub)
 {
 	ft_putstr("Textures!\n");
+	(void)texture;
+	(void)cub;
 }
 
-void	parse_colors()
+void	parse_colors(char *color, t_cub *cub)
 {
-	ft_putstr("Colors!\n");
+	size_t	i;
+	size_t	nb_words;
+
+	i = 0;
+	nb_words = 0;
+	while (*(color + i))
+	{
+		while (ft_isspace(*(color + i)))
+			i++;
+		while (*(color + i) && (ft_isalnum(*(color + i)) || *(color + i) == ','))
+			i++;
+		nb_words++;
+	}
+	if (nb_words != 2)
+		return (display_error("Color in .cub is invalid!"));
+	(void)color;
+	(void)cub;
 }
 
-void	parse_resolution()
+void	parse_resolution(char *res, t_cub *cub)
 {
-	ft_putstr("Resolution!\n");
+	size_t	i;
+	size_t	nb_words;
+
+	i = 0;
+	nb_words = 0;
+	while (*(res + i))
+	{
+		while (ft_isspace(*(res + i)))
+			i++;
+		while (*(res + i) && ft_isalnum(*(res + i)))
+			i++;
+		nb_words++;
+	}
+	if (nb_words != 3)
+		return (display_error("Resolution in .cub is invalid!"));
+	i = 0;
+	while (!ft_isspace(*(res + i)) || (*(res + i) == 'R'))
+		i++;
+	cub->x_axis = ft_atoi(res + i);
+	while (ft_isspace(*(res + i)))
+		i++;
+	while (!ft_isspace(*(res + i)))
+		i++;
+	cub->y_axis = ft_atoi(res + i);
+	printf("x = %d, y = %d\n", cub->x_axis, cub->y_axis);
 }
-void	parse_sprite()
+
+void	parse_sprite(char *sprite, t_cub *cub)
 {
 	ft_putstr("Sprite!\n");
+	(void)sprite;
+	(void)cub;
 }
 
 void	parse_map(char **map, t_cub *cub)
 {
 	ft_putstr("Map!\n");
-	while (*map)
+	(void)map;
+	/*while (*map)
 	{
 		ft_putstr(*map++);
 		ft_putchar('\n');
-	}
+	}*/
 	(void)cub;
 }
 
@@ -106,18 +151,20 @@ void	parse_cub(char **map, t_cub *cub)
 		while (ft_isspace(map[i][j]))
 			j++;
 		if (map[i][j] == 'R')
-			parse_resolution();
+			parse_resolution(map[i] + j, cub);
 		else if (map[i][j] == 'S' && map[i][j + 1] != 'O')
-			parse_sprite();
+			parse_sprite(map[i], cub);
 		else if (!ft_strncmp(&map[i][j], "NO", 2) ||
 			!ft_strncmp(&map[i][j], "SO", 2) ||
 			!ft_strncmp(&map[i][j], "WE", 2) ||
 			!ft_strncmp(&map[i][j], "EA ", 2))
-			parse_textures();
+			parse_textures(map[i], cub);
 		else if (map[i][j] == 'F' || map[i][j] == 'C')
-			parse_colors();
+			parse_colors(map[i], cub);
 		else if (map[i][j] == '1' || map[i][j] == '0')
 			return (parse_map(map, cub));
+		else
+			return (display_error("Unknow symbol in .cub!"));
 		i++;
 	}
 }
