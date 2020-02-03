@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/30 14:55:29 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/03 15:49:16 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	parse_textures(char *texture, t_cub *cub)
 {
+	size_t	i;
+
+	i = 0;
 	ft_putstr("Textures!\n");
-	(void)texture;
+	while (ft_isspace(texture[i]))
+		i++;
 	(void)cub;
 }
 
@@ -26,18 +30,34 @@ void	parse_colors(char *color, t_cub *cub)
 
 	i = 0;
 	nb_words = 0;
-	while (*(color + i))
+	while (ft_isspace(*(color + i)))
+		i++;
+	if (*(color + i) == 'F')
 	{
-		while (ft_isspace(*(color + i)))
-			i++;
-		while (*(color + i) && (ft_isalnum(*(color + i)) || *(color + i) == ','))
-			i++;
-		nb_words++;
+		while (*(color + i))
+		{
+			while (ft_isspace(*(color + i)))
+				i++;
+			while (ft_isdigit(*(color + i)))
+				i++;
+			nb_words++;
+			if (*(color + i++) != ',' && nb_words > 3)
+				return (display_error("Probleme de parsing!"));
+			nb_words++;
+		}
 	}
 	if (nb_words != 2)
 		return (display_error("Color in .cub is invalid!"));
-	(void)color;
-	(void)cub;
+	i = 0;
+	/*while (ft_isspace(color[i]))
+		i++;
+	if (color[i++] == 'F')
+	{
+		cub->floor[0] = ft_atoi(&color[i]);
+	}
+	else
+		return (display_error("Color in .cub is invalid!"));
+	*/printf("floor = %d, ceiling = %d\n", cub->floor[0], cub->ceiling[0]);
 }
 
 void	parse_resolution(char *res, t_cub *cub)
@@ -163,7 +183,7 @@ void	parse_cub(char **map, t_cub *cub)
 			parse_colors(map[i], cub);
 		else if (map[i][j] == '1' || map[i][j] == '0')
 			return (parse_map(map, cub));
-		else
+		else if (map[i][j] != '\0')
 			return (display_error("Unknow symbol in .cub!"));
 		i++;
 	}
