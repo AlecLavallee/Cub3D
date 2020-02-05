@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/03 11:49:23 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/05 11:32:35 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,15 @@
 typedef struct	s_cub
 {
 	char		**map;
-	char		*sprite;
 	int			x_axis;
 	int			y_axis;
 	int			floor[3];
 	int			ceiling[3];
+	void		*no_texture;
+	void		*so_texture;
+	void		*we_texture;
+	void		*ea_texture;
+	void		*sprite;
 }				t_cub;
 
 void	display_error(const char *error);
