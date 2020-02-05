@@ -6,13 +6,13 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:36:44 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/05 11:37:21 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:01:20 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	save()
+void	save(void)
 {
 	;
 }

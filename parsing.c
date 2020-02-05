@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/05 11:40:05 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:54:14 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,12 @@ char	**store_cub(char **map, char *file, int fd)
 	while (get_next_line(fd, &line))
 		nb_lines++;
 	close(fd);
+	nb_lines++;
 	map = (char**)malloc(sizeof(char*) * ++nb_lines);
 	fd = open(file, O_RDONLY);
-	while (get_next_line(fd, &line) && nb_lines--)
+	while (get_next_line(fd, &line))
 		map[i++] = line;
-	while (ft_isspace(*line))
-		line++;
-	if (*line != '\0')
-		map[i++] = line;
+	map[i++] = line;
 	map[i] = NULL;
 	return (map);
 }
