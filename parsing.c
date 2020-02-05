@@ -6,22 +6,11 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/04 16:05:02 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/05 11:40:05 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	parse_textures(char *texture, t_cub *cub)
-{
-	size_t	i;
-
-	i = 0;
-	ft_putstr("Textures!\n");
-	while (ft_isspace(texture[i]))
-		i++;
-	(void)cub;
-}
 
 void	parse_colors_f(char *color, t_cub *cub)
 {
@@ -30,6 +19,7 @@ void	parse_colors_f(char *color, t_cub *cub)
 
 	i = 0;
 	index = 0;
+	// ajouter fonction qui compte les words
 	while (ft_isspace(color[i]))
 		i++;
 	if (color[i++] == 'F')
@@ -42,14 +32,11 @@ void	parse_colors_f(char *color, t_cub *cub)
 		cub->floor[index++] = ft_atoi(&color[++i]);
 		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
 			i++;
-		cub->floor[index] = ft_atoi(&color[++i]);
+		cub->floor[index++] = ft_atoi(&color[++i]);
 	}
-	while (index > 0)
-	{
-		index--;
+	while (index-- > 0)
 		if (cub->floor[index] < 0 || cub->floor[index] > 255)
 			return (display_error("Color in floor invalid."));
-	}
 }
 
 void	parse_colors_c(char *color, t_cub *cub)
@@ -59,6 +46,7 @@ void	parse_colors_c(char *color, t_cub *cub)
 
 	i = 0;
 	index = 0;
+	// ajouter fonction qui compte les words
 	while (ft_isspace(color[i]))
 		i++;
 	if (color[i++] == 'C')
@@ -71,14 +59,11 @@ void	parse_colors_c(char *color, t_cub *cub)
 		cub->ceiling[index++] = ft_atoi(&color[++i]);
 		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
 			i++;
-		cub->ceiling[index] = ft_atoi(&color[++i]);
+		cub->ceiling[index++] = ft_atoi(&color[++i]);
 	}
-	while (index > 0)
-	{
-		index--;
+	while (index-- > 0)
 		if (cub->ceiling[index] < 0 || cub->ceiling[index] > 255)
 			return (display_error("Color in ceiling invalid"));
-	}
 }
 
 void	parse_resolution(char *res, t_cub *cub)
@@ -107,25 +92,6 @@ void	parse_resolution(char *res, t_cub *cub)
 	while (!ft_isspace(*(res + i)))
 		i++;
 	cub->y_axis = ft_atoi(res + i);
-}
-
-void	parse_sprite(char *sprite, t_cub *cub)
-{
-	ft_putstr("Sprite!\n");
-	(void)sprite;
-	(void)cub;
-}
-
-void	parse_map(char **map, t_cub *cub)
-{
-	ft_putstr("Map!\n");
-	(void)map;
-	/*while (*map)
-	{
-		ft_putstr(*map++);
-		ft_putchar('\n');
-	}*/
-	(void)cub;
 }
 
 int		open_cub(char *file)
@@ -211,12 +177,6 @@ void	parse_cub(char **map, t_cub *cub)
 	}
 }
 
-t_cub	init_cub(t_cub *cub)
-{
-	cub->map = NULL;
-	return (*cub);
-}
-
 void	parsing(char *file, t_cub *cub)
 {
 	int		fd;
@@ -235,9 +195,4 @@ void	parsing(char *file, t_cub *cub)
 	else
 		return ;
 	return ;
-}
-
-void	save()
-{
-	;
 }
