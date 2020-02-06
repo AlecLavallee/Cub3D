@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/02/05 12:52:40 by alelaval         ###   ########.fr        #
+#    Updated: 2020/02/06 13:39:45 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,11 @@ INCLUDE = -I.
 
 SRC = parsing_file.c \
 	parsing.c \
+	colors.c \
 	utils.c \
 	save.c \
 	error.c \
-	main.c
+	cub3d.c
 
 OBJ = $(SRC:.c=.o)
 
