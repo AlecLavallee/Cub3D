@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/05 13:33:55 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:59:11 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parse_sprite(char *sprite, t_cub *cub)
 	while (ft_isspace(sprite[i]))
 		i++;
 	if ((fd = open(&sprite[i], O_RDONLY)))
-		return (display_error("Cannot open texture file, check your paths!"));
+		return (display_error("Cannot open sprite file, check your paths!"));
 	(void)cub;
 }
 

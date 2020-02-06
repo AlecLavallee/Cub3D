@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/05 12:51:21 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/06 13:35:07 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct	s_cub
 
 t_cub	init_cub(t_cub *cub);
 void	parse_map(char **map, t_cub *cub);
+void	parse_colors_f(char *color, t_cub *cub);
+void	parse_colors_c(char *color, t_cub *cub);
 void	parse_textures(char *texture, t_cub *cub);
 void	parse_cub(char **map, t_cub *cub);
 void	display_error(const char *error);

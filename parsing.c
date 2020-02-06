@@ -6,65 +6,11 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/05 13:54:14 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/06 13:34:19 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	parse_colors_f(char *color, t_cub *cub)
-{
-	size_t	i;
-	size_t	index;
-
-	i = 0;
-	index = 0;
-	// ajouter fonction qui compte les words
-	while (ft_isspace(color[i]))
-		i++;
-	if (color[i++] == 'F')
-	{
-		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
-			i++;
-		cub->floor[index++] = ft_atoi(&color[++i]);
-		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
-			i++;
-		cub->floor[index++] = ft_atoi(&color[++i]);
-		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
-			i++;
-		cub->floor[index++] = ft_atoi(&color[++i]);
-	}
-	while (index-- > 0)
-		if (cub->floor[index] < 0 || cub->floor[index] > 255)
-			return (display_error("Color in floor invalid."));
-}
-
-void	parse_colors_c(char *color, t_cub *cub)
-{
-	size_t	i;
-	size_t	index;
-
-	i = 0;
-	index = 0;
-	// ajouter fonction qui compte les words
-	while (ft_isspace(color[i]))
-		i++;
-	if (color[i++] == 'C')
-	{
-		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
-			i++;
-		cub->ceiling[index++] = ft_atoi(&color[++i]);
-		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
-			i++;
-		cub->ceiling[index++] = ft_atoi(&color[++i]);
-		while (ft_isdigit(*(color + i)) || *(color + i) == '-')
-			i++;
-		cub->ceiling[index++] = ft_atoi(&color[++i]);
-	}
-	while (index-- > 0)
-		if (cub->ceiling[index] < 0 || cub->ceiling[index] > 255)
-			return (display_error("Color in ceiling invalid"));
-}
 
 void	parse_resolution(char *res, t_cub *cub)
 {
