@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/06 13:35:07 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/07 12:24:43 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,17 @@ typedef struct	s_cub
 	void		*sprite;
 }				t_cub;
 
+typedef struct	s_path
+{
+	char		*no_path;
+	char		*so_path;
+	char		*we_path;
+	char		*ea_path;
+	char		*sprite_path;
+}				t_path;
+
 t_cub	init_cub(t_cub *cub);
-void	parse_map(char **map, t_cub *cub);
+void	parse_map(char ***map, int index, t_cub *cub);
 void	parse_colors_f(char *color, t_cub *cub);
 void	parse_colors_c(char *color, t_cub *cub);
 void	parse_textures(char *texture, t_cub *cub);
