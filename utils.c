@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/05 13:00:55 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:36:32 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,22 @@ t_cub	init_cub(t_cub *cub)
 	cub->floor[1] = -1;
 	cub->floor[2] = -1;
 	return (*cub);
+}
+
+char	*ft_strdup_wspaces(const char *s)
+{
+	int		len;
+	char	*tmp;
+
+	if (!s)
+		return (NULL);
+	len = 0;
+	while (ft_isalnum(s[len++]))
+		;
+	if (!(tmp = (char*)malloc(sizeof(char) * len)))
+		return (NULL);
+	while (len--)
+		if (ft_isalnum(tmp[len]))
+			tmp[len] = s[len];
+	return (tmp);
 }

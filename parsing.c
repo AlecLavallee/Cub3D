@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/06 13:34:19 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/07 12:24:26 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	parse_cub(char **map, t_cub *cub)
 		else if (map[i][j] == 'C')
 			parse_colors_c(map[i], cub);
 		else if (map[i][j] == '1' || map[i][j] == '0')
-			return (parse_map(map, cub));
+			return (parse_map(&map, i, cub));
 		else if (map[i][j] != '\0')
 			return (display_error("Unknow symbol in .cub!"));
 		i++;
