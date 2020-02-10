@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:07:25 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/16 12:50:35 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:47:39 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstadd_back(t_map **alst, t_map *new)
 {
-	t_list	*head;
+	t_map	*head;
 
 	if (new)
 	{
@@ -22,11 +22,13 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 		{
 			*alst = new;
 			new->next = NULL;
+			new->prev = NULL;
 		}
 		else
 		{
 			head = ft_lstlast(*alst);
 			head->next = new;
+			head->prev = NULL;
 		}
 	}
 }

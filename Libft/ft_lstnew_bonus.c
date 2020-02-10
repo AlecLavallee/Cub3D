@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 09:51:32 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/16 09:56:51 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:37:56 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_map	*ft_lstnew(void *map)
 {
-	t_list	*newelem;
+	t_map	*newelem;
 
-	if (!(newelem = (t_list*)malloc(sizeof(t_list) * 1)))
+	if (!(newelem = (t_map*)malloc(sizeof(t_map) * 1)))
 		return (NULL);
-	newelem->content = content;
+	newelem->map = map;
 	newelem->next = NULL;
+	newelem->prev = NULL;
 	return (newelem);
 }

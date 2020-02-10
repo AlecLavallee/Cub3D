@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:59:44 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/28 11:58:27 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/10 12:07:01 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,23 @@
 #	include <unistd.h>
 #	include "get_next_line.h"
 
-typedef	struct	s_list
+typedef struct		s_map
 {
-	void			*content;
-	struct s_list	*next;
-}				t_list;
-int				ft_lstsize(t_list *lst);
-t_list			*ft_lstnew(void *content);
-t_list			*ft_lstlast(t_list *lst);
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void*)
+	char			*map;
+	struct s_map	*prev;
+	struct s_map	*next;
+}					t_map;
+
+int				ft_lstsize(t_map *lst);
+t_map			*ft_lstnew(void *content);
+t_map			*ft_lstlast(t_map *lst);
+t_map			*ft_lstmap(t_map *lst, void *(*f)(void*)
 				, void (*del)(void *));
-void			ft_lstadd_front(t_list **alst, t_list *new);
-void			ft_lstadd_back(t_list **alst, t_list *new);
-void			ft_lstdelone(t_list *lst, void (*del)(void *));
-void			ft_lstclear(t_list **lst, void (*del)(void *));
-void			ft_lstiter(t_list *lst, void (*f)(void *));
+void			ft_lstadd_front(t_map **alst, t_map *new);
+void			ft_lstadd_back(t_map **alst, t_map *new);
+void			ft_lstdelone(t_map *lst, void (*del)(void *));
+void			ft_lstclear(t_map **lst, void (*del)(void *));
+void			ft_lstiter(t_map *lst, void (*f)(void *));
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);

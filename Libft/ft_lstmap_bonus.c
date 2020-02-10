@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:08:12 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/21 15:56:16 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:58:46 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void *))
+t_map	*ft_lstmap(t_map *lst, void *(*f)(void*), void (*del)(void *))
 {
-	t_list	*list;
-	t_list	*ref;
+	t_map	*list;
+	t_map	*ref;
 
 	list = NULL;
 	if (!lst || !f || !del)
 		return (NULL);
-	list = ft_lstnew(f(lst->content));
+	list = ft_lstnew(f(lst->map));
 	ref = list;
 	if (!ref)
 		ft_lstclear(&ref, del);
 	lst = lst->next;
 	while (lst)
 	{
-		list = ft_lstnew(f(lst->content));
+		list = ft_lstnew(f(lst->map));
 		if (!list)
 		{
 			ft_lstclear(&ref, del);

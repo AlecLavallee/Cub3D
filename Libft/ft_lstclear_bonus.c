@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:06:13 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/17 10:31:42 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:58:57 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstclear(t_map **lst, void (*del)(void*))
 {
-	t_list	*list;
-	t_list	*tmp;
+	t_map	*list;
+	t_map	*tmp;
 
 	tmp = NULL;
 	if (*lst && del)
@@ -23,7 +23,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 		list = *lst;
 		while (list)
 		{
-			del(list->content);
+			del(list->map);
 			if (list->next)
 				tmp = list->next;
 			else
