@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/02/06 13:39:45 by alelaval         ###   ########.fr        #
+#    Updated: 2020/02/10 11:22:02 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C Libft/ 
+	make bonus -C Libft/ 
 	make -C Minilibx/
 	mv Libft/libft.a . 
 	mv Minilibx/libmlx.a .
