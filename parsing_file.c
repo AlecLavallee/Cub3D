@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/10 19:39:49 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:15:48 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 void	parse_sprite(char *sprite, t_cub *cub)
 {
 	size_t	i;
-	int		fd;
 
 	i = 0;
-	//ft_putstr("Sprite!\n");
 	while (ft_isalpha(sprite[i]))
 		i++;
 	while (ft_isspace(sprite[i]))
 		i++;
-	if ((fd = open(&sprite[i], O_RDONLY)) == -1)
+	if ((cub->path.sprite_fd = open(&sprite[i], O_RDONLY)) == -1)
 		return (display_error("Cannot open sprite file, check your paths!"));
 	(void)cub;
 }
@@ -34,7 +32,6 @@ void	parse_textures(char *texture, t_cub *cub)
 	int		fd;
 
 	i = 0;
-	//ft_putstr("Textures!\n");
 	while (ft_isalpha(texture[i]))
 		i++;
 	while (ft_isspace(texture[i]))
