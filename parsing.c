@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/07 12:24:26 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:21:14 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	parse_resolution(char *res, t_cub *cub)
 	cub->y_axis = ft_atoi(res + i);
 }
 
-int		open_cub(char *file)
+int		open_cub(char *file, t_cub *cub)
 {
 	int		fd;
 	char	*dot;
 
 	fd = -1;
+	cub->file.name = file;
 	dot = ft_strrchr(file, '.');
 	if (!dot)
 	{
@@ -65,78 +66,93 @@ int		open_cub(char *file)
 	return (fd);
 }
 
-char	**store_cub(char **map, char *file, int fd)
+void	store_map(char **line, int nb_lines, t_cub *cub)
 {
-	char	*line;
-	size_t	nb_lines;
-	size_t	i;
-
-	i = 0;
 	nb_lines = 0;
-	map = NULL;
-	line = NULL;
-	while (get_next_line(fd, &line))
-		nb_lines++;
-	close(fd);
-	nb_lines++;
-	map = (char**)malloc(sizeof(char*) * ++nb_lines);
-	fd = open(file, O_RDONLY);
-	while (get_next_line(fd, &line))
-		map[i++] = line;
-	map[i++] = line;
-	map[i] = NULL;
-	return (map);
+	while (get_next_line(cub->file.fd, line))
+	{
+		while (ft_isspace(**line++))
+			;
+		if (**line == '0' && **line == '1')
+			nb_lines++;
+		else
+			return (display_error("Invalid Map!"));
+	}
+	printf("%d\n", nb_lines);
 }
 
-void	parse_cub(char **map, t_cub *cub)
+void	parsing_switch(char **line, int *map, t_cub *cub)
 {
-	size_t i;
-	size_t j;
+	int	j;
 
-	i = 0;
 	j = 0;
-	while (map[i])
+	while (ft_isspace(*line[j]))
+		j++;
+	if (*line[j] == 'R')
+		parse_resolution(*line + j, cub);
+	else if (*line[j] == 'S' && *line[j + 1] != 'O')
+		parse_sprite(*line, cub);
+	else if (!ft_strncmp(&*line[j], "NO", 2) ||
+		!ft_strncmp(&*line[j], "SO", 2) ||
+		!ft_strncmp(&*line[j], "WE", 2) ||
+		!ft_strncmp(&*line[j], "EA ", 2))
+		parse_textures(*line, cub);
+	else if (*line[j] == 'F')
+		parse_colors_f(*line, cub);
+	else if (*line[j] == 'C')
+		parse_colors_c(*line, cub);
+	else if (*line[j] == '1' || *line[j] == '0' || *line[j] == '2')
+		*map = 1;
+	else if (*line[j] != '\0')
+		return (display_error("Unknow symbol in .cub!"));
+}
+
+void	parse_cub(t_cub *cub)
+{
+	char	*line;
+	int		nb_lines;
+	int		map;
+
+	map = 0;
+	nb_lines = -1;
+	while (get_next_line(cub->file.fd, &line))
 	{
-		j = 0;
-		while (ft_isspace(map[i][j]))
-			j++;
-		if (map[i][j] == 'R')
-			parse_resolution(map[i] + j, cub);
-		else if (map[i][j] == 'S' && map[i][j + 1] != 'O')
-			parse_sprite(map[i], cub);
-		else if (!ft_strncmp(&map[i][j], "NO", 2) ||
-			!ft_strncmp(&map[i][j], "SO", 2) ||
-			!ft_strncmp(&map[i][j], "WE", 2) ||
-			!ft_strncmp(&map[i][j], "EA ", 2))
-			parse_textures(map[i], cub);
-		else if (map[i][j] == 'F')
-			parse_colors_f(map[i], cub);
-		else if (map[i][j] == 'C')
-			parse_colors_c(map[i], cub);
-		else if (map[i][j] == '1' || map[i][j] == '0')
-			return (parse_map(&map, i, cub));
-		else if (map[i][j] != '\0')
-			return (display_error("Unknow symbol in .cub!"));
-		i++;
+		if (!map)
+		{
+			parsing_switch(&line, &map, cub);
+			nb_lines++;
+		}
+		else
+		{
+			store_map(&line, --nb_lines, cub);
+			break ;
+		}
 	}
+	if (!map)
+		return (display_error("No map detected in .cub!"));
+}
+
+void	get_size_desc(t_cub *cub)
+{
+	char **line;
+
+	line = NULL;
+	while (get_next_line(cub->file.fd, line))
+		cub->file.size++;
+	cub->file.size++;
+	free(line);
 }
 
 void	parsing(char *file, t_cub *cub)
 {
-	int		fd;
 	char	**file_cub;
 
 	file_cub = NULL;
 	init_cub(cub);
-	fd = open_cub(file);
-	if (fd != -1)
+	cub->file.fd = open_cub(file, cub);
+	if (cub->file.fd != -1)
 	{
-		if ((file_cub = store_cub(file_cub, file, fd)))
-			parse_cub(file_cub, cub);
-		else
-			return ;
+		get_size_desc(cub);
+		parse_cub(cub);
 	}
-	else
-		return ;
-	return ;
 }
