@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/12 17:21:14 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/13 16:04:38 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	parse_resolution(char *res, t_cub *cub)
 	cub->y_axis = ft_atoi(res + i);
 }
 
-int		open_cub(char *file, t_cub *cub)
+void		open_cub(char *file, t_cub *cub)
 {
 	int		fd;
 	char	*dot;
@@ -49,36 +49,55 @@ int		open_cub(char *file, t_cub *cub)
 	cub->file.name = file;
 	dot = ft_strrchr(file, '.');
 	if (!dot)
-	{
-		display_error("file does not have an extension at all!");
-		return (-1);
-	}
+		return (display_error("file does not have an extension at all!"));
 	if (dot && !ft_strcmp(dot, ".cub"))
 	{
-		if ((fd = open(file, O_RDONLY)) < 0)
-		{
-			display_error(".cub file is not found or cannot be accessed :(");
-			return (-1);
-		}
+		if ((cub->file.fd = open(file, O_RDONLY)) < 0)
+			return (display_error(".cub file not found/cannot be accessed!"));
 	}
 	else
-		display_error("file does not have .cub extension!");
-	return (fd);
+		return (display_error("file does not have .cub extension!"));
 }
 
-void	store_map(char **line, int nb_lines, t_cub *cub)
+int		verify_map(t_cub *cub)
 {
-	nb_lines = 0;
-	while (get_next_line(cub->file.fd, line))
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (cub->file.map[i])
 	{
-		while (ft_isspace(**line++))
+		j = 0;
+		printf("%s\n", cub->file.map[i]);
+		while (ft_isspace(cub->file.map[i][j++]))
 			;
-		if (**line == '0' && **line == '1')
-			nb_lines++;
-		else
-			return (display_error("Invalid Map!"));
+		if (cub->file.map[i][j] != '0' && cub->file.map[i][j] != '1')
+			return (1);
+		if (cub->file.map[i++][j] == '\0')
+			return (1);
 	}
-	printf("%d\n", nb_lines);
+	return (0);
+}
+
+void	store_map(char *line, int nb_lines, t_cub *cub)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	nb_lines = 0;
+	cub->file.map = (char**)malloc(sizeof(char*) * cub->file.size - nb_lines);
+	cub->file.map[i++] = ft_strdup_wspaces(line);
+	while (get_next_line(cub->file.fd, &line))
+		cub->file.map[i++] = ft_strdup_wspaces(line);
+	while (ft_isspace(line[j++]))
+		;
+	if (line[j] == '\0')
+		return (display_error("Empty line at end of map declaration!"));
+	cub->file.map[i++] = ft_strdup_wspaces(line);
+	cub->file.map[i] = NULL;
 }
 
 void	parsing_switch(char **line, int *map, t_cub *cub)
@@ -101,7 +120,7 @@ void	parsing_switch(char **line, int *map, t_cub *cub)
 		parse_colors_f(*line, cub);
 	else if (*line[j] == 'C')
 		parse_colors_c(*line, cub);
-	else if (*line[j] == '1' || *line[j] == '0' || *line[j] == '2')
+	else if (*line[j] == '0' || *line[j] == '1' || *line[j] == '2')
 		*map = 1;
 	else if (*line[j] != '\0')
 		return (display_error("Unknow symbol in .cub!"));
@@ -114,45 +133,60 @@ void	parse_cub(t_cub *cub)
 	int		map;
 
 	map = 0;
+	line = NULL;
 	nb_lines = -1;
+	close(cub->file.fd);
+	open_cub(cub->file.name, cub);
 	while (get_next_line(cub->file.fd, &line))
 	{
-		if (!map)
+		parsing_switch(&line, &map, cub);
+		nb_lines++;
+		if (map == 1)
 		{
-			parsing_switch(&line, &map, cub);
-			nb_lines++;
-		}
-		else
-		{
-			store_map(&line, --nb_lines, cub);
+			store_map(line, nb_lines, cub);
 			break ;
 		}
 	}
-	if (!map)
+	if (map == 0)
 		return (display_error("No map detected in .cub!"));
 }
 
 void	get_size_desc(t_cub *cub)
 {
-	char **line;
+	char *line;
 
 	line = NULL;
-	while (get_next_line(cub->file.fd, line))
+	while (get_next_line(cub->file.fd, &line))
 		cub->file.size++;
+	close(cub->file.fd);
 	cub->file.size++;
 	free(line);
 }
 
+void	fill_out(t_cub *cub)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (cub->file.map[i])
+		printf("%s\n", cub->file.map[i++]);
+}
+
 void	parsing(char *file, t_cub *cub)
 {
-	char	**file_cub;
+	char	buff[32];
 
-	file_cub = NULL;
 	init_cub(cub);
-	cub->file.fd = open_cub(file, cub);
-	if (cub->file.fd != -1)
+	open_cub(file, cub);
+	if (read(cub->file.fd, buff, 0) == 0)
 	{
 		get_size_desc(cub);
+		open_cub(cub->file.name, cub);
 		parse_cub(cub);
+		if (verify_map(cub))
+			return (display_error("Error in map declaration!"));
+		fill_out(cub);
 	}
 }
