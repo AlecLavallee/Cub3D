@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/12 16:57:16 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/14 11:37:37 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct	s_path
 typedef struct	s_cub
 {
 	char			**map;
+	int				map_x;
+	int				map_y;
 	int				x_axis;
 	int				y_axis;
 	int				floor[3];
