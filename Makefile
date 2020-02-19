@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/02/14 16:53:08 by alelaval         ###   ########.fr        #
+#    Updated: 2020/02/19 13:53:30 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,10 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make bonus -C Libft/ 
-	make -C Minilibx/
+	#make -C Minilibx/
 	mv Libft/libft.a . 
-	mv Minilibx/libmlx.a .
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft.a libmlx.a
+	#mv Minilibx/libmlx.a .
+	$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJ) libft.a
 
 %.o:%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
@@ -46,7 +46,7 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ) $(OBJ_BONUS) libft.a libmlx.a
+	$(RM) $(OBJ) $(OBJ_BONUS) libft.a
 	#make clean -C Libft/
 	#make clean -C Minilibx/
 
