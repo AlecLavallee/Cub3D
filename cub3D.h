@@ -6,13 +6,14 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/14 11:37:37 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:27:38 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "Libft/libft.h"
+# include "mlx.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -62,11 +63,14 @@ typedef struct	s_cub
 
 t_cub	init_cub(t_cub *cub);
 char	*ft_strdup_wspaces(const char *s);
+int		get_map_size(t_cub *cub);
 void	parse_map(char ***map, int index, t_cub *cub);
 void	parse_colors_f(char *color, t_cub *cub);
 void	parse_colors_c(char *color, t_cub *cub);
 void	parse_textures(char *texture, t_cub *cub);
+void	parse_resolution(char *res, t_cub *cub);
 void	parse_cub(t_cub *cub);
+void	get_size_desc(t_cub *cub);
 void	display_error(const char *error);
 void	parsing(char* file, t_cub *cub);
 void	parse_resolution();
