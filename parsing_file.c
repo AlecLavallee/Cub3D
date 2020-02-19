@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/12 16:15:48 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:32:19 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,30 @@ void	parse_textures(char *texture, t_cub *cub)
 	(void)cub;
 }
 
-void	parse_map(char ***map, int index, t_cub *cub)
+void	parse_resolution(char *res, t_cub *cub)
 {
-	int		i;
-	t_map	*lstmap;
+	size_t	i;
+	size_t	nb_words;
 
 	i = 0;
-	lstmap = NULL;
-	ft_putstr("Map!\n");
-	if (!(lstmap = ft_lstnew("Oi joske")))
-		return (display_error("Chained list attribution failed!"));
-	ft_putstr(lstmap->map);
-	ft_putchar('\n');
-	lstmap->map = ft_strdup_wspaces(*(*map + index + i++));
-	while (*(*map + index + i))
-		ft_lstadd_back(&lstmap, ft_lstnew(ft_strdup_wspaces(*(*map + index + i++))));
-	while (lstmap)
+	nb_words = 0;
+	while (*(res + i))
 	{
-		ft_putstr("kochi wo miro!\n");
-		ft_putstr(lstmap->map);
-		ft_putchar('\n');
-		lstmap = lstmap->next;
+		while (ft_isspace(*(res + i)))
+			i++;
+		while (*(res + i) && ft_isalnum(*(res + i)))
+			i++;
+		nb_words++;
 	}
-	(void)cub;
+	if (nb_words != 3)
+		return (display_error("Resolution in .cub is invalid!"));
+	i = 0;
+	while (!ft_isspace(*(res + i)) || (*(res + i) == 'R'))
+		i++;
+	cub->x_axis = ft_atoi(res + i);
+	while (ft_isspace(*(res + i)))
+		i++;
+	while (!ft_isspace(*(res + i)))
+		i++;
+	cub->y_axis = ft_atoi(res + i);
 }

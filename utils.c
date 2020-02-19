@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/13 14:00:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:51:01 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,43 @@ char	*ft_strdup_wspaces(const char *s)
 	i = 0;
 	while (*copy)
 	{
-		if (ft_isdigit(*copy))
+		if (!ft_isspace(*copy))
 			tmp[i++] = *copy;
 		copy++;
 	}
 	tmp[i] = '\0';
 	return (tmp);
+}
+
+int		get_map_size(t_cub *cub)
+{
+	int	i;
+	int	j;
+	int	max_size;
+
+	i = 0;
+	j = 0;
+	max_size = 0;
+	while (cub->file.map[i])
+	{
+		j = 0;
+		while (cub->file.map[i][j])
+			j++;
+		if (j > max_size)
+			max_size = j;
+		i++;
+	}
+	return (max_size);
+}
+
+void	get_size_desc(t_cub *cub)
+{
+	char *line;
+
+	line = NULL;
+	while (get_next_line(cub->file.fd, &line))
+		cub->file.size++;
+	close(cub->file.fd);
+	cub->file.size++;
+	free(line);
 }

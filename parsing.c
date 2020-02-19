@@ -6,39 +6,11 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/14 15:44:09 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:03:34 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	parse_resolution(char *res, t_cub *cub)
-{
-	size_t	i;
-	size_t	nb_words;
-
-	i = 0;
-	nb_words = 0;
-	while (*(res + i))
-	{
-		while (ft_isspace(*(res + i)))
-			i++;
-		while (*(res + i) && ft_isalnum(*(res + i)))
-			i++;
-		nb_words++;
-	}
-	if (nb_words != 3)
-		return (display_error("Resolution in .cub is invalid!"));
-	i = 0;
-	while (!ft_isspace(*(res + i)) || (*(res + i) == 'R'))
-		i++;
-	cub->x_axis = ft_atoi(res + i);
-	while (ft_isspace(*(res + i)))
-		i++;
-	while (!ft_isspace(*(res + i)))
-		i++;
-	cub->y_axis = ft_atoi(res + i);
-}
 
 void		open_cub(char *file, t_cub *cub)
 {
@@ -69,12 +41,19 @@ int		verify_map(t_cub *cub)
 	while (cub->file.map[i])
 	{
 		j = 0;
-		while (ft_isspace(cub->file.map[i][j++]))
-			;
-		if (cub->file.map[i][j] != '0' && cub->file.map[i][j] != '1')
-			return (1);
-		if (cub->file.map[i++][j] == '\0')
-			return (1);
+		while (cub->file.map[i][j])
+		{
+			if (cub->file.map[i][j] == 'N' || cub->file.map[i][j] == 'S'
+				|| cub->file.map[i][j] == 'E' || cub->file.map[i][j] == 'W'
+				|| cub->file.map[i][j] == '0' || cub->file.map[i][j] == '1'
+				|| cub->file.map[i][j] == '2')
+			{
+				j++;
+			}
+			else
+				return (1);
+		}
+		i++;
 	}
 	return (0);
 }
@@ -150,39 +129,6 @@ void	parse_cub(t_cub *cub)
 		return (display_error("No map detected in .cub!"));
 }
 
-int		get_map_size(t_cub *cub)
-{
-	int	i;
-	int	j;
-	int	max_size;
-
-	i = 0;
-	j = 0;
-	max_size = 0;
-	while (cub->file.map[i])
-	{
-		j = 0;
-		while (cub->file.map[i][j])
-			j++;
-		if (j > max_size)
-			max_size = j;
-		i++;
-	}
-	return (max_size);
-}
-
-void	get_size_desc(t_cub *cub)
-{
-	char *line;
-
-	line = NULL;
-	while (get_next_line(cub->file.fd, &line))
-		cub->file.size++;
-	close(cub->file.fd);
-	cub->file.size++;
-	free(line);
-}
-
 char	*ft_fill(const char *s, int max)
 {
 	int		i;
@@ -218,27 +164,51 @@ void	fill_out(t_cub *cub)
 	cub->map_y = i;
 }
 
-void floodfill(t_cub *cub, int u, int v, int i, int j)
+void	floodfill(t_cub *cub, int v, int i, int j)
 {
-	if (cub->file.map[i][j] == u)
+	//cub->file.map[i][j] == '0' || cub->file.map[i][j] == 'N' || cub->file.map[i][j] == 'S' || cub->file.map[i][j] == 'E' || cub->file.map[i][j] == 'W' || cub->file.map[i][j] == '2'
+	if (ft_isalnum(cub->file.map[i][j]) && cub->file.map[i][j] != '1')
 	{
 		cub->file.map[i][j] = v;
 		if (i < cub->map_y - 1)
-			floodfill(cub, u, v, i + 1, j);
-		if (i > 0)
-			floodfill(cub, u, v, i - 1, j);
-		if (j > 0)
-			floodfill(cub, u, v, i, j - 1);
+			floodfill(cub, v, i + 1, j);
+		if (i > 1)
+			floodfill(cub, v, i - 1, j);
+		if (j > 1)
+			floodfill(cub, v, i, j - 1);
 		if (j < cub->map_x - 1)
-			floodfill(cub, u, v, i, j + 1);
+			floodfill(cub, v, i, j + 1);
 	}
+}
+
+void	floodmap(t_cub *cub)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (cub->file.map[0][j])
+		floodfill(cub, '#', i, j++);
+	while (i < cub->map_y - 1 && cub->file.map[i][0])
+		floodfill(cub, '#', i++, 0);
+	j = 0;
+	while (j < cub->map_x - 1 && cub->file.map[i][j])
+		floodfill(cub, '#', i, j++);
+	i = 0;
+	while (i < cub->map_y - 1 && cub->file.map[i][j])
+		floodfill(cub, '#', i++, j);
+	i = 0;
+	ft_putchar('\n');
+	while (cub->file.map[i])
+		printf("%s\n", cub->file.map[i++]);
+	ft_putchar('\n');
 }
 
 void	parsing(char *file, t_cub *cub)
 {
 	char	buff[32];
-	int i = 0;
-	int j = 0;
+	void	*mlx = NULL;
 
 	init_cub(cub);
 	open_cub(file, cub);
@@ -247,24 +217,13 @@ void	parsing(char *file, t_cub *cub)
 		get_size_desc(cub);
 		open_cub(cub->file.name, cub);
 		parse_cub(cub);
+		fill_out(cub);
 		if (verify_map(cub))
 			return (display_error("Error in map declaration!"));
-		fill_out(cub);
-		j++;
-		while (cub->file.map[0][j])
-			floodfill(cub, '0', '#', i, j++);
-		while (i < cub->map_y - 1 && cub->file.map[i][0])
-			floodfill(cub, '0', '#', i++, 0);
-		j = 0;
-		while (j < cub->map_x - 1 && cub->file.map[i][j])
-			floodfill(cub, '0', '#', i, j++);
-		i = 0;
-		while (i < cub->map_y - 1 && cub->file.map[i][j])
-			floodfill(cub, '0', '#', i++, j);
-		i = 0;
-		ft_putchar('\n');
-		while (cub->file.map[i])
-			printf("%s\n", cub->file.map[i++]);
-		ft_putchar('\n');
+		floodmap(cub);
+		ft_putstr("Launching!\n");
+		mlx = mlx_init();
+		mlx_new_window(mlx, cub->x_axis, cub->y_axis, "Cub3D");
+		mlx_loop(mlx);
 	}
 }
