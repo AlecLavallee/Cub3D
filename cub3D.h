@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/19 13:27:38 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:03:03 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct	s_cub
 t_cub	init_cub(t_cub *cub);
 char	*ft_strdup_wspaces(const char *s);
 int		get_map_size(t_cub *cub);
+void	floodmap(t_cub *cub);
+void	floodfill(t_cub *cub, int v, int i, int j);
 void	parse_map(char ***map, int index, t_cub *cub);
 void	parse_colors_f(char *color, t_cub *cub);
 void	parse_colors_c(char *color, t_cub *cub);

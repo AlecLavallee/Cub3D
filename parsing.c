@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/19 17:03:34 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:37:51 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,51 +164,13 @@ void	fill_out(t_cub *cub)
 	cub->map_y = i;
 }
 
-void	floodfill(t_cub *cub, int v, int i, int j)
-{
-	//cub->file.map[i][j] == '0' || cub->file.map[i][j] == 'N' || cub->file.map[i][j] == 'S' || cub->file.map[i][j] == 'E' || cub->file.map[i][j] == 'W' || cub->file.map[i][j] == '2'
-	if (ft_isalnum(cub->file.map[i][j]) && cub->file.map[i][j] != '1')
-	{
-		cub->file.map[i][j] = v;
-		if (i < cub->map_y - 1)
-			floodfill(cub, v, i + 1, j);
-		if (i > 1)
-			floodfill(cub, v, i - 1, j);
-		if (j > 1)
-			floodfill(cub, v, i, j - 1);
-		if (j < cub->map_x - 1)
-			floodfill(cub, v, i, j + 1);
-	}
-}
-
-void	floodmap(t_cub *cub)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (cub->file.map[0][j])
-		floodfill(cub, '#', i, j++);
-	while (i < cub->map_y - 1 && cub->file.map[i][0])
-		floodfill(cub, '#', i++, 0);
-	j = 0;
-	while (j < cub->map_x - 1 && cub->file.map[i][j])
-		floodfill(cub, '#', i, j++);
-	i = 0;
-	while (i < cub->map_y - 1 && cub->file.map[i][j])
-		floodfill(cub, '#', i++, j);
-	i = 0;
-	ft_putchar('\n');
-	while (cub->file.map[i])
-		printf("%s\n", cub->file.map[i++]);
-	ft_putchar('\n');
-}
-
 void	parsing(char *file, t_cub *cub)
 {
 	char	buff[32];
 	void	*mlx = NULL;
+	void	*window = NULL;
+	void	*image = NULL;
+	char	*img_data = NULL;
 
 	init_cub(cub);
 	open_cub(file, cub);
@@ -223,7 +185,10 @@ void	parsing(char *file, t_cub *cub)
 		floodmap(cub);
 		ft_putstr("Launching!\n");
 		mlx = mlx_init();
-		mlx_new_window(mlx, cub->x_axis, cub->y_axis, "Cub3D");
+		window = mlx_new_window(mlx, cub->x_axis, cub->y_axis, "Cub3D");
 		mlx_loop(mlx);
+		image = mlx_new_image(mlx, cub->x_axis, cub->y_axis);
+		img_data = mlx_get_data_addr(image, (sizeof(int) * cub->x_axis), (int*)1, 0);
+		mlx_put_image_to_window(mlx, window, image, 0, 0);
 	}
 }

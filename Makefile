@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/02/19 13:53:30 by alelaval         ###   ########.fr        #
+#    Updated: 2020/02/20 13:03:24 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ INCLUDE = -I.
 SRC = parsing_file.c \
 	parsing.c \
 	colors.c \
+	flood.c \
 	utils.c \
 	save.c \
 	error.c \
