@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/20 13:37:51 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:51:12 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,25 @@ void	fill_out(t_cub *cub)
 	cub->map_y = i;
 }
 
+int	color_map_1(void *mlx, void *win,int w,int h)
+{
+  int	x;
+  int	y;
+  int	color;
+
+  x = w;
+  while (x--)
+    {
+      y = h;
+      while (y--)
+        {
+          color = (x*255)/w+((((w-x)*255)/w)<<16)+(((y*255)/h)<<8);
+	  mlx_pixel_put(mlx,win,x,y,color);
+        }
+    }
+	return (0);
+}
+
 void	parsing(char *file, t_cub *cub)
 {
 	char	buff[32];
@@ -186,9 +205,10 @@ void	parsing(char *file, t_cub *cub)
 		ft_putstr("Launching!\n");
 		mlx = mlx_init();
 		window = mlx_new_window(mlx, cub->x_axis, cub->y_axis, "Cub3D");
-		mlx_loop(mlx);
 		image = mlx_new_image(mlx, cub->x_axis, cub->y_axis);
-		img_data = mlx_get_data_addr(image, (sizeof(int) * cub->x_axis), (int*)1, 0);
-		mlx_put_image_to_window(mlx, window, image, 0, 0);
+		//color_map_1(mlx, window, 1920, 1080);
+		mlx_put_image_to_window(mlx, window, image, 240, 240);
+		mlx_loop(mlx);
+		(void)img_data;
 	}
 }
