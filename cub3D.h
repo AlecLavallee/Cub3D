@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/20 13:03:03 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/23 18:07:53 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,44 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <math.h>
 
 /* DANGER DANGER DANGER */
 # include <stdio.h> //danger
+
+typedef struct	s_mlx
+{
+	void	*mlx;
+	void	*window;
+	void	*image;
+	char	*img_data;
+	int		bpp;
+	int		sizeline;
+	int		endian;
+}				t_mlx;
+
+typedef struct	s_player
+{
+	//double	time;
+	//double	oldTime;
+}				t_player;
+
+typedef struct	s_ray
+{
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		sideDistX;
+	int		sideDistY;
+	double	dirX;
+	double	dirY;
+	double	rayDirX;
+	double	rayDirY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+}				t_ray;
 
 typedef struct	s_desc
 {
@@ -45,18 +80,56 @@ typedef struct	s_path
 
 typedef struct	s_cub
 {
-	char			**map;
-	int				map_x;
-	int				map_y;
-	int				x_axis;
-	int				y_axis;
-	int				floor[3];
-	int				ceiling[3];
-	void			*no_texture;
-	void			*so_texture;
-	void			*we_texture;
-	void			*ea_texture;
-	void			*sprite;
+	char		**map;
+	int			map_x;
+	int			map_y;
+	int			x_axis;
+	int			y_axis;
+	int			floor[3];
+	int			ceiling[3];
+	void		*no_texture;
+	void		*so_texture;
+	void		*we_texture;
+	void		*ea_texture;
+	void		*sprite;
+
+	void	*mlx;
+	void	*window;
+	void	*image;
+	char	*img_data;
+	int		bpp;
+	int		sizeline;
+	int		endian;
+
+	int		mapX;
+	int		mapY;
+	double	posX;
+	double	posY;
+	double	planeX;
+	double	planeY;
+	double	cameraX;
+
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		sideDistX;
+	int		sideDistY;
+	double	dirX;
+	double	dirY;
+	double	rayDirX;
+	double	rayDirY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	
+	int		lenHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		color;
+	//struct s_mlx	mlx;
+	struct s_player player;
+	struct s_ray	ray;
 	struct s_desc	file;
 	struct s_path	path;
 }					t_cub;
@@ -64,6 +137,7 @@ typedef struct	s_cub
 t_cub	init_cub(t_cub *cub);
 char	*ft_strdup_wspaces(const char *s);
 int		get_map_size(t_cub *cub);
+void	mlx_gestion(t_cub *cub);
 void	floodmap(t_cub *cub);
 void	floodfill(t_cub *cub, int v, int i, int j);
 void	parse_map(char ***map, int index, t_cub *cub);

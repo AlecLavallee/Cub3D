@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:41 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/14 11:43:29 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/23 18:20:27 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		main(int ac, char **av)
 {
 	t_cub	*cub;
-	
+
 	if (!(cub = (t_cub*)malloc(sizeof(t_cub))))
 	{
 		display_error("Structure affectation failed, critical memory failure!");

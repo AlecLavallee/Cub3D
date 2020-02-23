@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/02/20 13:03:24 by alelaval         ###   ########.fr        #
+#    Updated: 2020/02/22 17:30:25 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 INCLUDE = -I.
 
 SRC = parsing_file.c \
+	mlx.c \
 	parsing.c \
 	colors.c \
 	flood.c \

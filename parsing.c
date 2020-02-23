@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/21 15:40:34 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/22 17:28:49 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,22 +187,6 @@ int	color_map_1(void *mlx, void *win,int w,int h)
 void	parsing(char *file, t_cub *cub)
 {
 	char	buff[32];
-	void	*mlx = NULL;
-	void	*window = NULL;
-	void	*image = NULL;
-	char	*img_data = NULL;
-	int		bpp;
-	int		sizeline;
-	int		endian;
-
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-
-	r = ((255255255 & 0xFF000000) >> 24);
-	g = ((255255255 & 0xFF0000) >> 16);
-	b = ((255255255 & 0xFF00) >> 8);
-
 
 	init_cub(cub);
 	open_cub(file, cub);
@@ -216,15 +200,6 @@ void	parsing(char *file, t_cub *cub)
 			return (display_error("Error in map declaration!"));
 		floodmap(cub);
 		ft_putstr("Launching!\n");
-		mlx = mlx_init();
-		window = mlx_new_window(mlx, cub->x_axis, cub->y_axis, "Cub3D");
-		image = mlx_new_image(mlx, cub->x_axis, cub->y_axis);
-		//color_map_1(mlx, window, 1920, 1080);
-		img_data = mlx_get_data_addr(image, &bpp, &sizeline, &endian);
-		mlx_put_image_to_window(mlx, window, image, 0, 0);
-		/*mlx_string_put(mlx, window, cub->x_axis / 2 , cub->y_axis / 2, 255255, "je suis le test");
-		mlx_string_put(mlx, window, cub->x_axis / 2 + (25 / 2), cub->y_axis / 2 + 25, 255255, "chargement...");*/
-		mlx_loop(mlx);
-		(void)img_data;
+		mlx_gestion(cub);
 	}
 }
