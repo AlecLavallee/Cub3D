@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/23 18:07:53 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/24 11:17:29 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct	s_cub
 	double	deltaDistY;
 	double	perpWallDist;
 	
-	int		lenHeight;
+	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
 	int		color;

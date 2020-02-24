@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/22 17:28:49 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/24 15:24:09 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,8 @@ void	parsing(char *file, t_cub *cub)
 {
 	char	buff[32];
 
+	cub->mapX = 5;
+	cub->mapY = 5;
 	init_cub(cub);
 	open_cub(file, cub);
 	if (read(cub->file.fd, buff, 0) == 0)
