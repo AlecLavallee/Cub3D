@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/17 13:32:19 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/26 15:28:27 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	parse_resolution(char *res, t_cub *cub)
 	i = 0;
 	while (!ft_isspace(*(res + i)) || (*(res + i) == 'R'))
 		i++;
-	cub->x_axis = ft_atoi(res + i);
+	cub->y_axis = ft_atoi(res + i);
 	while (ft_isspace(*(res + i)))
 		i++;
 	while (!ft_isspace(*(res + i)))
 		i++;
-	cub->y_axis = ft_atoi(res + i);
+	cub->x_axis = ft_atoi(res + i);
 }

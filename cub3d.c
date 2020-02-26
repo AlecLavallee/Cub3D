@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:41 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/26 12:00:39 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/26 16:26:20 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ int		main(int ac, char **av)
 	if (ac == 2)
 	{
 		parsing(av[1], cub);
-		printf("Resolution : x = %d, y = %d\n", cub->x_axis, cub->y_axis);
-		printf("Colors : floor = %d,%d,%d and ceiling = %d,%d,%d\n", cub->floor[0], cub->floor[1], cub->floor[2], cub->ceiling[0], cub->ceiling[1], cub->ceiling[2]);
-		printf("map_x = %d, map_y = %d\n", cub->map_x, cub->map_y);
 	}
 	if (ac == 3)
 		save();

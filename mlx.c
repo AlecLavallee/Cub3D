@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/26 13:50:54 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/26 17:17:03 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,24 +114,26 @@ void	minimap(t_cub *cub)
 {
 	int	i;
 	int	j;
-	int	k;
-	int color;
+	int 
 
 	i = 0;
 	j = 0;
-	k = 0;
-	color = 0xFFFFFF;
-	while (i < cub->y_axis)
+	cub->color = 0xFF0000;
+	while (i < cub->map_y - 1)
 	{
 		j = 0;
-		while (j < cub->x_axis)
+		while (j < cub->map_x - 1)
 		{
-			while (k < 30)
+			if (cub->file.map[i][j] == '1')
 			{
-				cub->img_data[((i * 4) * j) + (i + 4)] = color;
-				k++;
+
+				cub->drawStart = i * 50 / (i + 1);
+				cub->drawEnd = i * 70 / (i + 1);
+				draw_vertical(cub, i);
+				/*cub->img_data[((cub->y_axis * 4) * i) + (j * 4)] = color_r;
+				cub->img_data[((cub->y_axis * 4) * i) + (j * 4) + 1] = color_r;
+				cub->img_data[((cub->y_axis * 4) * i) + (j * 4) + 2] = color_r;*/
 			}
-			k = 0;
 			j++;
 		}
 		i++;
@@ -140,13 +142,16 @@ void	minimap(t_cub *cub)
 
 void	mlx_gestion(t_cub *cub)
 {
+	printf("Resolution : y = %d, x = %d\n", cub->y_axis, cub->x_axis);
+	printf("Colors : floor = %d,%d,%d and ceiling = %d,%d,%d\n", cub->floor[0], cub->floor[1], cub->floor[2], cub->ceiling[0], cub->ceiling[1], cub->ceiling[2]);
+	printf("map_x = %d, map_y = %d\n", cub->map_x, cub->map_y);
 	cub->mlx = mlx_init();
 	cub->window = mlx_new_window(cub->mlx, cub->x_axis, cub->y_axis, "Cub3D");
 	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
 	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
 	printf("oi!\n");
 	minimap(cub);
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
+	//mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
 	printf("minimap\n");
 	mlx_loop(cub->mlx);
 }
