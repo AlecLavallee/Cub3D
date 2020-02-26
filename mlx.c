@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/24 17:23:36 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:50:54 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_vertical(t_cub *cub, int x)
 	}
 }
 
-void	dda(t_cub *cub)
+/*void	dda(t_cub *cub)
 {
 	cub->hit = 0;
 	printf("DDA!\n");
@@ -67,8 +67,6 @@ void	raycast(t_cub *cub)
 		printf("%f\n", cub->rayDirY);
 		printf("%d\n", cub->mapX);
 		printf("%d\n", cub->mapY);
-		cub->deltaDistY = 2.0;
-		cub->deltaDistX = 2.0;
 		printf("deltaDistX : %f\n", cub->deltaDistX);
 		printf("deltaDistY : %f\n", cub->deltaDistY);
 		if (cub->rayDirX < 0)
@@ -94,7 +92,7 @@ void	raycast(t_cub *cub)
 		printf("%d\n", cub->sideDistX);
 		printf("%d\n", cub->sideDistY);
 		dda(cub);
-		/*if (cub->side == 0)
+		if (cub->side == 0)
 			cub->perpWallDist = (cub->mapX - cub->posX + (1 - cub->stepX) / 2) / cub->rayDirX;
 		else
 			cub->perpWallDist = (cub->mapY - cub->posY + (1 - cub->stepY) / 2) / cub->rayDirY;
@@ -108,7 +106,35 @@ void	raycast(t_cub *cub)
 		cub->drawEnd = cub->lineHeight / 2 + cub->y_axis / 2;
 		if (cub->drawEnd >= cub->y_axis)
 			cub->drawEnd = cub->y_axis - 1;
-		draw_vertical(cub, i);*/
+		draw_vertical(cub, i);
+	}
+}*/
+
+void	minimap(t_cub *cub)
+{
+	int	i;
+	int	j;
+	int	k;
+	int color;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	color = 0xFFFFFF;
+	while (i < cub->y_axis)
+	{
+		j = 0;
+		while (j < cub->x_axis)
+		{
+			while (k < 30)
+			{
+				cub->img_data[((i * 4) * j) + (i + 4)] = color;
+				k++;
+			}
+			k = 0;
+			j++;
+		}
+		i++;
 	}
 }
 
@@ -117,14 +143,10 @@ void	mlx_gestion(t_cub *cub)
 	cub->mlx = mlx_init();
 	cub->window = mlx_new_window(cub->mlx, cub->x_axis, cub->y_axis, "Cub3D");
 	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
-	cub->img_data = \
-	mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
-	raycast(cub);
-	printf("oi!");
-	mlx_loop(cub->mlx);
+	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
+	printf("oi!\n");
+	minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
-	while (1)
-	{
-		raycast(cub);
-	}
+	printf("minimap\n");
+	mlx_loop(cub->mlx);
 }
