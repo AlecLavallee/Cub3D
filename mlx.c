@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/26 17:17:03 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/02/27 15:02:03 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,25 +114,39 @@ void	minimap(t_cub *cub)
 {
 	int	i;
 	int	j;
-	int 
+	int	k;
 
 	i = 0;
 	j = 0;
-	cub->color = 0xFF0000;
-	while (i < cub->map_y - 1)
+	k = 0;
+	while (i < cub->map_y)
 	{
 		j = 0;
-		while (j < cub->map_x - 1)
+		while (j < cub->map_x)
 		{
 			if (cub->file.map[i][j] == '1')
 			{
-
-				cub->drawStart = i * 50 / (i + 1);
-				cub->drawEnd = i * 70 / (i + 1);
-				draw_vertical(cub, i);
-				/*cub->img_data[((cub->y_axis * 4) * i) + (j * 4)] = color_r;
-				cub->img_data[((cub->y_axis * 4) * i) + (j * 4) + 1] = color_r;
-				cub->img_data[((cub->y_axis * 4) * i) + (j * 4) + 2] = color_r;*/
+				k = 0;
+				while (k < 20)
+				{
+					cub->color = 0xFFFFFF;
+					cub->drawStart = i * 20;
+					cub->drawEnd = i * 40;
+					draw_vertical(cub, j * 20 + k);
+					k++;
+				}
+			}
+			else
+			{
+				k = 0;
+				while (k < 20)
+				{
+					cub->color = 0x000000;
+					cub->drawStart = i * 20;
+					cub->drawEnd = i * 40;
+					draw_vertical(cub, j * 20 + k);
+					k++;
+				}
 			}
 			j++;
 		}
@@ -151,7 +165,8 @@ void	mlx_gestion(t_cub *cub)
 	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
 	printf("oi!\n");
 	minimap(cub);
-	//mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
+	//raycast(cub);
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 500, 500);
 	printf("minimap\n");
 	mlx_loop(cub->mlx);
 }
