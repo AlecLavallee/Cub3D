@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/17 13:51:01 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/03/02 13:36:05 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	get_size_desc(t_cub *cub)
 	char *line;
 
 	line = NULL;
+	cub->file.size = 0;
 	while (get_next_line(cub->file.fd, &line))
 		cub->file.size++;
 	close(cub->file.fd);

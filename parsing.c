@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/27 14:07:55 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:52:52 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	parse_cub(t_cub *cub)
 	}
 	if (map == 0)
 		return (display_error("No map detected in .cub!"));
+	close(cub->file)
 }
 
 char	*ft_fill(const char *s, int max)
@@ -162,26 +163,6 @@ void	fill_out(t_cub *cub)
 		i++;
 	}
 	cub->map_y = i;
-}
-
-int	color_map_1(void *mlx, void *win,int w,int h)
-{
-	int	x;
-	int	y;
-	int	color;
-
-	x = w;
-	while (x--)
-	{
-		y = h;
-		while (y--)
-		{
-			color = (x * 255) / w + ((((w - x) * 255) / w) << 16)
-			+ (((y * 255) / h) << 8);
-			mlx_pixel_put(mlx, win, x, y, color);
-		}
-	}
-	return (0);
 }
 
 void	parsing(char *file, t_cub *cub)

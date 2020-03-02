@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/27 15:02:03 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/03/02 13:27:06 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,43 +115,33 @@ void	minimap(t_cub *cub)
 	int	i;
 	int	j;
 	int	k;
+	int m;
 
 	i = 0;
-	j = 0;
-	k = 0;
 	while (i < cub->map_y)
 	{
 		j = 0;
-		while (j < cub->map_x)
+		while (j < cub->map_x - 1)
 		{
-			if (cub->file.map[i][j] == '1')
+			m = 0;
+			while (m < 20)
 			{
 				k = 0;
 				while (k < 20)
 				{
-					cub->color = 0xFFFFFF;
-					cub->drawStart = i * 20;
-					cub->drawEnd = i * 40;
-					draw_vertical(cub, j * 20 + k);
+					if (cub->file.map[i][j] == '1')
+						mlx_pixel_put(cub->mlx, cub->window, j * 20 + k, i * 20 + m, INT32_MAX);
 					k++;
 				}
-			}
-			else
-			{
-				k = 0;
-				while (k < 20)
-				{
-					cub->color = 0x000000;
-					cub->drawStart = i * 20;
-					cub->drawEnd = i * 40;
-					draw_vertical(cub, j * 20 + k);
-					k++;
-				}
+				m++;
+				if (cub->file.map[i][j] != '1')
+					mlx_pixel_put(cub->mlx, cub->window, j * 20 + k, i * 20 + m, INT16_MAX);
 			}
 			j++;
 		}
 		i++;
 	}
+	printf("i : %d, j : %d, k : %d\n", i, j, k);
 }
 
 void	mlx_gestion(t_cub *cub)
