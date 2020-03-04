@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/03/02 16:52:52 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:29:16 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,6 @@ void	parsing(char *file, t_cub *cub)
 {
 	char	buff[32];
 
-	cub->mapX = 5;
-	cub->mapY = 5;
 	init_cub(cub);
 	open_cub(file, cub);
 	if (read(cub->file.fd, buff, 0) == 0)
