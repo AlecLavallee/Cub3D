@@ -127,7 +127,7 @@ void	parse_cub(t_cub *cub)
 	}
 	if (map == 0)
 		return (display_error("No map detected in .cub!"));
-	close(cub->file)
+	close(cub->file.fd);
 }
 
 char	*ft_fill(const char *s, int max)
