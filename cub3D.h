@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/26 16:27:55 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/03/05 13:07:57 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ typedef struct	s_cub
 	int		stepY;
 	int		hit;
 	int		side;
-	int		sideDistX;
-	int		sideDistY;
+	double	sideDistX;
+	double	sideDistY;
 	double	dirX;
 	double	dirY;
 	double	rayDirX;
