@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/02/22 17:30:25 by alelaval         ###   ########.fr        #
+#    Updated: 2020/03/05 13:41:51 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,16 @@ SRC = parsing_file.c \
 	error.c \
 	cub3d.c
 
+SRC_BONUS = cub3d_bonus.c \
+	parsing_file.c \
+	mlx.c \
+	parsing.c \
+	colors.c \
+	flood.c \
+	utils.c \
+	save.c \
+	error.c \
+
 OBJ = $(SRC:.c=.o)
 
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
@@ -40,6 +50,13 @@ $(NAME): $(OBJ)
 	mv Libft/libft.a . 
 	#mv Minilibx/libmlx.a .
 	$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJ) libft.a
+
+bonus: $(OBJ_BONUS)
+	make bonus -C Libft/ 
+	#make -C Minilibx/
+	mv Libft/libft.a . 
+	#mv Minilibx/libmlx.a .
+	$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJ_BONUS) libft.a
 
 %.o:%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
