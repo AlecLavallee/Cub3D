@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/03/04 16:29:16 by macbook          ###   ########.fr       */
+/*   Updated: 2020/06/20 14:38:06 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,8 @@ void	parsing(char *file, t_cub *cub)
 		open_cub(cub->file.name, cub);
 		parse_cub(cub);
 		fill_out(cub);
-		if (verify_map(cub))
-			return (display_error("Error in map declaration!"));
+		//if (verify_map(cub))
+		//	return (display_error("Error in map declaration!"));
 		floodmap(cub);
 		ft_putstr("Launching!\n");
 		mlx_gestion(cub);

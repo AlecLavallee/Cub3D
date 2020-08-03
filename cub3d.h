@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/03/05 13:07:57 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/03 10:08:12 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ typedef struct	s_mlx
 
 typedef struct	s_player
 {
-	//double	time;
-	//double	oldTime;
+	double	time;
+	double	oldTime;
+	double frameTime;
 }				t_player;
 
 typedef struct	s_ray
@@ -81,6 +82,7 @@ typedef struct	s_path
 typedef struct	s_cub
 {
 	char		**map;
+	int			test_map;
 	int			map_x;
 	int			map_y;
 	int			x_axis;
@@ -127,6 +129,12 @@ typedef struct	s_cub
 	int		drawStart;
 	int		drawEnd;
 	int		color;
+
+	double	time;
+	double	oldTime;
+	double 	frameTime;
+	double	moveSpeed;
+	double	rotSpeed;
 	//struct s_mlx	mlx;
 	struct s_player player;
 	struct s_ray	ray;
@@ -134,9 +142,10 @@ typedef struct	s_cub
 	struct s_path	path;
 }					t_cub;
 
-t_cub	init_cub(t_cub *cub);
+t_cub	*init_cub(t_cub *cub);
 char	*ft_strdup_wspaces(const char *s);
 int		get_map_size(t_cub *cub);
+void	raycast(t_cub *cub);
 void	mlx_gestion(t_cub *cub);
 void	floodmap(t_cub *cub);
 void	floodfill(t_cub *cub, int v, int i, int j);
