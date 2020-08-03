@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/03 10:20:47 by macbook          ###   ########.fr       */
+/*   Updated: 2020/08/03 15:59:29 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,40 +28,46 @@ int		ft_key_hook(int keycode, t_cub *cub)
 	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
 	if (keycode == 126)
 	{
-		if (worldMap[(int)(cub->posX + cub->dirX)][(int)cub->posY])
+		ft_putstr("j'avance!\n");
+		if (worldMap[(int)(cub->posX + cub->dirX)][(int)cub->posY] == 0)
 			cub->posX += cub->dirX;
-		if (worldMap[(int)cub->posX][(int)(cub->posY + cub->dirY)])
+		if (worldMap[(int)cub->posX][(int)(cub->posY + cub->dirY)] == 0)
 			cub->posY += cub->dirY;
 		raycast(cub);
 	}
-	if (keycode == 125)
+	else if (keycode == 125)
 	{
-		if (worldMap[(int)(cub->posX - cub->dirX)][(int)cub->posY])
+		ft_putstr("je recule!\n");
+		if (worldMap[(int)(cub->posX - cub->dirX)][(int)cub->posY] == 0)
 			cub->posX -= cub->dirX;
-		if (worldMap[(int)cub->posX][(int)(cub->posY - cub->dirY)])
+		if (worldMap[(int)cub->posX][(int)(cub->posY - cub->dirY)] == 0)
 			cub->posY -= cub->dirY;
 		raycast(cub);
 	}
-	if (keycode == 123)
+	else if (keycode == 123)
 	{
-		double oldDirX = cub->dirX;
+		ft_putstr("je pivote vers la gauche!\n");
+		double	oldDirX = cub->dirX;
 		cub->dirX = cub->dirX * cos(-rotSpeed) - cub->dirY * sin(-rotSpeed);
 		cub->dirY = oldDirX * sin(-rotSpeed) + cub->dirY * cos(-rotSpeed);
-      	double oldPlaneX = cub->planeX;
-      	cub->planeX = cub->planeX * cos(-rotSpeed) - cub->planeY * sin(-rotSpeed);
-      	cub->planeY = oldPlaneX * sin(-rotSpeed) + cub->planeY * cos(-rotSpeed);
+		double	oldPlaneX = cub->planeX;
+		cub->planeX = cub->planeX * cos(-rotSpeed) - cub->planeY * sin(-rotSpeed);
+		cub->planeY = oldPlaneX * sin(-rotSpeed) + cub->planeY * cos(-rotSpeed);
 		raycast(cub);
 	}
-	if (keycode == 124)
+	else if (keycode == 124)
 	{
-		double oldDirX = cub->dirX;
+		ft_putstr("je pivote vers la droite!\n");
+		double	oldDirX = cub->dirX;
 		cub->dirX = cub->dirX * cos(rotSpeed) - cub->dirY * sin(rotSpeed);
 		cub->dirY = oldDirX * sin(rotSpeed) + cub->dirY * cos(rotSpeed);
-      	double oldPlaneX = cub->planeX;
-      	cub->planeX = cub->planeX * cos(rotSpeed) - cub->planeY * sin(rotSpeed);
-      	cub->planeY = oldPlaneX * sin(rotSpeed) + cub->planeY * cos(rotSpeed);
-		raycast(cub);	
+		double oldPlaneX = cub->planeX;
+		cub->planeX = cub->planeX * cos(rotSpeed) - cub->planeY * sin(rotSpeed);
+		cub->planeY = oldPlaneX * sin(rotSpeed) + cub->planeY * cos(rotSpeed);
+		raycast(cub);
 	}
+	else
+		ft_putstr("touche inconnue!\n");
 	return (1);
 }
 
@@ -94,7 +100,6 @@ void	dda(t_cub *cub)
 	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
 	while (cub->hit == 0)
 	{
-		ft_putstr("debut while hit/n");
 		if (cub->sideDistX < cub->sideDistY)
 		{
 			cub->sideDistX += cub->deltaDistX;
@@ -109,7 +114,6 @@ void	dda(t_cub *cub)
 			cub->side = 1;
 			cub->color = 255235;
 		}
-		ft_putstr("check hit/n");
 		if (worldMap[cub->mapX][cub->mapY] > 0)
 			cub->hit = 1;
 	}
@@ -122,31 +126,25 @@ void	raycast(t_cub *cub)
 	i = 0;
 	while (i++ < cub->x_axis)
 	{
-		ft_putstr("raycast boucle generale\n");
 		// a degager dans une autre fonction
-		cub->cameraX = (2 * i / (double)cub->x_axis - 1);
+		cub->cameraX = (2 * i / ((double)cub->x_axis) - 1);
 		cub->rayDirX = cub->dirX + cub->planeX * cub->cameraX;
 		cub->rayDirY = cub->dirY + cub->planeY * cub->cameraX;
-		cub->mapX = 22;
-		cub->mapY = 12;
+		cub->mapX = (int)cub->posX;
+		cub->mapY = (int)cub->posY;
 		cub->deltaDistX = fabs(1 / cub->rayDirX);
 		cub->deltaDistY = fabs(1 / cub->rayDirY);
 		raycast_init(cub);
-		ft_putstr("fin init\n");
-		// dda start
 		cub->hit = 0;
 		cub->side = 0;
-		ft_putstr("debut dda\n");
 		dda(cub);
-		ft_putstr("fin dda\n");
-		// dda end
 		if (cub->side == 0)
-			cub->perpWallDist = (double)(cub->mapX - cub->posX + (1 - cub->stepX) / 2) / (int)cub->rayDirX;
+			cub->perpWallDist = (cub->mapX - cub->posX + (1 - cub->stepX) / 2) / cub->rayDirX;
 		else
-			cub->perpWallDist = (double)(cub->mapY - cub->posY + (1 - cub->stepY) / 2) / (int)cub->rayDirY;
+			cub->perpWallDist = (cub->mapY - cub->posY + (1 - cub->stepY) / 2) / cub->rayDirY;
 		// wip
 		cub->lineHeight = (int)(cub->y_axis / cub->perpWallDist);
-		cub->drawStart = (-1 * cub->lineHeight) / 2 + (double)cub->y_axis / 2;
+		cub->drawStart = -1 * cub->lineHeight / 2 + cub->y_axis / 2;
 		if (cub->drawStart < 0)
 			cub->drawStart = 0;
 		cub->drawEnd = cub->lineHeight / 2 + cub->y_axis / 2;
@@ -171,6 +169,12 @@ void	mlx_gestion(t_cub *cub)
 	//mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 500, 500);
 	printf("w : %d, h : %d\n", cub->x_axis, cub->y_axis);
 	printf("Lancement\n");
+	cub->posX = 22;
+	cub->posY = 12;
+	cub->planeX = 0;
+	cub->planeY = 0.66;
+	cub->dirX = -1;
+	cub->dirY = 0;
 	raycast(cub);
 	mlx_key_hook(cub->window, ft_key_hook, cub);
 	mlx_loop(cub->mlx);
