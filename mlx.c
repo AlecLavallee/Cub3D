@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/03 16:55:19 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:54:26 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 void	draw_vertical(t_cub *cub, int x)
 {
+	int	red = (cub->color & 0xFF000000) >> 24;
+	int	green = (cub->color & 0x00FF0000) >> 16;
+	int	blue = (cub->color & 0x0000FF00) >> 8;
 	while (cub->drawStart < cub->drawEnd)
 	{
-		mlx_pixel_put(cub->mlx, cub->window, x, cub->drawStart, cub->color);
+		cub->img_data[cub->drawStart + 4 * /*cub->sizeline * x*/] = red;
+		cub->img_data[cub->drawStart + 4 + 1 * /*cub->sizeline * x*/] = green;
+		cub->img_data[cub->drawStart + 4 + 2 /** cub->sizeline * x*/] = blue;
+		x = x;
 		cub->drawStart++;
 	}
 }
@@ -26,18 +32,6 @@ int		ft_key_hook(int keycode, t_cub *cub)
 	double rotSpeed = 1.0;
 
 	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
-	int i;
-	i = 0;
-	while (i++ < cub->x_axis)
-	{
-		cub->drawStart = 0;
-		cub->drawEnd = cub->y_axis;
-		while (cub->drawStart < cub->drawEnd)
-		{
-			mlx_pixel_put(cub->mlx, cub->window, i, cub->drawStart, 0);
-			cub->drawStart++;
-		}
-	}
 	if (keycode == 126)
 	{
 		ft_putstr("j'avance!\n");
@@ -176,27 +170,21 @@ void	raycast(t_cub *cub)
 			cub->color /= 2;
 		draw_vertical(cub, i);
 	}
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
 }
 
 void	mlx_gestion(t_cub *cub)
 {
-	printf("Resolution : y = %d, x = %d\n", cub->y_axis, cub->x_axis);
-	printf("Colors : floor = %d,%d,%d and ceiling = %d,%d,%d\n", cub->floor[0], cub->floor[1], cub->floor[2], cub->ceiling[0], cub->ceiling[1], cub->ceiling[2]);
-	printf("map_x = %d, map_y = %d\n", cub->map_x, cub->map_y);
 	cub->mlx = mlx_init();
 	cub->window = mlx_new_window(cub->mlx, cub->x_axis, cub->y_axis, "Cub3D");
-	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
-	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
-	//minimap(cub);
-	//mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 500, 500);
-	printf("w : %d, h : %d\n", cub->x_axis, cub->y_axis);
-	printf("Lancement\n");
 	cub->posX = 22;
 	cub->posY = 12;
 	cub->planeX = 0;
 	cub->planeY = 0.66;
 	cub->dirX = -1;
 	cub->dirY = 0;
+	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
+	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
 	raycast(cub);
 	mlx_key_hook(cub->window, ft_key_hook, cub);
 	mlx_loop(cub->mlx);
