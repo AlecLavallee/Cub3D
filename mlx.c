@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/05 10:22:22 by macbook          ###   ########.fr       */
+/*   Updated: 2020/08/05 10:35:14 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	draw_vertical(t_cub *cub, int x)
 	int	blue = (cub->color & 0x0000FF00) >> 8;
 	while (cub->drawStart < cub->drawEnd)
 	{
-		cub->img_data[cub->drawStart * cub->x_axis + x + 4] = red;
-		cub->img_data[cub->drawStart * cub->x_axis + x + 4 + 1] = blue;
-		cub->img_data[cub->drawStart * cub->x_axis + x + 4 + 2 ] = green;
+		cub->img_data[((cub->x_axis * 4) * cub->drawStart) + (x * 4)] = red;
+		cub->img_data[((cub->x_axis * 4) * cub->drawStart) + (x * 4 + 1)] = blue;
+		cub->img_data[((cub->x_axis * 4) * cub->drawStart) + (x * 4 + 2)] = green;
 		x = x + 1;
 		x = x - 1;
 		cub->drawStart++;
@@ -131,6 +131,9 @@ void	raycast(t_cub *cub)
 	int	i;
 
 	i = 0;
+	mlx_destroy_image(cub->mlx, cub->image);
+	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
+	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
 	while (i++ < cub->x_axis)
 	{
 		// a degager dans une autre fonction
