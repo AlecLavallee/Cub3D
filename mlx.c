@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/04 18:54:26 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/05 10:22:22 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ void	draw_vertical(t_cub *cub, int x)
 	int	blue = (cub->color & 0x0000FF00) >> 8;
 	while (cub->drawStart < cub->drawEnd)
 	{
-		cub->img_data[cub->drawStart + 4 * /*cub->sizeline * x*/] = red;
-		cub->img_data[cub->drawStart + 4 + 1 * /*cub->sizeline * x*/] = green;
-		cub->img_data[cub->drawStart + 4 + 2 /** cub->sizeline * x*/] = blue;
-		x = x;
+		cub->img_data[cub->drawStart * cub->x_axis + x + 4] = red;
+		cub->img_data[cub->drawStart * cub->x_axis + x + 4 + 1] = blue;
+		cub->img_data[cub->drawStart * cub->x_axis + x + 4 + 2 ] = green;
+		x = x + 1;
+		x = x - 1;
 		cub->drawStart++;
 	}
 }
