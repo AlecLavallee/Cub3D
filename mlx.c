@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/05 16:49:43 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/10 17:31:59 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	draw_vertical(t_cub *cub, int x)
 {
 	while (cub->drawStart < cub->drawEnd)
 	{
-		cub->img_data[((cub->x_axis * 4) * cub->drawStart) + (x * 4)] = (cub->color & 0xFF000000) >> 24;
-		cub->img_data[((cub->x_axis * 4) * cub->drawStart) + (x * 4)] = (cub->color & 0x00FF0000) >> 16;
-		cub->img_data[((cub->x_axis * 4) * cub->drawStart) + (x * 4)] = (cub->color & 0x0000FF00) >> 8;
+		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8)] = (((cub->color & 0xFF000000) >> 24) / 65536);
+		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 1] = (((cub->color & 0x00FF0000) >> 16) / 256);
+		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 2] = (cub->color & 0x0000FF00) >> 8;
 		cub->drawStart++;
 	}
 }
