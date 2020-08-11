@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/10 17:31:59 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/11 12:19:45 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	draw_vertical(t_cub *cub, int x)
 {
 	while (cub->drawStart < cub->drawEnd)
 	{
-		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8)] = (((cub->color & 0xFF000000) >> 24) / 65536);
-		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 1] = (((cub->color & 0x00FF0000) >> 16) / 256);
-		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 2] = (cub->color & 0x0000FF00) >> 8;
+		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8)] = (cub->color >> 16) & 0xFF;
+		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 1] = (cub->color >> 8) & 0xFF;
+		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 2] = cub->color & 0xFF;
 		cub->drawStart++;
 	}
 }
@@ -79,25 +79,21 @@ void	raycast_init(t_cub *cub)
 	{
 		cub->stepX = -1;
 		cub->sideDistX = (cub->posX - cub->mapX) * cub->deltaDistX;
-		cub->color = 65280;
 	}
 	else
 	{
 		cub->stepX = 1;
 		cub->sideDistX = (cub->mapX + 1.0 - cub->posX) * cub->deltaDistX;
-		cub->color = 65280 * 2;
 	}
 	if (cub->rayDirY < 0)
 	{
 		cub->stepY = -1;
 		cub->sideDistY = (cub->posY - cub->mapY) * cub->deltaDistY;
-		cub->color = 65280 * 3;
 	}
 	else
 	{
 		cub->stepY = 1;
 		cub->sideDistY = (cub->mapY + 1.0 - cub->posY) * cub->deltaDistY;
-		cub->color = 65280 * 4;
 	}
 }
 
@@ -129,6 +125,7 @@ void	raycast(t_cub *cub)
 	int	i;
 
 	i = 0;
+	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
 	mlx_destroy_image(cub->mlx, cub->image);
 	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
 	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
@@ -156,6 +153,16 @@ void	raycast(t_cub *cub)
 		cub->drawEnd = cub->lineHeight / 2 + cub->y_axis / 2;
 		if (cub->drawEnd >= cub->y_axis)
 			cub->drawEnd = cub->y_axis - 1;
+		if (worldMap[cub->mapX][cub->mapY] == 1)
+			cub->color = 0xFF0000;
+		else if (worldMap[cub->mapX][cub->mapY] == 2)
+			cub->color = 0x00FF00;
+		else if (worldMap[cub->mapX][cub->mapY] == 3)
+			cub->color = 0x0000FF;
+		else if (worldMap[cub->mapX][cub->mapY] == 4)
+			cub->color = 0xFFFFFF;
+		else
+			cub->color = 0xFFFF00;
 		if (cub->side == 1)
 			cub->color /= 2;
 		draw_vertical(cub, i);
