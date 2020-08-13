@@ -6,20 +6,30 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/13 11:00:01 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:54:08 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_vertical(t_cub *cub, int x)
+void	draw_vertical(t_cub *cub, uint32_t *buffer)
 {
-	while (cub->drawStart < cub->drawEnd)
+	int i;
+	int j;
+	
+	i = 0;
+	j = 0;
+	while (i < cub->x_axis)
 	{
-		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8)] = (cub->color >> 16) & 0xFF;
-		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 1] = (cub->color >> 8) & 0xFF;
-		cub->img_data[(cub->drawStart * cub->sizeline) + (x * cub->bpp / 8) + 2] = cub->color & 0xFF;
-		cub->drawStart++;
+		while (j < cub->y_axis)
+		{
+			cub->img_data[(j * cub->sizeline) + (i * cub->bpp / 8)] = (buffer[j] + i) & 0xFF;
+			cub->img_data[(j * cub->sizeline) + (i * cub->bpp / 8) + 1] = (buffer[j] + i) & 0xFF;
+			cub->img_data[(j * cub->sizeline) + (i * cub->bpp / 8) + 2] = (buffer[j] + i) & 0xFF;
+			j++;
+		}
+		j = 0;
+		i++;
 	}
 }
 
@@ -114,28 +124,30 @@ void	dda(t_cub *cub)
 	}
 }
 
+void	texture(t_cub *cub)
+{
+	cub->texture = NULL;
+	cub->texture = malloc(sizeof(char *) * 5);
+	int	width = 0;
+	int height = 0;
+	cub->texture[0] = (char*)mlx_xpm_file_to_image(cub->mlx, "tests/eagle.xpm", &width, &height);
+	cub->texture[1] = (char*)mlx_xpm_file_to_image(cub->mlx, "tests/colorstone.xpm", &width, &height);
+	cub->texture[2] = (char*)mlx_xpm_file_to_image(cub->mlx, "tests/bluestone.xpm", &width, &height);
+	cub->texture[3] = (char*)mlx_xpm_file_to_image(cub->mlx, "tests/greystone.xpm", &width, &height);
+	cub->texture[4] = (char*)mlx_xpm_file_to_image(cub->mlx, "tests/barrel.xpm", &width, &height);
+}
+
 void	raycast(t_cub *cub)
 {
 	int	i;
 
 	i = 0;
 	int worldMap[24][24]={{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},{4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},{4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},{4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},{4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},{4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},{4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},{4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},{4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},{4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},{4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},{6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},{8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},{6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},{4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},{4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},{4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},{4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},{4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},{4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}};
-	void	**image = NULL;
-
-	int	width = 0;
-	int height = 0;
-	image = malloc(sizeof(void *) * 5);
-	image[0] = mlx_xpm_file_to_image(cub->mlx, "tests/eagle.xpm", &width, &height);
-	image[1] = mlx_xpm_file_to_image(cub->mlx, "tests/colorstone.xpm", &width, &height);
-	image[2] = mlx_xpm_file_to_image(cub->mlx, "tests/bluestone.xpm", &width, &height);
-	image[3] = mlx_xpm_file_to_image(cub->mlx, "tests/greystone.xpm", &width, &height);
-	image[4] = mlx_xpm_file_to_image(cub->mlx, "tests/mossy.xpm", &width, &height);
 	mlx_destroy_image(cub->mlx, cub->image);
 	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
 	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
 	while (i++ < cub->x_axis)
 	{
-		// a degager dans une autre fonction
 		cub->cameraX = (2 * i / ((double)cub->x_axis) - 1);
 		cub->rayDirX = cub->dirX + cub->planeX * cub->cameraX;
 		cub->rayDirY = cub->dirY + cub->planeY * cub->cameraX;
@@ -157,21 +169,35 @@ void	raycast(t_cub *cub)
 		cub->drawEnd = cub->lineHeight / 2 + cub->y_axis / 2;
 		if (cub->drawEnd >= cub->y_axis)
 			cub->drawEnd = cub->y_axis - 1;
-		if (worldMap[cub->mapX][cub->mapY] == 1)
-			cub->color = 0xFF0000;
-		else if (worldMap[cub->mapX][cub->mapY] == 2)
-			cub->color = 0x00FF00;
-		else if (worldMap[cub->mapX][cub->mapY] == 3)
-			cub->color = 0x0000FF;
-		else if (worldMap[cub->mapX][cub->mapY] == 4)
-			cub->color = 0xFFFFFF;
+		
+		cub->texNum = worldMap[cub->mapX][cub->mapY] - 1;
+		if (cub->side == 0)
+			cub->wallX = cub->posY + cub->perpWallDist * cub->rayDirY;
 		else
-			cub->color = 0xFFFF00;
-		if (cub->side == 1)
-			cub->color /= 2;
-		draw_vertical(cub, i);
+			cub->wallX = cub->posX+ cub->perpWallDist * cub->rayDirX;
+		cub->wallX -= floor((cub->wallX));
+		cub->texX = (int)(cub->wallX * (double)texWidth);
+		if (cub->side == 0 && cub->rayDirX > 0)
+			cub->texX = texWidth - cub->texX - 1;
+		if (cub->side == 1 && cub->rayDirY < 0)
+			cub->texX = texWidth - cub->texX - 1;
+		cub->step = 1.0 * texHeight / cub->lineHeight;
+		cub->texPos = (cub->drawStart - cub->x_axis / 2 + cub->lineHeight / 2) * cub->step;
+		cub->y = cub->drawStart;
+		while (cub->y < cub->drawEnd)
+		{
+			cub->texY = (int)cub->texPos & (texHeight - 1);
+			cub->texPos += cub->step;
+			// depassement de memoire ici
+			cub->color = (unsigned int)cub->texture[cub->texNum][texHeight * cub->texY + cub->texX];
+			if (cub->side == 1)
+				cub->color = (cub->color >> 1) & 8355711;
+			cub->buffer[cub->y][i] = cub->color;
+			cub->y++;
+		}
 	}
-	mlx_put_image_to_window(cub->mlx, cub->window, image[4], 0, 0);
+	draw_vertical(cub, cub->buffer[0]);
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
 }
 
 void	mlx_gestion(t_cub *cub)
@@ -184,8 +210,13 @@ void	mlx_gestion(t_cub *cub)
 	cub->planeY = 0.66;
 	cub->dirX = -1;
 	cub->dirY = 0;
+	cub->buffer = malloc(sizeof(unsigned int *) * cub->y_axis + 1);
+	int k = 0;
+	while (k < cub->x_axis)
+		cub->buffer[k++] = malloc(sizeof(unsigned int) * cub->x_axis + 1);
 	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
 	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
+	texture(cub);
 	raycast(cub);
 	mlx_key_hook(cub->window, ft_key_hook, cub);
 	mlx_loop(cub->mlx);
