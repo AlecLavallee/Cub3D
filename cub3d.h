@@ -6,12 +6,14 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/12 14:49:47 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/13 11:10:08 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# define texWidth 64
+# define texHeight 64
 # include "Libft/libft.h"
 # include "mlx.h"
 # include <unistd.h>
