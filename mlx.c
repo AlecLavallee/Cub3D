@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/12 14:38:18 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/13 11:00:01 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,9 @@ void	raycast(t_cub *cub)
 	image = malloc(sizeof(void *) * 5);
 	image[0] = mlx_xpm_file_to_image(cub->mlx, "tests/eagle.xpm", &width, &height);
 	image[1] = mlx_xpm_file_to_image(cub->mlx, "tests/colorstone.xpm", &width, &height);
-	/*text[2] = mlx_xpm_file_to_image(cub->mlx, "tests/bluestone.xpm", width, height);
-	text[3] = mlx_xpm_file_to_image(cub->mlx, "tests/greystone.xpm", width, height);
-	text[4] = mlx_xpm_file_to_image(cub->mlx, "tests/mossy.xpm", width, height);*/
+	image[2] = mlx_xpm_file_to_image(cub->mlx, "tests/bluestone.xpm", &width, &height);
+	image[3] = mlx_xpm_file_to_image(cub->mlx, "tests/greystone.xpm", &width, &height);
+	image[4] = mlx_xpm_file_to_image(cub->mlx, "tests/mossy.xpm", &width, &height);
 	mlx_destroy_image(cub->mlx, cub->image);
 	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
 	cub->img_data = mlx_get_data_addr(cub->image, &cub->bpp, &cub->sizeline, &cub->endian);
@@ -171,7 +171,7 @@ void	raycast(t_cub *cub)
 			cub->color /= 2;
 		draw_vertical(cub, i);
 	}
-	mlx_put_image_to_window(cub->mlx, cub->window, image[1], 0, 0);
+	mlx_put_image_to_window(cub->mlx, cub->window, image[4], 0, 0);
 }
 
 void	mlx_gestion(t_cub *cub)
