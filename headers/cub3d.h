@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/14 15:48:59 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:58:50 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
+
 # define CUB3D_H
+
 # define texWidth 64
 # define texHeight 64
-# include "Libft/libft.h"
-# include "mlx.h"
+# include <mlx.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -74,7 +75,7 @@ typedef struct	s_path
 	char		*we_path;
 	char		*ea_path;
 	char		*sprite_path;
-	int			no_fd;
+	int			sno_fd;
 	int			so_fd;
 	int			we_fd;
 	int			ea_fd;
@@ -91,10 +92,10 @@ typedef struct	s_cub
 	int			y_axis;
 	int			floor[3];
 	int			ceiling[3];
-	void		*no_texture;
-	void		*so_texture;
-	void		*we_texture;
-	void		*ea_texture;
+	void		*no_t;
+	void		*so_t;
+	void		*we_t;
+	void		*ea_t;
 	void		*sprite;
 
 	void	*mlx;
@@ -137,7 +138,7 @@ typedef struct	s_cub
 	double	moveSpeed;
 	double	rotSpeed;
 	
-	unsigned int	**texture;
+	void	**texture;
 
 	int	y;
 	int	texNum;

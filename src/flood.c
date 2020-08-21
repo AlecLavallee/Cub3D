@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   flood.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/20 13:02:29 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:29:14 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 void	floodfill(t_cub *cub, int v, int i, int j)
 {

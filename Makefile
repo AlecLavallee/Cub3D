@@ -3,75 +3,65 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
+#    By: macbook <macbook@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/03/05 13:41:51 by alelaval         ###   ########.fr        #
+#    Updated: 2020/08/20 13:04:56 by macbook          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3D
+
+MKDIR = mkdir -p
+MAKE = make -s -C
+RM = rm -rf
+
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
-INCLUDE = -I.
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -I headers/
+CFLAGS += -I $(LIBFT_PTH)headers/
+CFLAGS += -I /usr/X11/include
+CFLAGS += -g
+LFLAGS = -L$(LIBFT_PTH) -lft
+LFLAGS += -lmlx -framework OpenGL -framework AppKit
 
-SRC = parsing_file.c \
+LIBFT_PTH = libft/
+LIBFT = $(addprefix $(LIBFT_PTH), libft.a)
+
+PATH_S = src/
+SRC = $(addprefix $(PATH_S), \
 	mlx.c \
-	parsing.c \
-	colors.c \
-	flood.c \
-	utils.c \
-	save.c \
-	error.c \
-	cub3d.c
-
-SRC_BONUS = cub3d_bonus.c \
 	parsing_file.c \
-	mlx.c \
 	parsing.c \
 	colors.c \
 	flood.c \
 	utils.c \
 	save.c \
 	error.c \
+	cub3d.c)
 
-OBJ = $(SRC:.c=.o)
+PATH_B = build/
+OBJ = $(addprefix $(PATH_B), $(notdir $(SRC:.c=.o)))
 
-OBJ_BONUS = $(SRC_BONUS:.c=.o)
-
-RM = rm -f
-
-.PHONY: all bonus clean fclean re
-all: $(NAME)
+.PHONY: all clean fclean re
+all: $(LIBFT) $(PATH_B) $(NAME)
 
 $(NAME): $(OBJ)
-	make bonus -C Libft/ 
-	#make -C Minilibx/
-	mv Libft/libft.a . 
-	#mv Minilibx/libmlx.a .
-	$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJ) libft.a
+	$(CC) $^ -o $@ $(LFLAGS)
 
-bonus: $(OBJ_BONUS)
-	make bonus -C Libft/ 
-	#make -C Minilibx/
-	mv Libft/libft.a . 
-	#mv Minilibx/libmlx.a .
-	$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJ_BONUS) libft.a
+$(PATH_B)%.o: $(PATH_S)%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-%.o:%.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(LIBFT):
+	$(MAKE) $(LIBFT_PTH)
 
-%_bonus.o:%_bonus.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-
+$(PATH_B):
+	$(MKDIR) build/
+	
 clean:
-	$(RM) $(OBJ) $(OBJ_BONUS) libft.a
-	#make clean -C Libft/
-	#make clean -C Minilibx/
+	$(RM) $(PATH_B) && $(MAKE) $(LIBFT_PTH) clean
 
 fclean: clean
-	$(RM) $(NAME)
-	#make fclean -C Libft/
-	#make fclean -C Minilibx/
+	$(RM) $(NAME) && $(MAKE) $(LIBFT_PTH) fclean
 
 re: fclean all

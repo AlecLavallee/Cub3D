@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:19:46 by alelaval          #+#    #+#             */
-/*   Updated: 2020/02/05 13:00:24 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:29:39 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 void	display_error(const char *error)
 {

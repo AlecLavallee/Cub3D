@@ -6,11 +6,12 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/06/18 15:40:48 by macbook          ###   ########.fr       */
+/*   Updated: 2020/08/20 12:29:25 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 t_cub	*init_cub(t_cub *cub)
 {

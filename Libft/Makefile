@@ -3,18 +3,33 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
+#    By: macbook <macbook@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/01/29 14:25:14 by alelaval         ###   ########.fr        #
+#    Updated: 2020/08/20 12:16:44 by macbook          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-INCLUDE = -I.
-SRC = ft_isascii.c \
+CFLAGS += -I$(INCLUDE)
+CFLAGS += -g
+
+AR = ar
+AR_FLAGS = -crs
+
+RM = rm -rf
+MKDIR = mkdir -p
+MAKE = make -C -s
+
+INCLUDE = headers/
+HEADERS = $(addprefix $(INCLUDE), \
+libft.h)
+
+PATH_BUILD = build/
+PATH_SRC = src/
+SRC = $(addprefix $(PATH_SRC), ft_isascii.c \
   	  ft_memchr.c \
 	  ft_putnbr_fd.c \
 	  ft_strlcpy.c	\
@@ -53,41 +68,24 @@ SRC = ft_isascii.c \
 	  ft_isspace.c \
 	  ft_strcmp.c \
 	  get_next_line.c \
-	  get_next_line_utils.c
+	  get_next_line_utils.c)
 
-SRC_BONUS = ft_lstnew_bonus.c \
-	  ft_lstdelone_bonus.c \
-	  ft_lstclear_bonus.c \
-	  ft_lstadd_front_bonus.c \
-	  ft_lstadd_back_bonus.c \
-	  ft_lstsize_bonus.c \
-	  ft_lstiter_bonus.c \
-	  ft_lstmap_bonus.c \
-	  ft_lstlast_bonus.c
+$(PATH_BUILD)%.o: $(PATH_SRC)%.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+OBJ = $(addprefix $(PATH_BUILD), $(notdir $(SRC:.c=.o)))
 
-OBJ = $(SRC:.c=.o)
-
-OBJ_BONUS = $(SRC_BONUS:.c=.o)
-
-RM = rm -f
-
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	ar -rcs $(NAME) $(OBJ)
+$(NAME): $(PATH_BUILD) $(OBJ)
+	$(AR) $(AR_FLAGS) $@ $(OBJ)
 
-%.o:%.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-
-%_bonus.o:%_bonus.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-
-bonus: $(OBJ) $(OBJ_BONUS)
-	ar -rcs $(NAME) $(OBJ) $(OBJ_BONUS)
+$(PATH_BUILD):
+	$(MKDIR) $(PATH_BUILD)
 
 clean:
-	$(RM) $(OBJ) $(OBJ_BONUS)
+	$(RM) $(PATH_BUILD)
 
 fclean: clean
 	$(RM) $(NAME)
