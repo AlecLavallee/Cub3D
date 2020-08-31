@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/25 01:52:13 by macbook          ###   ########.fr       */
+/*   Updated: 2020/08/28 19:20:40 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,31 +177,60 @@ void	text_calc(t_cub	*cub)
     cub->texPos = (double)(cub->drawStart - cub->y_axis / 2 + cub->lineHeight / 2) * cub->step;
 }
 
-void    draw(t_cub *cub, int x)
+void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
 {
-    char		*img_ptr = NULL;
-    unsigned	*color_ptr = NULL;
-    int			bpp;
+	unsigned	*img_ptr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+
+	img_ptr = (unsigned*)mlx_get_data_addr(cub->image, &bpp, &size_line, &endian);
+	while (limit.x++ < limit.y)
+	{
+        img_ptr[(limit.x * size_line / 4) + x] = color;
+	}
+}
+
+void	draw_textured_row(t_cub *cub, int x, int y)
+{
+	unsigned	*img_ptr;
+    unsigned	*color_ptr;
+	int			bpp;
     int			size_line;
     int			endian;
-    unsigned    color;
-    int         y;
+	unsigned	color;
+	
+	color_ptr = (unsigned*)mlx_get_data_addr(cub->texture[cub->texNum], &bpp, &size_line, &endian);
+    color = (unsigned)(color_ptr[texHeight * cub->texY + cub->texX]);
+	if (cub->side == 1)
+      color = (unsigned)(color >> 1) & 8355711;
+    img_ptr = (unsigned*)mlx_get_data_addr(cub->image, &bpp, &size_line, &endian);
+	img_ptr[(y * size_line / 4) + x] = color;
+}
 
-    color = 0;
+void    draw(t_cub *cub, int x)
+{
+    int         y;
+	int			height;
+	int			begin;
+	int			end;
+
     y = cub->drawStart;
+	height = (int)(cub->y_axis / cub->perpWallDist);
+	begin = -height / 2 + cub->y_axis / 2;
+	if (begin < 0)
+		begin = 0;
     while (y < cub->drawEnd)
     {
         cub->texY = (int)cub->texPos & (texHeight - 1);
         cub->texPos += cub->step;
-        color_ptr = (unsigned*)mlx_get_data_addr(cub->texture[cub->texNum], &bpp, &size_line, &endian);
-        color = (unsigned int)(color_ptr[texHeight * cub->texY + cub->texX]);
-        if (cub->side == 1)
-          color = (unsigned)(color >> 1) & 8355711;
-        img_ptr = mlx_get_data_addr(cub->image, &bpp, &size_line, &endian);
-        img_ptr[(y * size_line) + (x * bpp / 8)] = (color >> 16) & 0xFF;
-        img_ptr[(y * size_line) + (x * bpp / 8) + 1] = (color >> 8) & 0xFF;
-        img_ptr[(y * size_line) + (x * bpp / 8) + 2] = color & 0xFF;
-        y++;
+		draw_scanline(cub, x, (t_vec){0, begin - 1}, 0xFF0000);
+		end = height / 2 + cub->y_axis / 2;
+		if (end >= cub->y_axis)
+			end = cub->y_axis - 1;
+		draw_textured_row(cub, x, y);
+        draw_scanline(cub, x, (t_vec){end + 1, cub->y_axis - 1}, 0x00FF00);
+		y++;
     }
 }
 
