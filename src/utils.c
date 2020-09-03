@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/20 12:29:25 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 02:10:57 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 t_cub	*init_cub(t_cub *cub)
 {
 	cub->map = NULL;
-	cub->x_axis = -1;
-	cub->y_axis = -1;
+	cub->mlx.screenWidth = -1;
+	cub->mlx.screenHeight = -1;
 	cub->ceiling[0] = -1;
 	cub->ceiling[1] = -1;
 	cub->ceiling[2] = -1;
 	cub->floor[0] = -1;
 	cub->floor[1] = -1;
 	cub->floor[2] = -1;
-	cub->posX = 8;
-	cub->posY = 5;
-	cub->dirX = -1;
-	cub->dirY = 0;
-	cub->planeX = 0.0;
-	cub->planeY = 0.66;
-	cub->hit = 0;
+	cub->camera.posX = 8;
+	cub->camera.posY = 5;
+	cub->camera.dirX = -1;
+	cub->camera.dirY = 0;
+	cub->camera.planeX = 0.0;
+	cub->camera.planeY = 0.66;
+	cub->camera.hit = 0;
 	return (cub);
 }
 

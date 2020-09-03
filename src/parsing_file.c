@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/20 12:28:23 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 02:10:21 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	parse_sprite(char *sprite, t_cub *cub)
 		i++;
 	while (ft_isspace(sprite[i]))
 		i++;
-	if ((cub->path.sprite_fd = open(&sprite[i], O_RDONLY)) == -1)
-		return (display_error("Cannot open sprite file, check your paths!"));
 	(void)cub;
 }
 
@@ -62,10 +60,10 @@ void	parse_resolution(char *res, t_cub *cub)
 	i = 0;
 	while (!ft_isspace(*(res + i)) || (*(res + i) == 'R'))
 		i++;
-	cub->y_axis = ft_atoi(res + i);
+	cub->mlx.screenHeight = ft_atoi(res + i);
 	while (ft_isspace(*(res + i)))
 		i++;
 	while (!ft_isspace(*(res + i)))
 		i++;
-	cub->x_axis = ft_atoi(res + i);
+	cub->mlx.screenWidth = ft_atoi(res + i);
 }

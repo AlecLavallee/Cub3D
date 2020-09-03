@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/20 12:28:37 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 01:49:53 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,11 @@ void	parsing_switch(char **line, int *map, t_cub *cub)
 		!ft_strncmp(&*line[j], "EA ", 2))
 		parse_textures(*line, cub);
 	else if (*line[j] == 'F')
-		parse_colors_f(*line, cub);
+		;
+		//parse_colors_f(*line, cub);
 	else if (*line[j] == 'C')
-		parse_colors_c(*line, cub);
+		;
+		//parse_colors_c(*line, cub);*/
 	else if (*line[j] == '0' || *line[j] == '1' || *line[j] == '2')
 		*map = 1;
 	else if (*line[j] != '\0')
@@ -156,14 +158,14 @@ void	fill_out(t_cub *cub)
 
 	i = 0;
 	size = get_map_size(cub);
-	cub->map_x = size;
+	cub->camera.mapX = size;
 	while (cub->file.map[i])
 	{
 		cub->file.map[i] = ft_fill(cub->file.map[i], size);
 		printf("%s\n", cub->file.map[i]);
 		i++;
 	}
-	cub->map_y = i;
+	cub->camera.mapY = i;
 }
 
 void	parsing(char *file, t_cub *cub)

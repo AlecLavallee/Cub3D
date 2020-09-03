@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/08/28 19:20:40 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 02:09:20 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	texture(t_cub *cub)
 	int	width = 0;
 	int height = 0;
 
-	cub->texture[0] = mlx_xpm_file_to_image(cub->mlx, "textures/bluestone.xpm", &width, &height);
-	cub->texture[1] = mlx_xpm_file_to_image(cub->mlx, "textures/eagle.xpm", &width, &height);
-	cub->texture[2] = mlx_xpm_file_to_image(cub->mlx, "textures/purplestone.xpm", &width, &height);
-	cub->texture[3] = mlx_xpm_file_to_image(cub->mlx, "textures/pillar.xpm", &width, &height);
-	cub->texture[4] = mlx_xpm_file_to_image(cub->mlx, "textures/bluestone.xpm", &width, &height);
+	cub->texture[0] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/bluestone.xpm", &width, &height);
+	cub->texture[1] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/eagle.xpm", &width, &height);
+	cub->texture[2] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/purplestone.xpm", &width, &height);
+	cub->texture[3] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/pillar.xpm", &width, &height);
+	cub->texture[4] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/bluestone.xpm", &width, &height);
 }
 
 int		ft_key_hook(int keycode, t_cub *cub)
@@ -34,35 +34,35 @@ int		ft_key_hook(int keycode, t_cub *cub)
 	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
 	if (keycode == 126)
 	{
-		if (worldMap[(int)(cub->posX + cub->dirX)][(int)cub->posY] == 0)
-			cub->posX += cub->dirX;
-		if (worldMap[(int)cub->posX][(int)(cub->posY + cub->dirY)] == 0)
-			cub->posY += cub->dirY;
+		if (worldMap[(int)(cub->camera.posX + cub->camera.dirX)][(int)cub->camera.posY] == 0)
+			cub->camera.posX += cub->camera.dirX;
+		if (worldMap[(int)cub->camera.posX][(int)(cub->camera.posY + cub->camera.dirY)] == 0)
+			cub->camera.posY += cub->camera.dirY;
 	}
 	else if (keycode == 125)
 	{
-		if (worldMap[(int)(cub->posX - cub->dirX)][(int)cub->posY] == 0)
-			cub->posX -= cub->dirX;
-		if (worldMap[(int)cub->posX][(int)(cub->posY - cub->dirY)] == 0)
-			cub->posY -= cub->dirY;
+		if (worldMap[(int)(cub->camera.posX - cub->camera.dirX)][(int)cub->camera.posY] == 0)
+			cub->camera.posX -= cub->camera.dirX;
+		if (worldMap[(int)cub->camera.posX][(int)(cub->camera.posY - cub->camera.dirY)] == 0)
+			cub->camera.posY -= cub->camera.dirY;
 	}
 	else if (keycode == 123)
 	{
-		double	oldDirX = cub->dirX;
-		cub->dirX = cub->dirX * cos(rotSpeed) - cub->dirY * sin(rotSpeed);
-		cub->dirY = oldDirX * sin(rotSpeed) + cub->dirY * cos(rotSpeed);
-		double oldPlaneX = cub->planeX;
-		cub->planeX = cub->planeX * cos(rotSpeed) - cub->planeY * sin(rotSpeed);
-		cub->planeY = oldPlaneX * sin(rotSpeed) + cub->planeY * cos(rotSpeed);
+		double	oldDirX = cub->camera.dirX;
+		cub->camera.dirX = cub->camera.dirX * cos(rotSpeed) - cub->camera.dirY * sin(rotSpeed);
+		cub->camera.dirY = oldDirX * sin(rotSpeed) + cub->camera.dirY * cos(rotSpeed);
+		double oldPlaneX = cub->camera.planeX;
+		cub->camera.planeX = cub->camera.planeX * cos(rotSpeed) - cub->camera.planeY * sin(rotSpeed);
+		cub->camera.planeY = oldPlaneX * sin(rotSpeed) + cub->camera.planeY * cos(rotSpeed);
 	}
 	else if (keycode == 124)
 	{
-		double	oldDirX = cub->dirX;
-		cub->dirX = cub->dirX * cos(-rotSpeed) - cub->dirY * sin(-rotSpeed);
-		cub->dirY = oldDirX * sin(-rotSpeed) + cub->dirY * cos(-rotSpeed);
-		double	oldPlaneX = cub->planeX;
-		cub->planeX = cub->planeX * cos(-rotSpeed) - cub->planeY * sin(-rotSpeed);
-		cub->planeY = oldPlaneX * sin(-rotSpeed) + cub->planeY * cos(-rotSpeed);
+		double	oldDirX = cub->camera.dirX;
+		cub->camera.dirX = cub->camera.dirX * cos(-rotSpeed) - cub->camera.dirY * sin(-rotSpeed);
+		cub->camera.dirY = oldDirX * sin(-rotSpeed) + cub->camera.dirY * cos(-rotSpeed);
+		double	oldPlaneX = cub->camera.planeX;
+		cub->camera.planeX = cub->camera.planeX * cos(-rotSpeed) - cub->camera.planeY * sin(-rotSpeed);
+		cub->camera.planeY = oldPlaneX * sin(-rotSpeed) + cub->camera.planeY * cos(-rotSpeed);
 	}
 	else
 		ft_putstr("touche inconnue!\n");
@@ -72,35 +72,35 @@ int		ft_key_hook(int keycode, t_cub *cub)
 
 void	ray_init(t_cub *cub)
 {
-	cub->rayDirX = cub->dirX + cub->planeX * cub->cameraX;
-	cub->rayDirY = cub->dirY + cub->planeY * cub->cameraX;
-	cub->mapX = (int)cub->posX;
-	cub->mapY = (int)cub->posY;
-	cub->deltaDistX = fabs(1 / cub->rayDirX);
-	cub->deltaDistY = fabs(1 / cub->rayDirY);
+	cub->camera.rayDirX = cub->camera.dirX + cub->camera.planeX * cub->camera.cameraX;
+	cub->camera.rayDirY = cub->camera.dirY + cub->camera.planeY * cub->camera.cameraX;
+	cub->camera.mapX = (int)cub->camera.posX;
+	cub->camera.mapY = (int)cub->camera.posY;
+	cub->camera.deltaDistX = fabs(1 / cub->camera.rayDirX);
+	cub->camera.deltaDistY = fabs(1 / cub->camera.rayDirY);
 }
 
 void	raycast_init(t_cub *cub)
 {
-	if (cub->rayDirX < 0)
+	if (cub->camera.rayDirX < 0)
 	{
-		cub->stepX = -1;
-		cub->sideDistX = (cub->posX - cub->mapX) * cub->deltaDistX;
+		cub->camera.stepX = -1;
+		cub->camera.sideDistX = (cub->camera.posX - cub->camera.mapX) * cub->camera.deltaDistX;
 	}
 	else
 	{
-		cub->stepX = 1;
-		cub->sideDistX = (cub->mapX + 1.0 - cub->posX) * cub->deltaDistX;
+		cub->camera.stepX = 1;
+		cub->camera.sideDistX = (cub->camera.mapX + 1.0 - cub->camera.posX) * cub->camera.deltaDistX;
 	}
-	if (cub->rayDirY < 0)
+	if (cub->camera.rayDirY < 0)
 	{
-		cub->stepY = -1;
-		cub->sideDistY = (cub->posY - cub->mapY) * cub->deltaDistY;
+		cub->camera.stepY = -1;
+		cub->camera.sideDistY = (cub->camera.posY - cub->camera.mapY) * cub->camera.deltaDistY;
 	}
 	else
 	{
-		cub->stepY = 1;
-		cub->sideDistY = (cub->mapY + 1.0 - cub->posY) * cub->deltaDistY;
+		cub->camera.stepY = 1;
+		cub->camera.sideDistY = (cub->camera.mapY + 1.0 - cub->camera.posY) * cub->camera.deltaDistY;
 	}
 }
 
@@ -108,22 +108,22 @@ void	dda(t_cub *cub)
 {
 	
 	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
-	while (cub->hit == 0)
+	while (cub->camera.hit == 0)
 	{
-		if (cub->sideDistX < cub->sideDistY)
+		if (cub->camera.sideDistX < cub->camera.sideDistY)
 		{
-			cub->sideDistX += cub->deltaDistX;
-			cub->mapX += cub->stepX;
-			cub->side = 0;
+			cub->camera.sideDistX += cub->camera.deltaDistX;
+			cub->camera.mapX += cub->camera.stepX;
+			cub->camera.side = 0;
 		}
 		else
 		{
-			cub->sideDistY += cub->deltaDistY;
-			cub->mapY += cub->stepY;
-			cub->side = 1;
+			cub->camera.sideDistY += cub->camera.deltaDistY;
+			cub->camera.mapY += cub->camera.stepY;
+			cub->camera.side = 1;
 		}
-		if (worldMap[cub->mapX][cub->mapY] > 0)
-			cub->hit = 1;
+		if (worldMap[cub->camera.mapX][cub->camera.mapY] > 0)
+			cub->camera.hit = 1;
 	}
 }
 
@@ -140,41 +140,41 @@ void	mlx_clear_img(void *img_ptr, int height_res)
 
 void	perp_wall_dist(t_cub *cub)
 {
-	if (cub->side == 0)
-		cub->perpWallDist = (cub->mapX - cub->posX + (1 - cub->stepX) / 2) / cub->rayDirX;
+	if (cub->camera.side == 0)
+		cub->camera.perpWallDist = (cub->camera.mapX - cub->camera.posX + (1 - cub->camera.stepX) / 2) / cub->camera.rayDirX;
 	else
-		cub->perpWallDist = (cub->mapY - cub->posY + (1 - cub->stepY) / 2) / cub->rayDirY;
+		cub->camera.perpWallDist = (cub->camera.mapY - cub->camera.posY + (1 - cub->camera.stepY) / 2) / cub->camera.rayDirY;
 }
 
 void	draw_calc(t_cub *cub)
 {
-	cub->lineHeight = (int)(cub->y_axis / cub->perpWallDist);
-	cub->drawStart = -1 * cub->lineHeight / 2 + cub->y_axis / 2;
-	if (cub->drawStart < 0)
-		cub->drawStart = 0;
-	cub->drawEnd = cub->lineHeight / 2 + cub->y_axis / 2;
-	if (cub->drawEnd >= cub->y_axis)
-		cub->drawEnd = cub->y_axis - 1;
+	cub->camera.lineHeight = (int)(cub->mlx.screenHeight / cub->camera.perpWallDist);
+	cub->camera.drawStart = -1 * cub->camera.lineHeight / 2 + cub->mlx.screenHeight / 2;
+	if (cub->camera.drawStart < 0)
+		cub->camera.drawStart = 0;
+	cub->camera.drawEnd = cub->camera.lineHeight / 2 + cub->mlx.screenHeight / 2;
+	if (cub->camera.drawEnd >= cub->mlx.screenHeight)
+		cub->camera.drawEnd = cub->mlx.screenHeight - 1;
 }
 
 void	text_calc(t_cub	*cub)
 {
 	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
-	cub->texNum = worldMap[cub->mapX][cub->mapY] - 1;
-	if (cub->side == 0)
-		cub->wallX = cub->posY + cub->perpWallDist * cub->rayDirY;
+	cub->camera.texNum = worldMap[cub->camera.mapX][cub->camera.mapY] - 1;
+	if (cub->camera.side == 0)
+		cub->camera.wallX = cub->camera.posY + cub->camera.perpWallDist * cub->camera.rayDirY;
 	else
-		cub->wallX = cub->posX + cub->perpWallDist * cub->rayDirX;
-	cub->wallX -= floor(cub->wallX);
+		cub->camera.wallX = cub->camera.posX + cub->camera.perpWallDist * cub->camera.rayDirX;
+	cub->camera.wallX -= floor(cub->camera.wallX);
 
-	cub->texX = (int)(cub->wallX * (double)texWidth);
-	if (cub->side == 0 && cub->rayDirX > 0)
-		cub->texX = texWidth - cub->texX - 1;
-	if (cub->side == 1 && cub->rayDirY < 0)
-		cub->texX = texWidth - cub->texX - 1;
+	cub->camera.texX = (int)(cub->camera.wallX * (double)texWidth);
+	if (cub->camera.side == 0 && cub->camera.rayDirX > 0)
+		cub->camera.texX = texWidth - cub->camera.texX - 1;
+	if (cub->camera.side == 1 && cub->camera.rayDirY < 0)
+		cub->camera.texX = texWidth - cub->camera.texX - 1;
 	
-	cub->step = 1.0 * texHeight / cub->lineHeight;
-    cub->texPos = (double)(cub->drawStart - cub->y_axis / 2 + cub->lineHeight / 2) * cub->step;
+	cub->camera.step = 1.0 * texHeight / cub->camera.lineHeight;
+    cub->camera.texPos = (double)(cub->camera.drawStart - cub->mlx.screenHeight / 2 + cub->camera.lineHeight / 2) * cub->camera.step;
 }
 
 void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
@@ -184,7 +184,7 @@ void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
 	int		size_line;
 	int		endian;
 
-	img_ptr = (unsigned*)mlx_get_data_addr(cub->image, &bpp, &size_line, &endian);
+	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, &bpp, &size_line, &endian);
 	while (limit.x++ < limit.y)
 	{
         img_ptr[(limit.x * size_line / 4) + x] = color;
@@ -200,11 +200,11 @@ void	draw_textured_row(t_cub *cub, int x, int y)
     int			endian;
 	unsigned	color;
 	
-	color_ptr = (unsigned*)mlx_get_data_addr(cub->texture[cub->texNum], &bpp, &size_line, &endian);
-    color = (unsigned)(color_ptr[texHeight * cub->texY + cub->texX]);
-	if (cub->side == 1)
+	color_ptr = (unsigned*)mlx_get_data_addr(cub->texture[cub->camera.texNum], &bpp, &size_line, &endian);
+    color = (unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
+	if (cub->camera.side == 1)
       color = (unsigned)(color >> 1) & 8355711;
-    img_ptr = (unsigned*)mlx_get_data_addr(cub->image, &bpp, &size_line, &endian);
+    img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, &bpp, &size_line, &endian);
 	img_ptr[(y * size_line / 4) + x] = color;
 }
 
@@ -215,21 +215,21 @@ void    draw(t_cub *cub, int x)
 	int			begin;
 	int			end;
 
-    y = cub->drawStart;
-	height = (int)(cub->y_axis / cub->perpWallDist);
-	begin = -height / 2 + cub->y_axis / 2;
+    y = cub->camera.drawStart;
+	height = (int)(cub->mlx.screenHeight / cub->camera.perpWallDist);
+	begin = -height / 2 + cub->mlx.screenHeight / 2;
 	if (begin < 0)
 		begin = 0;
-    while (y < cub->drawEnd)
+    while (y < cub->camera.drawEnd)
     {
-        cub->texY = (int)cub->texPos & (texHeight - 1);
-        cub->texPos += cub->step;
+        cub->camera.texY = (int)cub->camera.texPos & (texHeight - 1);
+        cub->camera.texPos += cub->camera.step;
 		draw_scanline(cub, x, (t_vec){0, begin - 1}, 0xFF0000);
-		end = height / 2 + cub->y_axis / 2;
-		if (end >= cub->y_axis)
-			end = cub->y_axis - 1;
+		end = height / 2 + cub->mlx.screenHeight / 2;
+		if (end >= cub->mlx.screenHeight)
+			end = cub->mlx.screenHeight - 1;
 		draw_textured_row(cub, x, y);
-        draw_scanline(cub, x, (t_vec){end + 1, cub->y_axis - 1}, 0x00FF00);
+        draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenHeight - 1}, 0x00FF00);
 		y++;
     }
 }
@@ -239,11 +239,11 @@ void	raycast(t_cub *cub)
 	int	i;
 
 	i = 0;
-	mlx_clear_img(cub->image, cub->y_axis);
-	while (i++ < cub->x_axis)
+	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenHeight);
+	while (i++ < cub->mlx.screenWidth)
 	{
-		cub->hit = 0;
-		cub->cameraX = (2 * i / (double)cub->x_axis - 1);
+		cub->camera.hit = 0;
+		cub->camera.cameraX = (2 * i / (double)cub->mlx.screenWidth - 1);
 		ray_init(cub);
 		raycast_init(cub);
 		dda(cub);
@@ -252,23 +252,23 @@ void	raycast(t_cub *cub)
 		text_calc(cub);
 		draw(cub, i);
 	}
-	mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, cub->image.img_ptr, 0, 0);
 }
 
 void	mlx_gestion(t_cub *cub)
 {
-	cub->posX = 22;
-	cub->posY = 12;
-	cub->planeX = 0.0;
-	cub->planeY = 0.66;
-	cub->dirX = -1.0;
-	cub->dirY = 0;
-	cub->mlx = mlx_init();
-	cub->window = mlx_new_window(cub->mlx, cub->x_axis, cub->y_axis, "Cub3D");
-	cub->image = mlx_new_image(cub->mlx, cub->x_axis, cub->y_axis);
-	mlx_clear_img(cub->image, cub->x_axis);
+	cub->camera.posX = 22;
+	cub->camera.posY = 12;
+	cub->camera.planeX = 0.0;
+	cub->camera.planeY = 0.66;
+	cub->camera.dirX = -1.0;
+	cub->camera.dirY = 0;
+	cub->mlx.mlx = mlx_init();
+	cub->mlx.window = mlx_new_window(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenWidth, "Cub3D");
+	cub->image.img_ptr = mlx_new_image(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenHeight);
+	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenWidth);
 	texture(cub);
 	raycast(cub);
-	mlx_key_hook(cub->window, ft_key_hook, cub);
-	mlx_loop(cub->mlx);
+	mlx_key_hook(cub->mlx.window, ft_key_hook, cub);
+	mlx_loop(cub->mlx.mlx);
 }
