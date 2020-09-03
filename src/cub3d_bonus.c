@@ -85,17 +85,6 @@ int main(void)
         stepY = 1;
         sideDistY = (mapY + 1.0 - posY) * deltaDistY;
       }
-	printf("\nrayDirX : %f\n", rayDirX);
-	printf("rayDirY : %f\n", rayDirY);
-	printf("DirX : %f\n", dirX);
-	printf("DirY : %f\n", dirY);
-	printf("mapX : %d\n", mapX);
-	printf("mapY : %d\n", mapY);
-	printf("posX : %f\n", posX);
-	printf("posY : %f\n", posY);
-	printf("cameraX :%f\n", cameraX);
-	printf("deltaDistX : %f\n", deltaDistX);
-	printf("deltaDistY : %f\n", deltaDistY);
       //perform DDA
       while (hit == 0)
       {
