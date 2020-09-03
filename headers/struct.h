@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 02:05:00 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:47:49 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,6 @@ typedef struct	s_player
 	double	rotSpeed;
 }				t_player;
 
-typedef struct	s_desc
-{
-	int			fd;
-	int			size;
-	char		*name;
-	char		**map;
-}				t_desc;
-
-typedef struct	s_path
-{
-	char		*no_path;
-	char		*so_path;
-	char		*we_path;
-	char		*ea_path;
-	char		*sprite_path;
-	int			sno_fd;
-	int			so_fd;
-	int			we_fd;
-	int			ea_fd;
-	int			sprite_fd;
-}				t_path;
-
 typedef struct	s_camera
 {
 	int		mapX;
@@ -119,19 +97,26 @@ typedef struct	s_camera
 	double	texPos;
 }				t_camera;
 
+typedef struct		s_map
+{
+	char			*map[20000];
+	t_vec			resolution;
+	t_textures		textures;
+	unsigned int	colorFloor;
+	unsigned int	colorCeiling;
+	int				xsize;
+	int				ysize;
+	char			*line;
+	unsigned int	specs;
+	unsigned int	square_size;
+}					t_map;
+
 typedef struct	s_cub
 {
-	char		**map;
-	int			test_map;
-	int			floor[3];
-	int			ceiling[3];
-	void	**texture;
-
 	t_mlx	    mlx;
     t_image		image;
-	t_desc		file;
+	t_map		map;
 	t_camera	camera;
-	t_path		path;
 }					t_cub;
 
 # endif
