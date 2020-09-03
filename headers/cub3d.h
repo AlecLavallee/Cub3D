@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 01:15:23 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:46:48 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "struct.h"
+# include "mvmt.h"
 
 /* DANGER DANGER DANGER */
 # include <stdio.h> //danger
