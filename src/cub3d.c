@@ -6,26 +6,23 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:41 by alelaval          #+#    #+#             */
-/*   Updated: 2020/06/18 14:07:38 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 01:29:11 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 int		main(int ac, char **av)
 {
-	t_cub	*cub;
+	t_cub	cub;
 
-	if (!(cub = (t_cub*)malloc(sizeof(t_cub))))
-	{
-		display_error("Structure affectation failed, critical memory failure!");
-		return (-1);
-	}
+	ft_memset(&cub, 0, sizeof(t_cub));
 	if (ac == 1)
 		display_error("There's no arguments!");
 	if (ac == 2)
 	{
-		parsing(av[1], cub);
+		parsing(av[1], &cub);
 	}
 	if (ac == 3)
 		save();
