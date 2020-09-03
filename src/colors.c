@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:33:19 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 01:43:27 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 16:25:25 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 /* DANGER */
 # include <fcntl.h>
 # include <limits.h>
-# define TRUE 1
-# define FALSE 0
 
 char	*skip_spaces(const char *s)
 {

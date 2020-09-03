@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   flood.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 01:44:59 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 15:52:44 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-void	floodfill(t_cub *cub, int v, int i, int j)
+/*void	floodfill(t_cub *cub, int v, int i, int j)
 {
 	if (ft_isalnum(cub->file.map[i][j]) && cub->file.map[i][j] != '1')
 	{
@@ -51,4 +51,4 @@ void	floodmap(t_cub *cub)
 	while (cub->file.map[i])
 		printf("%s\n", cub->file.map[i++]);
 	ft_putchar('\n');
-}
+}*/
