@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 14:46:48 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 15:53:36 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 
 /* DANGER DANGER DANGER */
 # include <stdio.h> //danger
+
+# define FALSE 1
+# define TRUE 0
 
 t_cub	*init_cub(t_cub *cub);
 char	*ft_strdup_wspaces(const char *s);

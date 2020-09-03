@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 14:47:49 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 16:25:17 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ typedef struct		s_map
 
 typedef struct	s_cub
 {
-	t_mlx	    mlx;
-    t_image		image;
+	t_mlx		mlx;
+	t_image		image;
 	t_map		map;
 	t_camera	camera;
 }					t_cub;
