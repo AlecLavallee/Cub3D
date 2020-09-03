@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 16:25:11 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/03 18:10:52 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,9 @@ void	draw_textured_row(t_cub *cub, int x, int y)
 	int			endian;
 	unsigned	color;
 	
-	color_ptr = (unsigned*)mlx_get_data_addr(cub->texture[cub->camera.texNum], &bpp, &size_line, &endian);
+	// doit definir side du mur
+	//color_ptr = (unsigned*)mlx_get_data_addr(cub->map.textures[cub->camera.texNum], &bpp, &size_line, &endian);
+	color_ptr = (unsigned*)mlx_get_data_addr(cub->map.textures[cub->camera.texNum], &bpp, &size_line, &endian);
 	color = (unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
 	if (cub->camera.side == 1)
 		color = (unsigned)(color >> 1) & 8355711;
@@ -253,7 +255,6 @@ void	mlx_gestion(t_cub *cub)
 	cub->mlx.window = mlx_new_window(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenWidth, "Cub3D");
 	cub->image.img_ptr = mlx_new_image(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenHeight);
 	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenWidth);
-	texture(cub);
 	raycast(cub);
 	mlx_key_hook(cub->mlx.window, ft_key_hook, cub);
 	mlx_loop(cub->mlx.mlx);
