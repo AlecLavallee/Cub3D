@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 02:09:20 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/03 16:25:11 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-
-void	texture(t_cub *cub)
-{
-	cub->texture = NULL;
-	cub->texture = malloc(sizeof(void *) * 5);
-	int	width = 0;
-	int height = 0;
-
-	cub->texture[0] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/bluestone.xpm", &width, &height);
-	cub->texture[1] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/eagle.xpm", &width, &height);
-	cub->texture[2] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/purplestone.xpm", &width, &height);
-	cub->texture[3] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/pillar.xpm", &width, &height);
-	cub->texture[4] = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/bluestone.xpm", &width, &height);
-}
 
 int		ft_key_hook(int keycode, t_cub *cub)
 {
@@ -174,7 +160,7 @@ void	text_calc(t_cub	*cub)
 		cub->camera.texX = texWidth - cub->camera.texX - 1;
 	
 	cub->camera.step = 1.0 * texHeight / cub->camera.lineHeight;
-    cub->camera.texPos = (double)(cub->camera.drawStart - cub->mlx.screenHeight / 2 + cub->camera.lineHeight / 2) * cub->camera.step;
+	cub->camera.texPos = (double)(cub->camera.drawStart - cub->mlx.screenHeight / 2 + cub->camera.lineHeight / 2) * cub->camera.step;
 }
 
 void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
@@ -187,51 +173,51 @@ void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
 	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, &bpp, &size_line, &endian);
 	while (limit.x++ < limit.y)
 	{
-        img_ptr[(limit.x * size_line / 4) + x] = color;
+		img_ptr[(limit.x * size_line / 4) + x] = color;
 	}
 }
 
 void	draw_textured_row(t_cub *cub, int x, int y)
 {
 	unsigned	*img_ptr;
-    unsigned	*color_ptr;
+	unsigned	*color_ptr;
 	int			bpp;
-    int			size_line;
-    int			endian;
+	int			size_line;
+	int			endian;
 	unsigned	color;
 	
 	color_ptr = (unsigned*)mlx_get_data_addr(cub->texture[cub->camera.texNum], &bpp, &size_line, &endian);
-    color = (unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
+	color = (unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
 	if (cub->camera.side == 1)
-      color = (unsigned)(color >> 1) & 8355711;
-    img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, &bpp, &size_line, &endian);
+		color = (unsigned)(color >> 1) & 8355711;
+	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, &bpp, &size_line, &endian);
 	img_ptr[(y * size_line / 4) + x] = color;
 }
 
-void    draw(t_cub *cub, int x)
+void	draw(t_cub *cub, int x)
 {
-    int         y;
-	int			height;
-	int			begin;
-	int			end;
+	int		y;
+	int		height;
+	int		begin;
+	int		end;
 
-    y = cub->camera.drawStart;
+	y = cub->camera.drawStart;
 	height = (int)(cub->mlx.screenHeight / cub->camera.perpWallDist);
 	begin = -height / 2 + cub->mlx.screenHeight / 2;
 	if (begin < 0)
 		begin = 0;
-    while (y < cub->camera.drawEnd)
-    {
-        cub->camera.texY = (int)cub->camera.texPos & (texHeight - 1);
-        cub->camera.texPos += cub->camera.step;
+	while (y < cub->camera.drawEnd)
+	{
+		cub->camera.texY = (int)cub->camera.texPos & (texHeight - 1);
+		cub->camera.texPos += cub->camera.step;
 		draw_scanline(cub, x, (t_vec){0, begin - 1}, 0xFF0000);
 		end = height / 2 + cub->mlx.screenHeight / 2;
 		if (end >= cub->mlx.screenHeight)
 			end = cub->mlx.screenHeight - 1;
 		draw_textured_row(cub, x, y);
-        draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenHeight - 1}, 0x00FF00);
+		draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenHeight - 1}, 0x00FF00);
 		y++;
-    }
+	}
 }
 
 void	raycast(t_cub *cub)
