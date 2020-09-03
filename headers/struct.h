@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 16:25:17 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/03 17:32:11 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct	s_camera
 	double	texPos;
 }				t_camera;
 
-typedef struct		s_map
+typedef struct		s_map_cub
 {
 	char			*map[20000];
 	t_vec			resolution;
@@ -109,14 +109,16 @@ typedef struct		s_map
 	char			*line;
 	unsigned int	specs;
 	unsigned int	square_size;
-}					t_map;
+}					t_map_cub;
 
 typedef struct	s_cub
 {
 	t_mlx		mlx;
 	t_image		image;
-	t_map		map;
+	t_map_cub	map;
 	t_camera	camera;
 }					t_cub;
 
+void	load_tex(t_cub cub, t_texture *tex_ref);
+void	load_textures(t_cub cub);
 # endif
