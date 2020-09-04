@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 01:49:53 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/04 18:51:48 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,24 @@ void	store_map(char *line, int nb_lines, t_cub *cub)
 	cub->file.map[i] = NULL;
 }
 
+int		get_tex_index(char *id)
+{
+	char	*copy;
+
+	copy = id;
+	if (!ft_strncmp(&*copy, "NO", 2))
+		return (0);
+	else if (!ft_strncmp(&*copy, "SO", 2))
+		return (1);
+	else if (!ft_strncmp(&*copy, "WE", 2))
+		return (2);
+	else if (!ft_strncmp(&*copy, "EA", 2))
+		return (3);
+	else
+		display_error("Error loading texture!");
+	return (-1);
+}
+
 void	parsing_switch(char **line, int *map, t_cub *cub)
 {
 	int	j;
@@ -90,17 +108,15 @@ void	parsing_switch(char **line, int *map, t_cub *cub)
 		parse_resolution(*line + j, cub);
 	else if (*line[j] == 'S' && *line[j + 1] != 'O')
 		parse_sprite(*line, cub);
-	else if (!ft_strncmp(&*line[j], "NO", 2) ||
-		!ft_strncmp(&*line[j], "SO", 2) ||
-		!ft_strncmp(&*line[j], "WE", 2) ||
-		!ft_strncmp(&*line[j], "EA ", 2))
-		parse_textures(*line, cub);
-	else if (*line[j] == 'F')
-		;
-		//parse_colors_f(*line, cub);
-	else if (*line[j] == 'C')
-		;
-		//parse_colors_c(*line, cub);*/
+	else if (!ft_strncmp(&*line[j], "SO", 2) ||
+		!ft_strncmp(&*line[j], "NO", 2) ||
+		!ft_strncmp(&*line[j], "EA", 2) ||
+		!ft_strncmp(&*line[j], "WE", 2))
+	{
+		printf("index : %d\n", get_tex_index(*(line + j)));
+		parse_textures(cub, *line, get_tex_index(*(line + j)));
+	}
+	// ne pas oublier de remettre les couleurs
 	else if (*line[j] == '0' || *line[j] == '1' || *line[j] == '2')
 		*map = 1;
 	else if (*line[j] != '\0')
@@ -179,11 +195,10 @@ void	parsing(char *file, t_cub *cub)
 		get_size_desc(cub);
 		open_cub(cub->file.name, cub);
 		parse_cub(cub);
-		fill_out(cub);
+		//fill_out(cub);
 		//if (verify_map(cub))
 		//	return (display_error("Error in map declaration!"));
-		floodmap(cub);
-		ft_putstr("Launching!\n");
+		//floodmap(cub);
 		mlx_gestion(cub);
 	}
 }

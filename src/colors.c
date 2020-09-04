@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:33:19 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 16:25:25 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/04 18:47:28 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		has_valid_ext(const char *path)
 	return (TRUE);
 }
 
-/*static char	*skip(char *line)
+char	*skip(char *line)
 {
 	line = skip_digits(line);
 	line = skip_spaces(line);
@@ -65,7 +65,7 @@ int		has_valid_ext(const char *path)
 	return (line);
 }
 
-static void	get_color_ptr(t_cub *cub, const char *id, unsigned int **color)
+/*static void	get_color_ptr(t_cub *cub, const char *id, unsigned int **color)
 {
 	if (ft_strncmp(id, "C", 1) == 0)
 		*color = &cub->map.ceil_color;

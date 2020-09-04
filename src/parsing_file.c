@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 02:10:21 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/04 18:40:19 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,20 @@ void	parse_sprite(char *sprite, t_cub *cub)
 		i++;
 	while (ft_isspace(sprite[i]))
 		i++;
-	(void)cub;
+	load_tex(cub, &sprite[i], 4);
 }
 
-void	parse_textures(char *texture, t_cub *cub)
+void	parse_textures(t_cub *cub, const char *texture, int index)
 {
 	size_t	i;
-	int		fd;
 
 	i = 0;
 	while (ft_isalpha(texture[i]))
 		i++;
 	while (ft_isspace(texture[i]))
 		i++;
-	if ((fd = open(&texture[i], O_RDONLY)) == -1)
-		return (display_error("Cannot open texture file, check your paths!"));
-	(void)cub;
+	printf("tex : %s\n", &texture[i]);
+	load_tex(cub, &texture[i], index);
 }
 
 void	parse_resolution(char *res, t_cub *cub)
