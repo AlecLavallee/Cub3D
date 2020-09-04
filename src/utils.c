@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 02:10:57 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/04 17:03:50 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 t_cub	*init_cub(t_cub *cub)
 {
-	cub->map = NULL;
 	cub->mlx.screenWidth = -1;
 	cub->mlx.screenHeight = -1;
-	cub->ceiling[0] = -1;
-	cub->ceiling[1] = -1;
-	cub->ceiling[2] = -1;
-	cub->floor[0] = -1;
-	cub->floor[1] = -1;
-	cub->floor[2] = -1;
+	cub->map.colorCeiling = -1;
+	cub->map.colorFloor = -1;
 	cub->camera.posX = 8;
 	cub->camera.posY = 5;
 	cub->camera.dirX = -1;
@@ -31,6 +26,7 @@ t_cub	*init_cub(t_cub *cub)
 	cub->camera.planeX = 0.0;
 	cub->camera.planeY = 0.66;
 	cub->camera.hit = 0;
+	cub->camera.rotSpeed = 1.0;
 	return (cub);
 }
 
