@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 15:02:02 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/04 17:56:46 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct	s_camera
 	double	planeX;
 	double	planeY;
 	double	cameraX;
+	double	rotSpeed;
 	double	sideDistX;
 	double	sideDistY;
 	double	dirX;
@@ -111,8 +112,19 @@ typedef struct		s_map_cub
 	unsigned int	square_size;
 }					t_map_cub;
 
+typedef struct	s_file
+{
+	int		fd;
+	int		size;
+	char	*name;
+	char	*path;
+	char	*line;
+	char	**map;
+}				t_file;
+
 typedef struct	s_cub
 {
+	t_file		file;
 	t_mlx		mlx;
 	t_image		image;
 	t_map_cub	map;
@@ -120,4 +132,5 @@ typedef struct	s_cub
 }					t_cub;
 
 void	load_tex(t_cub *cub, const char *path, int index);
+
 # endif
