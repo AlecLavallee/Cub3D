@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 18:10:52 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/04 15:03:35 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	draw_textured_row(t_cub *cub, int x, int y)
 	
 	// doit definir side du mur
 	//color_ptr = (unsigned*)mlx_get_data_addr(cub->map.textures[cub->camera.texNum], &bpp, &size_line, &endian);
-	color_ptr = (unsigned*)mlx_get_data_addr(cub->map.textures[cub->camera.texNum], &bpp, &size_line, &endian);
+	color_ptr = (unsigned*)mlx_get_data_addr(cub->map.textures[cub->camera.texNum].image.img_ptr, &bpp, &size_line, &endian);
 	color = (unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
 	if (cub->camera.side == 1)
 		color = (unsigned)(color >> 1) & 8355711;

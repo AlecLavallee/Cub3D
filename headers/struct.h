@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/03 17:32:11 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/04 15:02:02 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct		s_map_cub
 {
 	char			*map[20000];
 	t_vec			resolution;
-	t_textures		textures;
+	t_texture		textures[5];
 	unsigned int	colorFloor;
 	unsigned int	colorCeiling;
 	int				xsize;
@@ -119,6 +119,5 @@ typedef struct	s_cub
 	t_camera	camera;
 }					t_cub;
 
-void	load_tex(t_cub cub, t_texture *tex_ref);
-void	load_textures(t_cub cub);
+void	load_tex(t_cub *cub, const char *path, int index);
 # endif
