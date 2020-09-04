@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macbook <macbook@student.42.fr>            +#+  +:+       +#+         #
+#    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/08/20 13:04:56 by macbook          ###   ########.fr        #
+#    Updated: 2020/09/04 17:57:20 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,10 @@ SRC = $(addprefix $(PATH_S), \
 	parsing.c \
 	colors.c \
 	flood.c \
+	mvmt.c \
+	raycast.c \
+	raycast2.c \
+	loader.c \
 	utils.c \
 	save.c \
 	error.c \
