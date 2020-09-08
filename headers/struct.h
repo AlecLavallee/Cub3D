@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 17:56:46 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/08 14:39:52 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ typedef struct	s_camera
 
 typedef struct		s_map_cub
 {
-	char			*map[20000];
+	int				**map;
 	t_vec			resolution;
-	t_texture		textures[5];
-	unsigned int	colorFloor;
-	unsigned int	colorCeiling;
+	t_textures		textures;
+	unsigned char	colorFloor[4];
+	unsigned char	colorCeiling[4];
 	int				xsize;
 	int				ysize;
 	char			*line;
@@ -116,10 +116,10 @@ typedef struct	s_file
 {
 	int		fd;
 	int		size;
+	int		mapping;
 	char	*name;
 	char	*path;
-	char	*line;
-	char	**map;
+	t_map	*lstmap;
 }				t_file;
 
 typedef struct	s_cub
@@ -131,6 +131,7 @@ typedef struct	s_cub
 	t_camera	camera;
 }					t_cub;
 
-void	load_tex(t_cub *cub, const char *path, int index);
+t_texture	load_tex(t_cub *cub, char *path);
+void	parse_color(t_cub *cub, char *line);
 
 # endif

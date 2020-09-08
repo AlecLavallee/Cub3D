@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 17:03:50 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/07 16:25:13 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_cub	*init_cub(t_cub *cub)
 {
 	cub->mlx.screenWidth = -1;
 	cub->mlx.screenHeight = -1;
-	cub->map.colorCeiling = -1;
-	cub->map.colorFloor = -1;
 	cub->camera.posX = 8;
 	cub->camera.posY = 5;
 	cub->camera.dirX = -1;
@@ -27,6 +25,7 @@ t_cub	*init_cub(t_cub *cub)
 	cub->camera.planeY = 0.66;
 	cub->camera.hit = 0;
 	cub->camera.rotSpeed = 1.0;
+	cub->file.mapping = 0;
 	return (cub);
 }
 
@@ -61,10 +60,10 @@ int		get_map_size(t_cub *cub)
 	i = 0;
 	j = 0;
 	max_size = 0;
-	while (cub->file.map[i])
+	while (cub->map.map[i])
 	{
 		j = 0;
-		while (cub->file.map[i][j])
+		while (cub->map.map[i][j])
 			j++;
 		if (j > max_size)
 			max_size = j;

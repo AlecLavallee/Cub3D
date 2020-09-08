@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
+#    By: macbook <macbook@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/09/04 17:57:20 by alelaval         ###   ########.fr        #
+#    Updated: 2020/09/08 19:17:07 by macbook          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = Cub3D
 
 MKDIR = mkdir -p
 MAKE = make -s -C
+MAKE_BONUS = make bonus -s -C 
 RM = rm -rf
 
 CC = gcc
@@ -33,6 +34,7 @@ SRC = $(addprefix $(PATH_S), \
 	mlx.c \
 	parsing_file.c \
 	parsing.c \
+	parsing2.c \
 	colors.c \
 	flood.c \
 	mvmt.c \
@@ -57,7 +59,7 @@ $(PATH_B)%.o: $(PATH_S)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	$(MAKE) $(LIBFT_PTH)
+	$(MAKE_BONUS) $(LIBFT_PTH)
 
 $(PATH_B):
 	$(MKDIR) build/

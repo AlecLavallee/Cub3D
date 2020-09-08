@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 18:23:09 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/08 15:43:50 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,24 @@ void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
 		img_ptr[(limit.x * size_line / 4) + x] = color;
 }
 
+t_texture	*get_tex_ptr(t_cub *cub, int index)
+{
+	if (index == 0)
+		return (&cub->map.textures.no);
+	if (index == 1)
+		return (&cub->map.textures.so);
+	if  (index == 2)
+		return (&cub->map.textures.we);
+	if (index == 3)
+		return (&cub->map.textures.ea);
+	if (index == 4)
+		return (&cub->map.textures.sprite);
+	return (NULL);
+}
+
 void	draw_textured_row(t_cub *cub, int x, int y)
 {
+	t_texture	*tex_ptr;
 	unsigned	*img_ptr;
 	unsigned	*color_ptr;
 	int			bpp;
@@ -53,7 +69,8 @@ void	draw_textured_row(t_cub *cub, int x, int y)
 	unsigned	color;
 
 	// doit definir side du mur
-	color_ptr = (unsigned*)mlx_get_data_addr(cub->map.textures[cub->camera.texNum].image.img_ptr, &bpp, &size_line, &endian);
+	tex_ptr = get_tex_ptr(cub, cub->camera.texNum);
+	color_ptr = (unsigned*)mlx_get_data_addr(tex_ptr->image.img_ptr, &bpp, &size_line, &endian);
 	color = \
 	(unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
 	if (cub->camera.side == 1)

@@ -3,202 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 18:51:48 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/08 19:14:39 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-void		open_cub(char *file, t_cub *cub)
+void		parse_resolution(t_cub *cub, char *line)
 {
-	int		fd;
-	char	*dot;
+	int	width;
+	int height;
 
-	fd = -1;
-	cub->file.name = file;
-	dot = ft_strrchr(file, '.');
-	if (!dot)
-		return (display_error("file does not have an extension at all!"));
-	if (dot && !ft_strcmp(dot, ".cub"))
+	line += 2;
+	height = ft_atoi(line);
+	if (height > 2560)
+		cub->mlx.screenHeight = 2560;
+	else
+		cub->mlx.screenHeight = height;
+	while (ft_isdigit(*line))
+		line++;
+	width = ft_atoi(line);
+	if (width > 1440)
+		cub->mlx.screenWidth = 1440;
+	else
+		cub->mlx.screenWidth = width;
+}
+
+void		parse_texture(t_cub *cub, char *line)
+{
+	char type[2];
+
+	type[0] = line[0];
+	type[1] = line[1];
+	while (ft_isalpha(*line))
+		line++;
+	line++;
+	if (type[0] == 'N')
+		cub->map.textures.no = load_tex(cub, line);
+	if (type[0] == 'E')
+		cub->map.textures.ea = load_tex(cub, line);
+	if (type[0] == 'W')
+		cub->map.textures.we = load_tex(cub, line);
+	if (type[0] == 'S' && type[1] == 'O')
+		cub->map.textures.so = load_tex(cub, line);
+	if (type[0] == 'S' && type[1] == ' ')
+		cub->map.textures.sprite = load_tex(cub, line);
+}
+
+void	parse_line_info(t_cub *cub, char *line)
+{
+	char type;
+
+	type = *line;
+	if (type == 'R')
+		parse_resolution(cub, line);
+	if (type == 'N' || type == 'S' || type == 'W' || type == 'E')
+		parse_texture(cub, line);
+	if (type == 'C' || type == 'F')
+		parse_color(cub, line);
+}
+
+void	parse_line(t_cub *cub, char *line)
+{
+	if (*line == '\0')
+		return ;
+	if (!ft_isdigit(*line) && cub->file.mapping)
+		display_error("Line after map declaration!");
+	if (ft_isdigit(*line))
 	{
-		if ((cub->file.fd = open(file, O_RDONLY)) < 0)
-			return (display_error(".cub file not found/cannot be accessed!"));
+		cub->file.mapping = 1;
+		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
 	}
 	else
-		return (display_error("file does not have .cub extension!"));
+		parse_line_info(cub, line);
 }
 
-int		verify_map(t_cub *cub)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (cub->file.map[i])
-	{
-		j = 0;
-		while (cub->file.map[i][j])
-		{
-			if (cub->file.map[i][j] == 'N' || cub->file.map[i][j] == 'S'
-				|| cub->file.map[i][j] == 'E' || cub->file.map[i][j] == 'W'
-				|| cub->file.map[i][j] == '0' || cub->file.map[i][j] == '1'
-				|| cub->file.map[i][j] == '2')
-			{
-				j++;
-			}
-			else
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-void	store_map(char *line, int nb_lines, t_cub *cub)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	nb_lines = 0;
-	cub->file.map = (char**)malloc(sizeof(char*) * cub->file.size - nb_lines);
-	cub->file.map[i++] = ft_strdup_wspaces(line);
-	while (get_next_line(cub->file.fd, &line))
-		cub->file.map[i++] = ft_strdup_wspaces(line);
-	while (ft_isspace(line[j++]))
-		;
-	if (line[j] == '\0')
-		return (display_error("Empty line at end of map declaration!"));
-	cub->file.map[i++] = ft_strdup_wspaces(line);
-	cub->file.map[i] = NULL;
-}
-
-int		get_tex_index(char *id)
-{
-	char	*copy;
-
-	copy = id;
-	if (!ft_strncmp(&*copy, "NO", 2))
-		return (0);
-	else if (!ft_strncmp(&*copy, "SO", 2))
-		return (1);
-	else if (!ft_strncmp(&*copy, "WE", 2))
-		return (2);
-	else if (!ft_strncmp(&*copy, "EA", 2))
-		return (3);
-	else
-		display_error("Error loading texture!");
-	return (-1);
-}
-
-void	parsing_switch(char **line, int *map, t_cub *cub)
-{
-	int	j;
-
-	j = 0;
-	while (ft_isspace(*line[j]))
-		j++;
-	if (*line[j] == 'R')
-		parse_resolution(*line + j, cub);
-	else if (*line[j] == 'S' && *line[j + 1] != 'O')
-		parse_sprite(*line, cub);
-	else if (!ft_strncmp(&*line[j], "SO", 2) ||
-		!ft_strncmp(&*line[j], "NO", 2) ||
-		!ft_strncmp(&*line[j], "EA", 2) ||
-		!ft_strncmp(&*line[j], "WE", 2))
-	{
-		printf("index : %d\n", get_tex_index(*(line + j)));
-		parse_textures(cub, *line, get_tex_index(*(line + j)));
-	}
-	// ne pas oublier de remettre les couleurs
-	else if (*line[j] == '0' || *line[j] == '1' || *line[j] == '2')
-		*map = 1;
-	else if (*line[j] != '\0')
-		return (display_error("Unknow symbol in .cub!"));
-}
-
-void	parse_cub(t_cub *cub)
+void	read_file(t_cub *cub, char *path)
 {
 	char	*line;
-	int		nb_lines;
-	int		map;
-
-	map = 0;
-	line = NULL;
-	nb_lines = -1;
-	close(cub->file.fd);
-	open_cub(cub->file.name, cub);
-	while (get_next_line(cub->file.fd, &line))
+	
+	cub->file.fd = open(path, O_RDONLY);
+	if (cub->file.fd < 0)
+		display_error("Wrong path or cannot open file!");
+	while ((get_next_line(cub->file.fd, &line)) > 0)
 	{
-		parsing_switch(&line, &map, cub);
-		nb_lines++;
-		if (map == 1)
-		{
-			store_map(line, nb_lines, cub);
-			break ;
-		}
+		parse_line(cub, line);
+		free(line);
 	}
-	if (map == 0)
-		return (display_error("No map detected in .cub!"));
-	close(cub->file.fd);
+	parse_line(cub, line);
+	free(line);
 }
 
-char	*ft_fill(const char *s, int max)
-{
-	int		i;
-	char	*tmp;
-
-	if (!s)
-		return (NULL);
-	if (!(tmp = (char*)malloc(sizeof(char) * max)))
-		return (NULL);
-	i = 0;
-	while (*s)
-		tmp[i++] = *s++;
-	while (i < max)
-		tmp[i++] = '0';
-	tmp[i] = '\0';
-	return (tmp);
-}
-
-void	fill_out(t_cub *cub)
-{
-	int	i;
-	int	size;
-
-	i = 0;
-	size = get_map_size(cub);
-	cub->camera.mapX = size;
-	while (cub->file.map[i])
-	{
-		cub->file.map[i] = ft_fill(cub->file.map[i], size);
-		printf("%s\n", cub->file.map[i]);
-		i++;
-	}
-	cub->camera.mapY = i;
-}
-
-void	parsing(char *file, t_cub *cub)
-{
-	char	buff[32];
-
-	init_cub(cub);
-	open_cub(file, cub);
-	if (read(cub->file.fd, buff, 0) == 0)
-	{
-		get_size_desc(cub);
-		open_cub(cub->file.name, cub);
-		parse_cub(cub);
-		//fill_out(cub);
-		//if (verify_map(cub))
-		//	return (display_error("Error in map declaration!"));
-		//floodmap(cub);
-		mlx_gestion(cub);
-	}
-}

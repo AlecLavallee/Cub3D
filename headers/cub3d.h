@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 18:53:45 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/08 19:18:09 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,13 @@ void	mlx_gestion(t_cub *cub);
 void	floodmap(t_cub *cub);
 void	floodfill(t_cub *cub, int v, int i, int j);
 void	parse_map(char ***map, int index, t_cub *cub);
-void	parse_colors_f(char *color, t_cub *cub);
-void	parse_colors_c(char *color, t_cub *cub);
 void	parse_textures(t_cub *cub, const char *texture, int index);
-void	parse_resolution(char *res, t_cub *cub);
+void	parse_resolution(t_cub *cub, char *line);
 void	parse_cub(t_cub *cub);
 void	get_size_desc(t_cub *cub);
 void	display_error(const char *error);
+void	read_file(t_cub *cub, char *file);
 void	parsing(char* file, t_cub *cub);
-void	parse_resolution();
-void	parse_sprite();
 void	save();
 
 char	*skip(char *line);

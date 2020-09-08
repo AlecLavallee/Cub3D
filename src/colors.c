@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:33:19 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 18:47:28 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/07 12:56:36 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,37 @@
 /* DANGER */
 # include <fcntl.h>
 # include <limits.h>
+
+static void		set_color(unsigned char color[4], unsigned char r, unsigned char g, \
+		unsigned char b)
+{
+	color[0] = r;
+	color[1] = g;
+	color[2] = b;
+	color[3] = 0;
+}
+
+void			parse_color(t_cub *cub, char *line)
+{
+	char			type;
+	unsigned char	res[3];
+
+	type = *line;
+	line += 2;
+	res[0] = (unsigned char)ft_atoi(line);
+	while (ft_isdigit(*line))
+		line++;
+	line += (*line == ',');
+	res[1] = (unsigned char)ft_atoi(line);
+	while (ft_isdigit(*line))
+		line++;
+	line += (*line == ',');
+	res[2] = (unsigned char)ft_atoi(line);
+	if (type == 'C')
+		set_color(cub->map.colorCeiling, res[0], res[1], res[2]);
+	else if (type == 'F')
+		set_color(cub->map.colorFloor, res[0], res[1], res[2]);
+}
 
 char	*skip_spaces(const char *s)
 {
@@ -44,18 +75,6 @@ char	*skip_char(const char *s, unsigned char c)
 	return ((char*)s);
 }
 
-int		has_valid_ext(const char *path)
-{
-	const size_t len = ft_strlen(path);
-	const size_t ext_len = ft_strlen(".cub");
-
-	if (len < 5)
-		return (FALSE);
-	if (ft_strncmp(&path[len - ext_len], ".cub", ext_len) != 0)
-		return (FALSE);
-	return (TRUE);
-}
-
 char	*skip(char *line)
 {
 	line = skip_digits(line);
@@ -64,39 +83,3 @@ char	*skip(char *line)
 	line = skip_spaces(line);
 	return (line);
 }
-
-/*static void	get_color_ptr(t_cub *cub, const char *id, unsigned int **color)
-{
-	if (ft_strncmp(id, "C", 1) == 0)
-		*color = &cub->map.ceil_color;
-	else
-		*color = &cub->map.floor_color;
-}
-
-int			parse_color(t_cub *cub, const char *id, char *line)
-{
-	const size_t	id_len = ft_strlen(id);
-	unsigned int	*color;
-	int				colors[RGB_SIZE];
-	int				index;
-
-	index = 0;
-	line = &line[id_len];
-	get_color_ptr(cub, id, &color);
-	ft_memset(colors, 0, sizeof(int) * RGB_SIZE);
-	line = skip_spaces(line);
-	while (*line != '\0' && ft_isdigit(*line) && index < RGB_SIZE)
-	{
-		colors[index] = ft_atoi(line);
-		if (colors[index] > 255 || colors[index] < 0)
-			return (CODE_ERR_COLOR_OUT_OF_RANGE);
-		line = skip(line);
-		index++;
-	}
-	if (*line != '\0')
-		return (CODE_ERR_BAD_CHARS_IN_COLORS);
-	if (index != RGB_SIZE)
-		return (CODE_ERR_COLOR_MISSING);
-	*color = ft_encode_rgb(colors[0], colors[1], colors[2]);
-	return (RET_NO_ERROR);
-}*/

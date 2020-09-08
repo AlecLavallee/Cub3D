@@ -1,11 +1,11 @@
 R 700 700
 F 220,100,0
 C 225,30,0
-SO ./texture/colorstone.xpm
-NO ./tests/mossy.xpm
-WE ./tests/purplestone.xpm
-EA ./tests/redbrick.xpm
-S ./tests/barrel.xpm
+SO ./textures/colorstone.xpm
+NO ./textures/mossy.xpm
+WE ./textures/purplestone.xpm
+EA ./textures/redbrick.xpm
+S ./textures/barrel.xpm
 		1111111111111111111111111
 		1000000000110000000000001
 		1011000001110000002000001
