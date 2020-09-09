@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/08 15:43:50 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/09 14:56:09 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,17 @@ void	draw_textured_row(t_cub *cub, int x, int y)
 	img_ptr[(y * size_line / 4) + x] = color;
 }
 
+unsigned	get_color_rgb(unsigned char *color)
+{
+	unsigned ret_color;
+
+	ret_color = 0;
+	ret_color += color[0];
+	ret_color += color[1];
+	ret_color += color[2];
+	return (ret_color);
+}
+
 void	draw(t_cub *cub, int x)
 {
 	int		y;
@@ -92,18 +103,17 @@ void	draw(t_cub *cub, int x)
 	begin = -height / 2 + cub->mlx.screenHeight / 2;
 	if (begin < 0)
 		begin = 0;
-	while (y < cub->camera.drawEnd)
+	while (y++ < cub->camera.drawEnd)
 	{
 		cub->camera.texY = (int)cub->camera.texPos & (texHeight - 1);
 		cub->camera.texPos += cub->camera.step;
-		draw_scanline(cub, x, (t_vec){0, begin - 1}, 0xFF0000);
+		draw_scanline(cub, x, (t_vec){0, begin - 1}, get_color_rgb(cub->map.colorFloor));
 		end = height / 2 + cub->mlx.screenHeight / 2;
 		if (end >= cub->mlx.screenHeight)
 			end = cub->mlx.screenHeight - 1;
 		draw_textured_row(cub, x, y);
 		draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenHeight - 1}, \
-		0x00FF00);
-		y++;
+		get_color_rgb(cub->map.colorCeiling));
 	}
 }
 
