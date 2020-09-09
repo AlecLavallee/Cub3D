@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/09 14:56:09 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/09 15:12:14 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,19 @@ void	draw(t_cub *cub, int x)
 	begin = -height / 2 + cub->mlx.screenHeight / 2;
 	if (begin < 0)
 		begin = 0;
+	draw_scanline(cub, x, (t_vec){0, begin - 1}, get_color_rgb(cub->map.colorFloor));
 	while (y++ < cub->camera.drawEnd)
 	{
 		cub->camera.texY = (int)cub->camera.texPos & (texHeight - 1);
 		cub->camera.texPos += cub->camera.step;
-		draw_scanline(cub, x, (t_vec){0, begin - 1}, get_color_rgb(cub->map.colorFloor));
+		
 		end = height / 2 + cub->mlx.screenHeight / 2;
 		if (end >= cub->mlx.screenHeight)
 			end = cub->mlx.screenHeight - 1;
 		draw_textured_row(cub, x, y);
-		draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenHeight - 1}, \
-		get_color_rgb(cub->map.colorCeiling));
 	}
+	draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenHeight - 1}, \
+		get_color_rgb(cub->map.colorCeiling));
 }
 
 void	raycast(t_cub *cub)
