@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/09 15:12:14 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/09 15:20:44 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	draw(t_cub *cub, int x)
 	{
 		cub->camera.texY = (int)cub->camera.texPos & (texHeight - 1);
 		cub->camera.texPos += cub->camera.step;
-		
 		end = height / 2 + cub->mlx.screenHeight / 2;
 		if (end >= cub->mlx.screenHeight)
 			end = cub->mlx.screenHeight - 1;
