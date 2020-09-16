@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/16 15:18:57 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:34:32 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@
 # define FALSE 1
 # define TRUE 0
 
+
 t_cub	*init_cub(t_cub *cub);
+t_texture	load_tex(t_cub *cub, char *path);
 char	*ft_strdup_wspaces(const char *s);
 int		get_map_size(t_cub *cub);
 void	mlx_gestion(t_cub *cub);
@@ -41,6 +43,7 @@ void	floodfill(t_cub *cub, int v, int i, int j);
 void	parse_map(char ***map, int index, t_cub *cub);
 void	parse_textures(t_cub *cub, const char *texture, int index);
 void	parse_resolution(t_cub *cub, char *line);
+void	parse_color(t_cub *cub, char *line);
 void	parse_cub(t_cub *cub);
 void	get_size_desc(t_cub *cub);
 void	display_error(t_cub *cub, const char *error);

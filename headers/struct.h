@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/16 14:41:48 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:35:00 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,5 @@ typedef struct	s_cub
 	t_camera	camera;
 	t_player	player;
 }					t_cub;
-
-t_texture	load_tex(t_cub *cub, char *path);
-void	parse_color(t_cub *cub, char *line);
 
 # endif
