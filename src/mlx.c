@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/08 16:17:21 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/16 13:26:21 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ void	mlx_clear_img(void *img_ptr, int height_res)
 void	mlx_gestion(t_cub *cub)
 {
 	cub->mlx.window = \
-	mlx_new_window(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenWidth, \
+	mlx_new_window(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenHeight, \
 	"Cub3D");
 	cub->image.img_ptr = \
 	mlx_new_image(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenHeight);
-	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenWidth);
-	raycast(cub);
-	mlx_key_hook(cub->mlx.window, ft_key_hook, cub);
+	mlx_hook(cub->mlx.window, 2, 1L << 0, ft_key_hook, cub);
+	mlx_hook(cub->mlx.window, 3, 1L << 1, ft_key_release, cub);
+	mlx_hook(cub->mlx.window, 17, 1L << 5, close_game, cub);
+	mlx_loop_hook(cub->mlx.mlx, raycast, cub);
 	mlx_loop(cub->mlx.mlx);
 }

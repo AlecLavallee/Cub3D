@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/09 15:20:44 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/16 13:22:49 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,14 @@ void	draw(t_cub *cub, int x)
 		get_color_rgb(cub->map.colorCeiling));
 }
 
-void	raycast(t_cub *cub)
+int		raycast(t_cub *cub)
 {
 	int	i;
 
 	i = 0;
 	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenHeight);
-	while (i++ < cub->mlx.screenWidth)
+	player_move(cub);
+	while (i < cub->mlx.screenWidth)
 	{
 		cub->camera.hit = 0;
 		cub->camera.cameraX = (2 * i / (double)cub->mlx.screenWidth - 1);
@@ -133,8 +134,9 @@ void	raycast(t_cub *cub)
 		perp_wall_dist(cub);
 		draw_calc(cub);
 		text_calc(cub);
-		draw(cub, i);
+		draw(cub, i++);
 	}
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, \
 	cub->image.img_ptr, 0, 0);
+	return (0);
 }

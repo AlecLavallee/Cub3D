@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/08 14:39:52 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/10 15:48:33 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ typedef struct		s_textures
 
 typedef struct	s_player
 {
+	int		mvmtUP;
+	int		mvmtDOWN;
+	int		mvmtLEFT;
+	int		mvmtRIGHT;
+	int		mvmtROTL;
+	int		mvmtROTR;
 	double	time;
 	double	oldTime;
 	double 	frameTime;
@@ -80,12 +86,14 @@ typedef struct	s_camera
 	int		texY;
 	double	posX;
 	double	posY;
+	double	oldPlaneX;
 	double	planeX;
 	double	planeY;
 	double	cameraX;
 	double	rotSpeed;
 	double	sideDistX;
 	double	sideDistY;
+	double	oldDirX;
 	double	dirX;
 	double	dirY;
 	double	rayDirX;
@@ -129,6 +137,7 @@ typedef struct	s_cub
 	t_image		image;
 	t_map_cub	map;
 	t_camera	camera;
+	t_player	player;
 }					t_cub;
 
 t_texture	load_tex(t_cub *cub, char *path);

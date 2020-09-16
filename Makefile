@@ -6,7 +6,7 @@
 #    By: macbook <macbook@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/09/08 19:17:07 by macbook          ###   ########.fr        #
+#    Updated: 2020/09/10 13:07:46 by macbook          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC = $(addprefix $(PATH_S), \
 	parsing2.c \
 	colors.c \
 	flood.c \
+	free.c \
 	mvmt.c \
 	raycast.c \
 	raycast2.c \

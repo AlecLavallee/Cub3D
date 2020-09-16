@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/04 17:50:51 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/10 16:23:00 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	text_calc(t_cub	*cub);
 void	draw_scanline(t_cub *cub, int x, t_vec limit, int color);
 void	draw_textured_row(t_cub *cub, int x, int y);
 void	draw(t_cub *cub, int x);
-void	raycast(t_cub *cub);
+int 	raycast(t_cub *cub);
 
 #endif

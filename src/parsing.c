@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/08 19:14:39 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/10 13:10:05 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	parse_line(t_cub *cub, char *line)
 	if (*line == '\0')
 		return ;
 	if (!ft_isdigit(*line) && cub->file.mapping)
-		display_error("Line after map declaration!");
+		display_error(cub, "Line after map declaration!");
 	if (ft_isdigit(*line))
 	{
 		cub->file.mapping = 1;
@@ -88,7 +88,7 @@ void	read_file(t_cub *cub, char *path)
 	
 	cub->file.fd = open(path, O_RDONLY);
 	if (cub->file.fd < 0)
-		display_error("Wrong path or cannot open file!");
+		display_error(cub, "Wrong path or cannot open file!");
 	while ((get_next_line(cub->file.fd, &line)) > 0)
 	{
 		parse_line(cub, line);

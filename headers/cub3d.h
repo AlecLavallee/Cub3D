@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/08 19:18:09 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/10 13:08:42 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	parse_textures(t_cub *cub, const char *texture, int index);
 void	parse_resolution(t_cub *cub, char *line);
 void	parse_cub(t_cub *cub);
 void	get_size_desc(t_cub *cub);
-void	display_error(const char *error);
+void	display_error(t_cub *cub, const char *error);
 void	read_file(t_cub *cub, char *file);
 void	parsing(char* file, t_cub *cub);
 void	save();
