@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:41 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/10 13:09:39 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/16 15:25:55 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int		main(int ac, char **av)
 	if (ac == 1)
 		display_error(&cub, "There's no arguments!");
 	if (ac == 2)
-	{
 		parsing(av[1], &cub);
-	}
 	if (ac == 3)
 		save();
 	if (ac > 3)
