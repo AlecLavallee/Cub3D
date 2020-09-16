@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/16 13:22:49 by macbook          ###   ########.fr       */
+/*   Updated: 2020/09/16 15:53:00 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 void	text_calc(t_cub	*cub)
 {
 	int worldMap[24][24]={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
+
 	cub->camera.texNum = worldMap[cub->camera.mapX][cub->camera.mapY] - 1;
 	if (cub->camera.side == 0)
-		cub->camera.wallX = cub->camera.posY + cub->camera.perpWallDist * cub->camera.rayDirY;
+		cub->camera.wallX = cub->camera.posY + cub->camera.perpWallDist
+		* cub->camera.rayDirY;
 	else
-		cub->camera.wallX = cub->camera.posX + cub->camera.perpWallDist * cub->camera.rayDirX;
+		cub->camera.wallX = cub->camera.posX + cub->camera.perpWallDist
+		* cub->camera.rayDirX;
 	cub->camera.wallX -= floor(cub->camera.wallX);
 	cub->camera.texX = (int)(cub->camera.wallX * (double)texWidth);
 	if (cub->camera.side == 0 && cub->camera.rayDirX > 0)
@@ -27,8 +30,8 @@ void	text_calc(t_cub	*cub)
 	if (cub->camera.side == 1 && cub->camera.rayDirY < 0)
 		cub->camera.texX = texWidth - cub->camera.texX - 1;
 	cub->camera.step = 1.0 * texHeight / cub->camera.lineHeight;
-	cub->camera.texPos = (double)(cub->camera.drawStart - cub->mlx.screenHeight / 2 \
-	+ cub->camera.lineHeight / 2) * cub->camera.step;
+	cub->camera.texPos = (double)(cub->camera.drawStart -
+	cub->mlx.screenHeight / 2 + cub->camera.lineHeight / 2) * cub->camera.step;
 }
 
 void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
@@ -38,7 +41,8 @@ void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
 	int			size_line;
 	int			endian;
 
-	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, &bpp, &size_line, &endian);
+	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr,
+	&bpp, &size_line, &endian);
 	while (limit.x++ < limit.y)
 		img_ptr[(limit.x * size_line / 4) + x] = color;
 }
@@ -49,7 +53,7 @@ t_texture	*get_tex_ptr(t_cub *cub, int index)
 		return (&cub->map.textures.no);
 	if (index == 1)
 		return (&cub->map.textures.so);
-	if  (index == 2)
+	if (index == 2)
 		return (&cub->map.textures.we);
 	if (index == 3)
 		return (&cub->map.textures.ea);
@@ -70,7 +74,8 @@ void	draw_textured_row(t_cub *cub, int x, int y)
 
 	// doit definir side du mur
 	tex_ptr = get_tex_ptr(cub, cub->camera.texNum);
-	color_ptr = (unsigned*)mlx_get_data_addr(tex_ptr->image.img_ptr, &bpp, &size_line, &endian);
+	color_ptr = (unsigned*)mlx_get_data_addr(tex_ptr->image.img_ptr,
+	&bpp, &size_line, &endian);
 	color = \
 	(unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
 	if (cub->camera.side == 1)
