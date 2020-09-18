@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macbook <macbook@student.42.fr>            +#+  +:+       +#+         #
+#    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/09/10 13:07:46 by macbook          ###   ########.fr        #
+#    Updated: 2020/09/18 16:33:57 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT = $(addprefix $(LIBFT_PTH), libft.a)
 PATH_S = src/
 SRC = $(addprefix $(PATH_S), \
 	mlx.c \
-	parsing_file.c \
+	parsing_map.c \
 	parsing.c \
 	parsing2.c \
 	colors.c \

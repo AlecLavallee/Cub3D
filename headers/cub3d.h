@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/17 14:50:32 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/18 16:57:31 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	display_error(t_cub *cub, const char *error);
 void	read_file(t_cub *cub, char *file);
 void	parsing(char* file, t_cub *cub);
 void	save();
+
+int		**allocate_map(t_cub *cub, int index, int max);
+void	create_map(t_cub *cub, t_map **map);
+int		get_index_map(t_map *ref);
+int		get_max_len(t_map *ref);
+int		*store_line_map(t_cub *cub, t_map *ref, int max);
 
 char	*skip(char *line);
 #endif

@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/17 14:49:59 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/18 16:33:30 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_texture	load_tex(t_cub *cub, char *path)
 {
-	t_texture		tex;
+	t_texture	tex;
 	int			config[3];
 
 	tex.image.img_ptr = mlx_xpm_file_to_image(cub->mlx.mlx, path,
