@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/17 14:50:08 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/20 23:43:36 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,78 @@ void		parse_texture(t_cub *cub, char *line)
 		cub->map.textures.sprite = load_tex(cub, line);
 }
 
-void	parse_line_info(t_cub *cub, char *line)
+int		parse_line_info(t_cub *cub, char *line)
 {
 	char type;
 
 	type = *line;
 	if (type == 'R')
+	{
 		parse_resolution(cub, line);
+		return (0);
+	}
 	if (type == 'N' || type == 'S' || type == 'W' || type == 'E')
+	{
 		parse_texture(cub, line);
+		return (0);
+	}
 	if (type == 'C' || type == 'F')
+	{
 		parse_color(cub, line);
+		return (0);
+	}
+	if (type == '\0')
+		return (0);
+	return (1);
+}
+
+char	*verify_map_line(t_cub *cub, char *line, int index)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		{
+			cub->camera.posX = i;
+			cub->camera.posY = index;
+			line[i] = '0';
+		}
+		else if (line[i] == ' ')
+			line[i] = '1';
+		else if (line[i] == '1' || line[i] == '2' || line[i] == '0')
+			;
+		else
+			display_error(cub, "Wrong character in map declaration!");
+		i++;
+	}
+	return (line);
 }
 
 void	parse_line(t_cub *cub, char *line)
 {
-	if (*line == '\0')
-		return ;
-	if (!ft_isdigit(*line) && cub->file.mapping)
-		display_error(cub, "Line after map declaration!");
-	if (ft_isdigit(*line))
+	if ((parse_line_info(cub, line)) == 0 || *line == '\0')
 	{
-		cub->file.mapping = 1;
-		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
+		if (cub->file.mapping == 1)
+			display_error(cub, "Wrong info after map start!");
 	}
 	else
-		parse_line_info(cub, line);
+	{
+		cub->file.mapping = 1;
+		line = verify_map_line(cub, line, cub->file.index);
+		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
+		cub->file.index++;
+		printf("%s\n", line);
+	}
 }
 
 void	read_file(t_cub *cub, char *path)
 {
 	char	*line;
-	
+
+	cub->file.index = 0;
+	cub->file.mapping = 0;
 	cub->file.fd = open(path, O_RDONLY);
 	if (cub->file.fd < 0)
 		display_error(cub, "Wrong path or cannot open file!");
@@ -97,4 +137,3 @@ void	read_file(t_cub *cub, char *path)
 	parse_line(cub, line);
 	free(line);
 }
-

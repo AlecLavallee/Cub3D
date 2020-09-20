@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/16 15:06:14 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/20 21:53:18 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_cub	*init_cub(t_cub *cub)
 	cub->camera.rotSpeed = 0.15;
 	cub->player.moveSpeed = 0.15;
 	cub->file.mapping = 0;
+	cub->file.index = 0;
 	return (cub);
 }
 

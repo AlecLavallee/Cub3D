@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/09/18 16:33:57 by alelaval         ###   ########.fr        #
+#    Updated: 2020/09/20 21:36:37 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRC = $(addprefix $(PATH_S), \
 	parsing.c \
 	parsing2.c \
 	colors.c \
-	flood.c \
 	free.c \
 	mvmt.c \
 	raycast.c \

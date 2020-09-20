@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/17 14:50:30 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/20 21:53:41 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct	s_file
 {
 	int		fd;
 	int		size;
+	int		index;
 	int		mapping;
 	t_map	*lstmap;
 }				t_file;
