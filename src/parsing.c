@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/20 23:43:36 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/21 23:23:18 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,19 @@ int		parse_line_info(t_cub *cub, char *line)
 	return (1);
 }
 
-char	*verify_map_line(t_cub *cub, char *line, int index)
+int		is_valid_map(char *line)
 {
 	int	i;
 
 	i = 0;
 	while (line[i] != '\0')
-	{
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
-		{
-			cub->camera.posX = i;
-			cub->camera.posY = index;
-			line[i] = '0';
-		}
-		else if (line[i] == ' ')
-			line[i] = '1';
-		else if (line[i] == '1' || line[i] == '2' || line[i] == '0')
-			;
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W'
+			|| line[i] == '0' || line[i] == '1' || line[i] == '2'
+			|| line[i] == ' ')
+			i++;
 		else
-			display_error(cub, "Wrong character in map declaration!");
-		i++;
-	}
-	return (line);
+			return (1);
+	return (0);
 }
 
 void	parse_line(t_cub *cub, char *line)
@@ -113,10 +104,10 @@ void	parse_line(t_cub *cub, char *line)
 	else
 	{
 		cub->file.mapping = 1;
-		line = verify_map_line(cub, line, cub->file.index);
+		if (is_valid_map(line))
+			display_error(cub, "Map has invalid characters!");
 		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
 		cub->file.index++;
-		printf("%s\n", line);
 	}
 }
 
