@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/21 23:23:18 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/22 00:01:13 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,21 @@ int		parse_line_info(t_cub *cub, char *line)
 	return (1);
 }
 
-int		is_valid_map(char *line)
+int		is_valid_map(t_cub *cub, char *line)
 {
 	int	i;
 
 	i = 0;
 	while (line[i] != '\0')
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W'
-			|| line[i] == '0' || line[i] == '1' || line[i] == '2'
-			|| line[i] == ' ')
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		{
+			if (cub->file.orientation == 1)
+				display_error(cub, "More than one orientation in map!");
+			cub->file.orientation = 1;
+			i++;
+		}
+		else if (line[i] == '0' || line[i] == '1' || line[i] == '2'
+				|| line[i] == ' ')
 			i++;
 		else
 			return (1);
@@ -104,7 +110,7 @@ void	parse_line(t_cub *cub, char *line)
 	else
 	{
 		cub->file.mapping = 1;
-		if (is_valid_map(line))
+		if (is_valid_map(cub, line))
 			display_error(cub, "Map has invalid characters!");
 		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
 		cub->file.index++;
@@ -117,6 +123,7 @@ void	read_file(t_cub *cub, char *path)
 
 	cub->file.index = 0;
 	cub->file.mapping = 0;
+	cub->file.orientation = 0;
 	cub->file.fd = open(path, O_RDONLY);
 	if (cub->file.fd < 0)
 		display_error(cub, "Wrong path or cannot open file!");

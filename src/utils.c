@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/20 21:53:18 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/22 01:22:46 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ t_cub	*init_cub(t_cub *cub)
 	cub->map.map = NULL;
 	cub->map.line = NULL;
 	cub->mlx.window = NULL;
-	cub->camera.posX = 8;
-	cub->camera.posY = 5;
 	cub->camera.dirX = -1;
 	cub->camera.dirY = 0;
 	cub->camera.planeX = 0.0;

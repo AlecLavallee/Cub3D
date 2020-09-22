@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/21 23:42:30 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/22 01:28:56 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		get_max_len(t_map *ref)
 	return (max_len);
 }
 
-int		*store_line_map(t_map *ref, int max)
+int		*store_line_map(t_cub *cub, t_map *ref, int index, int max)
 {
 	int	i;
 	int	*line;
@@ -41,6 +41,13 @@ int		*store_line_map(t_map *ref, int max)
 	line = (int*)malloc(sizeof(int) * max + 1);
 	while (i < max && line[i] != '\0')
 	{
+		if (ref->map[i] == 'N' || ref->map[i] == 'S'
+			|| ref->map[i] == 'E' || ref->map[i] == 'W')
+		{
+			cub->camera.posX = i;
+			cub->camera.posY = index;
+			ref->map[i] = '0';
+		}
 		line[i] = ref->map[i] - 48;
 		i++;
 		max--;
@@ -74,11 +81,10 @@ void	create_map(t_cub *cub, t_map **map)
 
 	index = 0;
 	max = get_max_len(*map);
-	printf("max : %d, index : %d\n", max, cub->file.index);
 	cub->map.map = allocate_map(cub, cub->file.index, max);
 	while (map[0] != NULL)
 	{
-		cub->map.map[index] = store_line_map(map[0], max);
+		cub->map.map[index] = store_line_map(cub, map[0], index, max);
 		map[0] = map[0]->next;
 		index++;
 	}

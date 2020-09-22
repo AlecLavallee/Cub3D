@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/20 21:53:41 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/22 01:33:17 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,8 @@ typedef struct		s_map_cub
 typedef struct	s_file
 {
 	int		fd;
-	int		size;
-	int		index;
 	int		mapping;
+	int		orientation;
 	t_map	*lstmap;
 }				t_file;
 
