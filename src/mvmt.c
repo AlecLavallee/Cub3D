@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/21 23:52:00 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/23 01:00:27 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ void	move_backward(t_cub *cub)
 
 void	move_left(t_cub *cub)
 {
-	if (cub->map.map[(int)(cub->camera.posY - cub->camera.planeY * cub->player.moveSpeed)][(int)(cub->camera.posX)] == 0)
-		cub->camera.posY -= cub->camera.planeY * cub->player.moveSpeed;
-	if (cub->map.map[(int)(cub->camera.posY)][(int)(cub->camera.posX - cub->camera.planeX * cub->player.moveSpeed)] == 0)
+	if (cub->map.map[(int)(cub->camera.posX - cub->camera.planeX * cub->player.moveSpeed)][(int)cub->camera.posY] == 0)
 		cub->camera.posX -= cub->camera.planeX * cub->player.moveSpeed;
+	if (cub->map.map[(int)cub->camera.posX][(int)(cub->camera.posY - cub->camera.planeY * cub->player.moveSpeed)] == 0)
+		cub->camera.posY -= cub->camera.planeY * cub->player.moveSpeed;
 }
 
 void	move_right(t_cub *cub)
 {
-	if (cub->map.map[(int)(cub->camera.posY + cub->camera.planeY * cub->player.moveSpeed)][(int)(cub->camera.posX)] == 0)
-		cub->camera.posY += cub->camera.planeY * cub->player.moveSpeed;
-	if (cub->map.map[(int)(cub->camera.posY)][(int)(cub->camera.posX + cub->camera.planeX * cub->player.moveSpeed)] == 0)
+	if (cub->map.map[(int)(cub->camera.posX + cub->camera.planeX * cub->player.moveSpeed)][(int)cub->camera.posY] == 0)
 		cub->camera.posX += cub->camera.planeX * cub->player.moveSpeed;
+	if (cub->map.map[(int)cub->camera.posX][(int)(cub->camera.posY + cub->camera.planeY * cub->player.moveSpeed)] == 0)
+		cub->camera.posY += cub->camera.planeY * cub->player.moveSpeed;
 }
 
 void	rot_left(t_cub *cub)

@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/22 01:19:41 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/23 02:35:11 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ray_init(t_cub *cub)
 	* cub->camera.cameraX;
 	cub->camera.mapX = (int)cub->camera.posX;
 	cub->camera.mapY = (int)cub->camera.posY;
-	cub->camera.deltaDistX = fabs(1 / cub->camera.rayDirX);
-	cub->camera.deltaDistY = fabs(1 / cub->camera.rayDirY);
+	cub->camera.deltaDistX = fabs(1.0 / cub->camera.rayDirX);
+	cub->camera.deltaDistY = fabs(1.0 / cub->camera.rayDirY);
 }
 
 void	raycast_init(t_cub *cub)
@@ -29,25 +29,25 @@ void	raycast_init(t_cub *cub)
 	if (cub->camera.rayDirX < 0)
 	{
 		cub->camera.stepX = -1;
-		cub->camera.sideDistX = (cub->camera.posX - cub->camera.mapX) \
+		cub->camera.sideDistX = (cub->camera.posX - (double)cub->camera.mapX)
 		* cub->camera.deltaDistX;
 	}
 	else
 	{
 		cub->camera.stepX = 1;
-		cub->camera.sideDistX = (cub->camera.mapX + 1.0 - cub->camera.posX) \
+		cub->camera.sideDistX = ((double)cub->camera.mapX + 1.0 - cub->camera.posX)
 		* cub->camera.deltaDistX;
 	}
 	if (cub->camera.rayDirY < 0)
 	{
 		cub->camera.stepY = -1;
-		cub->camera.sideDistY = (cub->camera.posY - cub->camera.mapY) \
+		cub->camera.sideDistY = (cub->camera.posY - (double)cub->camera.mapY)
 		* cub->camera.deltaDistY;
 	}
 	else
 	{
 		cub->camera.stepY = 1;
-		cub->camera.sideDistY = (cub->camera.mapY + 1.0 - cub->camera.posY) \
+		cub->camera.sideDistY = ((double)cub->camera.mapY + 1.0 - cub->camera.posY)
 		* cub->camera.deltaDistY;
 	}
 }
@@ -55,11 +55,11 @@ void	raycast_init(t_cub *cub)
 void	perp_wall_dist(t_cub *cub)
 {
 	if (cub->camera.side == 0)
-		cub->camera.perpWallDist = (cub->camera.mapX - cub->camera.posX +
-		(1 - cub->camera.stepX) / 2) / cub->camera.rayDirX;
+		cub->camera.perpWallDist = ((double)cub->camera.mapX - cub->camera.posX +
+		(1.0 - (double)cub->camera.stepX) / 2.0) / cub->camera.rayDirX;
 	else
 		cub->camera.perpWallDist = (cub->camera.mapY - cub->camera.posY +
-		(1 - cub->camera.stepY) / 2) / cub->camera.rayDirY;
+		(1.0 - (double)cub->camera.stepY) / 2.0) / cub->camera.rayDirY;
 }
 
 void	dda(t_cub *cub)
@@ -78,6 +78,7 @@ void	dda(t_cub *cub)
 			cub->camera.mapY += cub->camera.stepY;
 			cub->camera.side = 1;
 		}
+		//printf("%d, %d\n", cub->camera.mapX, cub->camera.mapY);
 		if (cub->map.map[cub->camera.mapX][cub->camera.mapY] == 1)
 			cub->camera.hit = 1;
 	}

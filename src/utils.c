@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/22 01:22:46 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/23 03:03:24 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ t_cub	*init_cub(t_cub *cub)
 	cub->map.map = NULL;
 	cub->map.line = NULL;
 	cub->mlx.window = NULL;
-	cub->camera.dirX = -1;
-	cub->camera.dirY = 0;
+	cub->camera.dirX = -1.0;
+	cub->camera.dirY = 0.0;
 	cub->camera.planeX = 0.0;
 	cub->camera.planeY = 0.66;
 	cub->camera.hit = 0;
 	cub->camera.rotSpeed = 0.15;
 	cub->player.moveSpeed = 0.15;
-	cub->file.mapping = 0;
-	cub->file.index = 0;
 	return (cub);
 }
 
@@ -88,17 +86,4 @@ int		get_map_size(t_cub *cub)
 		i++;
 	}
 	return (max_size);
-}
-
-void	get_size_desc(t_cub *cub)
-{
-	char *line;
-
-	line = NULL;
-	cub->file.size = 0;
-	while (get_next_line(cub->file.fd, &line))
-		cub->file.size++;
-	close(cub->file.fd);
-	cub->file.size++;
-	free(line);
 }

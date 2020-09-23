@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/22 00:01:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/23 00:38:12 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	parse_line(t_cub *cub, char *line)
 		if (is_valid_map(cub, line))
 			display_error(cub, "Map has invalid characters!");
 		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
-		cub->file.index++;
+		cub->map.ysize++;
 	}
 }
 
@@ -121,7 +121,7 @@ void	read_file(t_cub *cub, char *path)
 {
 	char	*line;
 
-	cub->file.index = 0;
+	cub->map.ysize = 0;
 	cub->file.mapping = 0;
 	cub->file.orientation = 0;
 	cub->file.fd = open(path, O_RDONLY);
@@ -134,4 +134,6 @@ void	read_file(t_cub *cub, char *path)
 	}
 	parse_line(cub, line);
 	free(line);
+	if (cub->file.orientation == 0)
+		display_error(cub, "No orientaion for the player!");
 }
