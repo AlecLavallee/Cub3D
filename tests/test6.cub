@@ -1,0 +1,8 @@
+R 700 700
+F 220,100,0
+C 225,30,0
+SO ./textures/colorstone.xpm
+NO ./textures/mossy.xpm
+WE ./textures/purplestone.xpm
+EA ./textures/redbrick.xpm
+S ./textures/barrel.xpm
