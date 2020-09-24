@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/23 03:03:24 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/24 02:36:49 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	set_textures(t_cub *cub)
 
 t_cub	*init_cub(t_cub *cub)
 {
+	cub->flags = 0;
 	set_textures(cub);
 	cub->map.map = NULL;
 	cub->map.line = NULL;
@@ -43,47 +44,4 @@ t_cub	*init_cub(t_cub *cub)
 	cub->camera.rotSpeed = 0.15;
 	cub->player.moveSpeed = 0.15;
 	return (cub);
-}
-
-char	*ft_strdup_wspaces(const char *s)
-{
-	int		i;
-	char	*copy;
-	char	*tmp;
-
-	if (!s)
-		return (NULL);
-	copy = ft_strdup(s);
-	if (!(tmp = (char*)malloc(sizeof(char) * ft_strlen(copy))))
-		return (NULL);
-	i = 0;
-	while (*copy)
-	{
-		if (!ft_isspace(*copy))
-			tmp[i++] = *copy;
-		copy++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
-}
-
-int		get_map_size(t_cub *cub)
-{
-	int	i;
-	int	j;
-	int	max_size;
-
-	i = 0;
-	j = 0;
-	max_size = 0;
-	while (cub->map.map[i])
-	{
-		j = 0;
-		while (cub->map.map[i][j])
-			j++;
-		if (j > max_size)
-			max_size = j;
-		i++;
-	}
-	return (max_size);
 }

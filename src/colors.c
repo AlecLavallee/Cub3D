@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:33:19 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/16 15:30:47 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/24 06:06:30 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ void	parse_color(t_cub *cub, char *line)
 	line += (*line == ',');
 	res[2] = (unsigned char)ft_atoi(line);
 	if (type == 'C')
+	{
 		set_color(cub->map.colorCeiling, res[0], res[1], res[2]);
+		check_flag(cub, CC, 1);
+	}
 	else if (type == 'F')
+	{
 		set_color(cub->map.colorFloor, res[0], res[1], res[2]);
+		check_flag(cub, CF, 1);
+	}
 }

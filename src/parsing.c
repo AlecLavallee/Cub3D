@@ -6,18 +6,28 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/23 00:38:12 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/24 06:04:27 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
+int		check_flag(t_cub *cub, int flag, int set)
+{
+	if (cub->flags & flag)
+		display_error(cub, "Duplicate descriptors in config file!");
+	if (set == 1)
+		cub->flags |= flag;
+	return (0);
+}
+
 void		parse_resolution(t_cub *cub, char *line)
 {
 	int	width;
 	int height;
 
+	check_flag(cub, R, 0);
 	line += 2;
 	height = ft_atoi(line);
 	if (height > 2560)
@@ -31,6 +41,21 @@ void		parse_resolution(t_cub *cub, char *line)
 		cub->mlx.screenWidth = 1440;
 	else
 		cub->mlx.screenWidth = width;
+	check_flag(cub, R, 1);
+}
+
+void		set_texture_flag(t_cub *cub, const char *type)
+{
+	if (type[0] == 'N')
+		check_flag(cub, NO, 1);
+	if (type[0] == 'E')
+		check_flag(cub, EA, 1);
+	if (type[0] == 'W')
+		check_flag(cub, WE, 1);
+	if (type[0] == 'S' && type[1] == 'O')
+		check_flag(cub, SO, 1);
+	if (type[0] == 'S' && type[1] == ' ')
+		check_flag(cub, S, 1);
 }
 
 void		parse_texture(t_cub *cub, char *line)
@@ -42,16 +67,17 @@ void		parse_texture(t_cub *cub, char *line)
 	while (ft_isalpha(*line))
 		line++;
 	line++;
-	if (type[0] == 'N')
+	if (type[0] == 'N' && !check_flag(cub, NO, 0))
 		cub->map.textures.no = load_tex(cub, line);
-	if (type[0] == 'E')
+	if (type[0] == 'E' && !check_flag(cub, EA, 0))
 		cub->map.textures.ea = load_tex(cub, line);
-	if (type[0] == 'W')
+	if (type[0] == 'W' && !check_flag(cub, WE, 0))
 		cub->map.textures.we = load_tex(cub, line);
-	if (type[0] == 'S' && type[1] == 'O')
+	if (type[0] == 'S' && type[1] == 'O' && !check_flag(cub, SO, 0))
 		cub->map.textures.so = load_tex(cub, line);
-	if (type[0] == 'S' && type[1] == ' ')
+	if (type[0] == 'S' && type[1] == ' ' && !check_flag(cub, S, 0))
 		cub->map.textures.sprite = load_tex(cub, line);
+	set_texture_flag(cub, (const char *)type);
 }
 
 int		parse_line_info(t_cub *cub, char *line)
@@ -85,7 +111,8 @@ int		is_valid_map(t_cub *cub, char *line)
 
 	i = 0;
 	while (line[i] != '\0')
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		if (line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
 		{
 			if (cub->file.orientation == 1)
 				display_error(cub, "More than one orientation in map!");
@@ -100,6 +127,15 @@ int		is_valid_map(t_cub *cub, char *line)
 	return (0);
 }
 
+void	check_flags(t_cub *cub)
+{
+	int	flags;
+
+	flags = cub->flags;
+	if (flags != 255)
+		display_error(cub, "Descriptors are lacking before map declaration!");
+}
+
 void	parse_line(t_cub *cub, char *line)
 {
 	if ((parse_line_info(cub, line)) == 0 || *line == '\0')
@@ -109,6 +145,7 @@ void	parse_line(t_cub *cub, char *line)
 	}
 	else
 	{
+		check_flags(cub);
 		cub->file.mapping = 1;
 		if (is_valid_map(cub, line))
 			display_error(cub, "Map has invalid characters!");
@@ -134,6 +171,8 @@ void	read_file(t_cub *cub, char *path)
 	}
 	parse_line(cub, line);
 	free(line);
+	if (cub->file.mapping == 0)
+		display_error(cub, "No valid map in config file!");
 	if (cub->file.orientation == 0)
-		display_error(cub, "No orientaion for the player!");
+		display_error(cub, "No orientation for the player!");
 }

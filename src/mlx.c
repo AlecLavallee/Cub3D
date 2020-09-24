@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/17 14:50:01 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/24 02:38:18 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	mlx_gestion(t_cub *cub)
 	"Cub3D");
 	cub->image.img_ptr = \
 	mlx_new_image(cub->mlx.mlx, cub->mlx.screenWidth, cub->mlx.screenHeight);
+	cub->flags |= IMG;
 	mlx_hook(cub->mlx.window, 2, 1L << 0, ft_key_hook, cub);
 	mlx_hook(cub->mlx.window, 3, 1L << 1, ft_key_release, cub);
 	mlx_hook(cub->mlx.window, 17, 1L << 5, close_game, cub);

@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/16 15:11:49 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/24 04:51:50 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int		close_game(t_cub *cub)
 {
 	free_textures(cub);
 	free_map(cub);
-	mlx_destroy_image(cub->mlx.mlx, cub->image.img_ptr);
+	if (cub->flags & IMG)
+		mlx_destroy_image(cub->mlx.mlx, cub->image.img_ptr);
 	free(cub->image.img_data);
-	mlx_destroy_window(cub->mlx.mlx, cub->mlx.window);
+	if (cub->mlx.window != NULL)
+		mlx_destroy_window(cub->mlx.mlx, cub->mlx.window);
 	exit(0);
 }
