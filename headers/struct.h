@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/22 01:33:17 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/24 02:20:48 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,6 @@ typedef struct		s_map_cub
 	int				xsize;
 	int				ysize;
 	char			*line;
-	unsigned int	specs;
-	unsigned int	square_size;
 }					t_map_cub;
 
 typedef struct	s_file
@@ -130,6 +128,7 @@ typedef struct	s_file
 
 typedef struct	s_cub
 {
+	int			flags;
 	t_file		file;
 	t_mlx		mlx;
 	t_image		image;
