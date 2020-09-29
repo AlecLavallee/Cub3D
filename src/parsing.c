@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:34:25 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/29 06:14:13 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ void		parse_line(t_cub *cub, char *line)
 	if ((parse_line_info(cub, line)) == 0 || *line == '\0')
 	{
 		if (cub->file.mapping == 1)
-			display_error(cub, "wrong info after map start!");
+			display_error(cub, "Wrong info after map start!");
 	}
 	else
 	{
 		check_flags(cub);
 		cub->file.mapping = 1;
 		if (is_valid_map(cub, line))
-			display_error(cub, "map has invalid characters!");
+			display_error(cub, "Map has invalid characters!");
 		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
 		cub->map.ysize++;
 	}
@@ -109,7 +109,7 @@ void		read_file(t_cub *cub, char *path)
 	cub->file.orientation = 0;
 	cub->file.fd = open(path, O_RDONLY);
 	if (cub->file.fd < 0)
-		display_error(cub, "wrong path or cannot open file!");
+		display_error(cub, "Wrong path or cannot open file!");
 	while ((get_next_line(cub->file.fd, &line)) > 0)
 	{
 		parse_line(cub, line);
@@ -118,7 +118,7 @@ void		read_file(t_cub *cub, char *path)
 	parse_line(cub, line);
 	free(line);
 	if (cub->file.mapping == 0)
-		display_error(cub, "no valid map in config file!");
+		display_error(cub, "No valid map in config file!");
 	if (cub->file.orientation == 0)
-		display_error(cub, "no orientation for the player!");
+		display_error(cub, "No orientation for the player!");
 }
