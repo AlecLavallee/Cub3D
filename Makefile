@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/09/20 21:36:37 by alelaval         ###   ########.fr        #
+#    Updated: 2020/09/29 01:47:47 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,16 @@ PATH_S = src/
 SRC = $(addprefix $(PATH_S), \
 	mlx.c \
 	parsing_map.c \
+	parsing_map2.c \
 	parsing.c \
 	parsing2.c \
 	colors.c \
 	free.c \
 	mvmt.c \
+	mvmt2.c \
 	raycast.c \
 	raycast2.c \
+	raycast3.c \
 	loader.c \
 	utils.c \
 	save.c \

@@ -6,33 +6,32 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/21 23:50:52 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/29 05:26:06 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	text_calc(t_cub	*cub)
+void		text_calc(t_cub *cub)
 {
-	cub->camera.texNum = cub->map.map[cub->camera.mapX][cub->camera.mapY] - 1;
 	if (cub->camera.side == 0)
-		cub->camera.wallX = cub->camera.posY + cub->camera.perpWallDist
-		* cub->camera.rayDirY;
+		cub->camera.wallx = cub->camera.posy + cub->camera.perpwalldist
+		* cub->camera.raydiry;
 	else
-		cub->camera.wallX = cub->camera.posX + cub->camera.perpWallDist
-		* cub->camera.rayDirX;
-	cub->camera.wallX -= floor(cub->camera.wallX);
-	cub->camera.texX = (int)(cub->camera.wallX * (double)texWidth);
-	if (cub->camera.side == 0 && cub->camera.rayDirX > 0)
-		cub->camera.texX = texWidth - cub->camera.texX - 1;
-	if (cub->camera.side == 1 && cub->camera.rayDirY < 0)
-		cub->camera.texX = texWidth - cub->camera.texX - 1;
-	cub->camera.step = 1.0 * texHeight / cub->camera.lineHeight;
-	cub->camera.texPos = (double)(cub->camera.drawStart -
-	cub->mlx.screenHeight / 2 + cub->camera.lineHeight / 2) * cub->camera.step;
+		cub->camera.wallx = cub->camera.posx + cub->camera.perpwalldist
+		* cub->camera.raydirx;
+	cub->camera.wallx -= floor(cub->camera.wallx);
+	cub->camera.texx = (int)(cub->camera.wallx * (double)TEX_WIDTH);
+	if (cub->camera.side == 0 && cub->camera.raydirx > 0)
+		cub->camera.texx = TEX_WIDTH - cub->camera.texx - 1;
+	if (cub->camera.side == 1 && cub->camera.raydiry < 0)
+		cub->camera.texx = TEX_WIDTH - cub->camera.texx - 1;
+	cub->camera.step = 1.0 * TEX_HEIGHT / cub->camera.lineheight;
+	cub->camera.texpos = (double)(cub->camera.drawstart -
+	cub->mlx.screenheight / 2 + cub->camera.lineheight / 2) * cub->camera.step;
 }
 
-void	draw_scanline(t_cub *cub, int x, t_vec limit, int color)
+void		draw_scanline(t_cub *cub, int x, t_vec limit, int color)
 {
 	unsigned	*img_ptr;
 	int			bpp;
@@ -60,22 +59,17 @@ t_texture	*get_tex_ptr(t_cub *cub, int index)
 	return (NULL);
 }
 
-void	draw_textured_row(t_cub *cub, int x, int y)
+void		draw_textured_row(t_cub *cub, int x, int y)
 {
-	t_texture	*tex_ptr;
 	unsigned	*img_ptr;
-	unsigned	*color_ptr;
 	int			bpp;
 	int			size_line;
 	int			endian;
 	unsigned	color;
 
-	// doit definir side du mur
-	tex_ptr = get_tex_ptr(cub, cub->camera.texNum);
-	color_ptr = (unsigned*)mlx_get_data_addr(tex_ptr->image.img_ptr,
-	&bpp, &size_line, &endian);
-	color = \
-	(unsigned)(color_ptr[texHeight * cub->camera.texY + cub->camera.texX]);
+	color = (unsigned)(mlx_get_data_addr(get_tex_ptr(cub, cub->camera.texnum),
+	&bpp, &size_line, &endian)
+	[TEX_HEIGHT * cub->camera.texy + cub->camera.texx]);
 	if (cub->camera.side == 1)
 		color = (unsigned)(color >> 1) & 8355711;
 	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, \
@@ -83,63 +77,29 @@ void	draw_textured_row(t_cub *cub, int x, int y)
 	img_ptr[(y * size_line / 4) + x] = color;
 }
 
-unsigned	get_color_rgb(unsigned char *color)
-{
-	unsigned ret_color;
-
-	ret_color = 0;
-	ret_color += color[0];
-	ret_color += color[1];
-	ret_color += color[2];
-	return (ret_color);
-}
-
-void	draw(t_cub *cub, int x)
+void		draw(t_cub *cub, int x)
 {
 	int		y;
 	int		height;
 	int		begin;
 	int		end;
 
-	y = cub->camera.drawStart;
-	height = (int)(cub->mlx.screenHeight / cub->camera.perpWallDist);
-	begin = -height / 2 + cub->mlx.screenHeight / 2;
+	y = cub->camera.drawstart;
+	height = (int)(cub->mlx.screenheight / cub->camera.perpwalldist);
+	begin = -height / 2 + cub->mlx.screenheight / 2;
 	if (begin < 0)
 		begin = 0;
-	draw_scanline(cub, x, (t_vec){0, begin - 1}, get_color_rgb(cub->map.colorFloor));
-	while (y++ < cub->camera.drawEnd)
+	draw_scanline(cub, x, (t_vec){0, begin - 1},
+	get_color_rgb(cub->map.colorfloor));
+	while (y++ < cub->camera.drawend)
 	{
-		cub->camera.texY = (int)cub->camera.texPos & (texHeight - 1);
-		cub->camera.texPos += cub->camera.step;
-		end = height / 2 + cub->mlx.screenHeight / 2;
-		if (end >= cub->mlx.screenHeight)
-			end = cub->mlx.screenHeight - 1;
+		cub->camera.texy = (int)cub->camera.texpos & (TEX_HEIGHT - 1);
+		cub->camera.texpos += cub->camera.step;
+		end = height / 2 + cub->mlx.screenheight / 2;
+		if (end >= cub->mlx.screenheight)
+			end = cub->mlx.screenheight - 1;
 		draw_textured_row(cub, x, y);
 	}
-	draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenHeight - 1}, \
-		get_color_rgb(cub->map.colorCeiling));
-}
-
-int		raycast(t_cub *cub)
-{
-	int	i;
-
-	i = 0;
-	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenHeight);
-	player_move(cub);
-	while (i < cub->mlx.screenWidth)
-	{
-		cub->camera.hit = 0;
-		cub->camera.cameraX = (2 * i / (double)cub->mlx.screenWidth - 1);
-		ray_init(cub);
-		raycast_init(cub);
-		dda(cub);
-		perp_wall_dist(cub);
-		draw_calc(cub);
-		text_calc(cub);
-		draw(cub, i++);
-	}
-	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, \
-	cub->image.img_ptr, 0, 0);
-	return (0);
+	draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenheight - 1}, \
+		get_color_rgb(cub->map.colorceiling));
 }

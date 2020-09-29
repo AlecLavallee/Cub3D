@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/23 02:35:11 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/29 05:26:24 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,86 +14,87 @@
 
 void	ray_init(t_cub *cub)
 {
-	cub->camera.rayDirX = cub->camera.dirX + cub->camera.planeX
-	* cub->camera.cameraX;
-	cub->camera.rayDirY = cub->camera.dirY + cub->camera.planeY
-	* cub->camera.cameraX;
-	cub->camera.mapX = (int)cub->camera.posX;
-	cub->camera.mapY = (int)cub->camera.posY;
-	cub->camera.deltaDistX = fabs(1.0 / cub->camera.rayDirX);
-	cub->camera.deltaDistY = fabs(1.0 / cub->camera.rayDirY);
+	cub->camera.raydirx = cub->camera.dirx + cub->camera.planex
+	* cub->camera.camerax;
+	cub->camera.raydiry = cub->camera.diry + cub->camera.planey
+	* cub->camera.camerax;
+	cub->camera.mapx = (int)cub->camera.posx;
+	cub->camera.mapy = (int)cub->camera.posy;
+	cub->camera.deltadistx = fabs(1.0 / cub->camera.raydirx);
+	cub->camera.deltadisty = fabs(1.0 / cub->camera.raydiry);
 }
 
 void	raycast_init(t_cub *cub)
 {
-	if (cub->camera.rayDirX < 0)
+	if (cub->camera.raydirx < 0)
 	{
-		cub->camera.stepX = -1;
-		cub->camera.sideDistX = (cub->camera.posX - (double)cub->camera.mapX)
-		* cub->camera.deltaDistX;
+		cub->camera.stepx = -1;
+		cub->camera.sidedistx = (cub->camera.posx - (double)cub->camera.mapx)
+		* cub->camera.deltadistx;
 	}
 	else
 	{
-		cub->camera.stepX = 1;
-		cub->camera.sideDistX = ((double)cub->camera.mapX + 1.0 - cub->camera.posX)
-		* cub->camera.deltaDistX;
+		cub->camera.stepx = 1;
+		cub->camera.sidedistx = ((double)cub->camera.mapx + 1.0
+		- cub->camera.posx) * cub->camera.deltadistx;
 	}
-	if (cub->camera.rayDirY < 0)
+	if (cub->camera.raydiry < 0)
 	{
-		cub->camera.stepY = -1;
-		cub->camera.sideDistY = (cub->camera.posY - (double)cub->camera.mapY)
-		* cub->camera.deltaDistY;
+		cub->camera.stepy = -1;
+		cub->camera.sidedisty = (cub->camera.posy - (double)cub->camera.mapy)
+		* cub->camera.deltadisty;
 	}
 	else
 	{
-		cub->camera.stepY = 1;
-		cub->camera.sideDistY = ((double)cub->camera.mapY + 1.0 - cub->camera.posY)
-		* cub->camera.deltaDistY;
+		cub->camera.stepy = 1;
+		cub->camera.sidedisty =
+		((double)cub->camera.mapy + 1.0 - cub->camera.posy)
+		* cub->camera.deltadisty;
 	}
 }
 
 void	perp_wall_dist(t_cub *cub)
 {
 	if (cub->camera.side == 0)
-		cub->camera.perpWallDist = ((double)cub->camera.mapX - cub->camera.posX +
-		(1.0 - (double)cub->camera.stepX) / 2.0) / cub->camera.rayDirX;
+		cub->camera.perpwalldist =
+		((double)cub->camera.mapx - cub->camera.posx +
+		(1.0 - (double)cub->camera.stepx) / 2.0) / cub->camera.raydirx;
 	else
-		cub->camera.perpWallDist = (cub->camera.mapY - cub->camera.posY +
-		(1.0 - (double)cub->camera.stepY) / 2.0) / cub->camera.rayDirY;
+		cub->camera.perpwalldist = (cub->camera.mapy - cub->camera.posy +
+		(1.0 - (double)cub->camera.stepy) / 2.0) / cub->camera.raydiry;
 }
 
 void	dda(t_cub *cub)
 {
 	while (cub->camera.hit == 0)
 	{
-		if (cub->camera.sideDistX < cub->camera.sideDistY)
+		if (cub->camera.sidedistx < cub->camera.sidedisty)
 		{
-			cub->camera.sideDistX += cub->camera.deltaDistX;
-			cub->camera.mapX += cub->camera.stepX;
+			cub->camera.sidedistx += cub->camera.deltadistx;
+			cub->camera.mapx += cub->camera.stepx;
 			cub->camera.side = 0;
 		}
 		else
 		{
-			cub->camera.sideDistY += cub->camera.deltaDistY;
-			cub->camera.mapY += cub->camera.stepY;
+			cub->camera.sidedisty += cub->camera.deltadisty;
+			cub->camera.mapy += cub->camera.stepy;
 			cub->camera.side = 1;
 		}
-		//printf("%d, %d\n", cub->camera.mapX, cub->camera.mapY);
-		if (cub->map.map[cub->camera.mapX][cub->camera.mapY] == 1)
+		if (cub->map.map[cub->camera.mapx][cub->camera.mapy] == 1)
 			cub->camera.hit = 1;
 	}
 }
 
 void	draw_calc(t_cub *cub)
 {
-	cub->camera.lineHeight =
-	(int)(cub->mlx.screenHeight / cub->camera.perpWallDist);
-	cub->camera.drawStart =
-	-1 * cub->camera.lineHeight / 2 + cub->mlx.screenHeight / 2;
-	if (cub->camera.drawStart < 0)
-		cub->camera.drawStart = 0;
-	cub->camera.drawEnd =
-	cub->camera.lineHeight / 2 + cub->mlx.screenHeight / 2;
-	if (cub->camera.drawEnd >= cub->mlx.screenHeight)
-		cub->camera.drawEnd = cub->mlx.screenHeight - 1;
+	cub->camera.lineheight =
+	(int)(cub->mlx.screenheight / cub->camera.perpwalldist);
+	cub->camera.drawstart =
+	-1 * cub->camera.lineheight / 2 + cub->mlx.screenheight / 2;
+	if (cub->camera.drawstart < 0)
+		cub->camera.drawstart = 0;
+	cub->camera.drawend =
+	cub->camera.lineheight / 2 + cub->mlx.screenheight / 2;
+	if (cub->camera.drawend >= cub->mlx.screenheight)
+		cub->camera.drawend = cub->mlx.screenheight - 1;
 }
