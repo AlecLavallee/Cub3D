@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:45:08 by alelaval          #+#    #+#             */
-/*   Updated: 2020/01/24 16:30:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/29 05:10:48 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-# define BUFFER_SIZE 32 
+# define BUFFER_SIZE 32
 
 int		get_next_line(int fd, char **line);
 int		ft_secure(char **stock, char **line, int i);

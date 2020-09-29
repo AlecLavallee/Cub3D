@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/24 02:17:28 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/29 01:52:37 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 # define CUB3D_H
 
-# define texWidth 64
-# define texHeight 64
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
+
 # include <mlx.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -26,9 +27,6 @@
 # include "mvmt.h"
 # include "raycast.h"
 # include "parsing.h"
-
-/* DANGER DANGER DANGER */
-# include <stdio.h> //danger
 
 # define FALSE 1
 # define TRUE 0
