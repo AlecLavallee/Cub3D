@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/24 06:13:57 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/29 04:53:50 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 		if (ref->map[i] == 'N' || ref->map[i] == 'S'
 			|| ref->map[i] == 'E' || ref->map[i] == 'W')
 		{
-			cub->camera.posX = (double)index;
-			cub->camera.posX += 0.5;
-			cub->camera.posY = (double)i;
-			cub->camera.posY -= 0.5;
+			cub->camera.posx = (double)index;
+			cub->camera.posx += 0.5;
+			cub->camera.posy = (double)i;
+			cub->camera.posy -= 0.5;
 			ref->map[i] = '0';
 		}
 		line[i] = ref->map[i] - 48;
@@ -77,88 +77,6 @@ int		**allocate_map(t_cub *cub, int index, int max)
 		i++;
 	}
 	return (map);
-}
-
-void	print_map(t_cub *cub)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < cub->map.ysize)
-	{
-		while (j < cub->map.xsize)
-		{
-			ft_putchar(cub->map.map[i][j] + 48);
-			j++;
-		}
-		ft_putchar('\n');
-		j = 0;
-		i++;
-	}
-}
-
-void	check_sprite(t_cub *cub, int i, int j)
-{
-	// a reverifier!
-	if (i == 0 || j == 0)
-		display_error(cub, "Map not closed!");
-	if (i == cub->map.ysize || j == cub->map.xsize)
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i - 1][j] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i + 1][j] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j - 1] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j + 1] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-}
-
-void	check_tile(t_cub *cub, int i, int j)
-{
-	if (i == 0 || j == 0)
-		display_error(cub, "Map not closed!");
-	if (i == cub->map.ysize || j == cub->map.xsize)
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i - 1][j] != 1 && cub->map.map[i - 1][j] != 0
-		&& cub->map.map[i - 1][j] != 2)
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i + 1][j] != 1 && cub->map.map[i + 1][j] != 0
-		&& cub->map.map[i + 1][j] != 2)
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j - 1] != 1 && cub->map.map[i][j - 1] != 0
-		&& cub->map.map[i][j - 1] != 2)
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j + 1] != 1 && cub->map.map[i][j + 1] != 0
-		&& cub->map.map[i][j + 1] != 2)
-		display_error(cub, "Map not closed!");
-}
-
-void	check_map(t_cub *cub)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < cub->map.ysize)
-	{
-		while (j < cub->map.xsize)
-		{
-			if (cub->map.map[i][j] == 0)
-				check_tile(cub, i, j);
-			if (cub->map.map[i][j] == 2)
-				check_sprite(cub, i, j);
-			if (cub->map.map[i][j] != 0 && cub->map.map[i][j] != 1
-				&& cub->map.map[i][j] != 2)
-				cub->map.map[i][j] = 1;
-			j++;
-		}
-		j = 0;
-		i++;
-	}
 }
 
 void	create_map(t_cub *cub, t_map **map)
