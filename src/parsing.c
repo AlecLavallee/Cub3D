@@ -6,21 +6,12 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/24 06:04:27 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/09/29 05:34:25 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-
-int		check_flag(t_cub *cub, int flag, int set)
-{
-	if (cub->flags & flag)
-		display_error(cub, "Duplicate descriptors in config file!");
-	if (set == 1)
-		cub->flags |= flag;
-	return (0);
-}
 
 void		parse_resolution(t_cub *cub, char *line)
 {
@@ -31,31 +22,17 @@ void		parse_resolution(t_cub *cub, char *line)
 	line += 2;
 	height = ft_atoi(line);
 	if (height > 2560)
-		cub->mlx.screenHeight = 2560;
+		cub->mlx.screenheight = 2560;
 	else
-		cub->mlx.screenHeight = height;
+		cub->mlx.screenheight = height;
 	while (ft_isdigit(*line))
 		line++;
 	width = ft_atoi(line);
 	if (width > 1440)
-		cub->mlx.screenWidth = 1440;
+		cub->mlx.screenwidth = 1440;
 	else
-		cub->mlx.screenWidth = width;
+		cub->mlx.screenwidth = width;
 	check_flag(cub, R, 1);
-}
-
-void		set_texture_flag(t_cub *cub, const char *type)
-{
-	if (type[0] == 'N')
-		check_flag(cub, NO, 1);
-	if (type[0] == 'E')
-		check_flag(cub, EA, 1);
-	if (type[0] == 'W')
-		check_flag(cub, WE, 1);
-	if (type[0] == 'S' && type[1] == 'O')
-		check_flag(cub, SO, 1);
-	if (type[0] == 'S' && type[1] == ' ')
-		check_flag(cub, S, 1);
 }
 
 void		parse_texture(t_cub *cub, char *line)
@@ -80,7 +57,7 @@ void		parse_texture(t_cub *cub, char *line)
 	set_texture_flag(cub, (const char *)type);
 }
 
-int		parse_line_info(t_cub *cub, char *line)
+int			parse_line_info(t_cub *cub, char *line)
 {
 	char type;
 
@@ -105,56 +82,25 @@ int		parse_line_info(t_cub *cub, char *line)
 	return (1);
 }
 
-int		is_valid_map(t_cub *cub, char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] != '\0')
-		if (line[i] == 'N' || line[i] == 'S'
-			|| line[i] == 'E' || line[i] == 'W')
-		{
-			if (cub->file.orientation == 1)
-				display_error(cub, "More than one orientation in map!");
-			cub->file.orientation = 1;
-			i++;
-		}
-		else if (line[i] == '0' || line[i] == '1' || line[i] == '2'
-				|| line[i] == ' ')
-			i++;
-		else
-			return (1);
-	return (0);
-}
-
-void	check_flags(t_cub *cub)
-{
-	int	flags;
-
-	flags = cub->flags;
-	if (flags != 255)
-		display_error(cub, "Descriptors are lacking before map declaration!");
-}
-
-void	parse_line(t_cub *cub, char *line)
+void		parse_line(t_cub *cub, char *line)
 {
 	if ((parse_line_info(cub, line)) == 0 || *line == '\0')
 	{
 		if (cub->file.mapping == 1)
-			display_error(cub, "Wrong info after map start!");
+			display_error(cub, "wrong info after map start!");
 	}
 	else
 	{
 		check_flags(cub);
 		cub->file.mapping = 1;
 		if (is_valid_map(cub, line))
-			display_error(cub, "Map has invalid characters!");
+			display_error(cub, "map has invalid characters!");
 		ft_lstadd_back(&(cub->file.lstmap), ft_lstnew(ft_strdup(line)));
 		cub->map.ysize++;
 	}
 }
 
-void	read_file(t_cub *cub, char *path)
+void		read_file(t_cub *cub, char *path)
 {
 	char	*line;
 
@@ -163,7 +109,7 @@ void	read_file(t_cub *cub, char *path)
 	cub->file.orientation = 0;
 	cub->file.fd = open(path, O_RDONLY);
 	if (cub->file.fd < 0)
-		display_error(cub, "Wrong path or cannot open file!");
+		display_error(cub, "wrong path or cannot open file!");
 	while ((get_next_line(cub->file.fd, &line)) > 0)
 	{
 		parse_line(cub, line);
@@ -172,7 +118,7 @@ void	read_file(t_cub *cub, char *path)
 	parse_line(cub, line);
 	free(line);
 	if (cub->file.mapping == 0)
-		display_error(cub, "No valid map in config file!");
+		display_error(cub, "no valid map in config file!");
 	if (cub->file.orientation == 0)
-		display_error(cub, "No orientation for the player!");
+		display_error(cub, "no orientation for the player!");
 }
