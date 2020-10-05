@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:26:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 01:27:35 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 18:04:13 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,39 @@ void	check_map(t_cub *cub)
 		j = 0;
 		i++;
 	}
+}
+
+int		**allocate_map(t_cub *cub, int index, int max)
+{
+	int	i;
+	int	**map;
+
+	i = 0;
+	if (index <= 0 || max <= 0)
+		display_error(cub, "Critical error when allocation map!");
+	if ((map = (int**)malloc(sizeof(int*) * index)) == NULL)
+		display_error(cub, "Critical error when allocation map!");
+	while (i < index)
+	{
+		if ((map[i] = (int*)malloc(sizeof(int) * max)) == NULL)
+			display_error(cub, "Critical error when allocation map!");
+		i++;
+	}
+	return (map);
+}
+
+void	create_map(t_cub *cub, t_map **map)
+{
+	int	index;
+
+	index = 0;
+	cub->map.xsize = get_max_len(*map);
+	cub->map.map = allocate_map(cub, cub->map.ysize, cub->map.xsize);
+	while (map[0] != NULL)
+	{
+		cub->map.map[index] = store_line_map(cub, map[0], index);
+		map[0] = map[0]->next;
+		index++;
+	}
+	check_map(cub);
 }

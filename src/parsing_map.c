@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 04:53:50 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 18:04:26 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ int		get_max_len(t_map *ref)
 	return (max_len);
 }
 
+void	ft_set_orient(t_cub *cub, t_vec_d dir, t_vec_d plane)
+{
+	cub->camera.dirx = dir.x;
+	cub->camera.diry = dir.y;
+	cub->camera.planex = plane.x;
+	cub->camera.planey = plane.y;
+}
+
+void	set_orientation(t_cub *cub, char c)
+{
+	if (c == 'N')
+		ft_set_orient(cub, (t_vec_d){-1.0, 0.0}, (t_vec_d){0.0, 0.66});
+	if (c == 'S')
+		ft_set_orient(cub, (t_vec_d){1.0, 0.0}, (t_vec_d){0.0, -0.66});
+	if (c == 'W')
+		ft_set_orient(cub, (t_vec_d){0.0, -1.0}, (t_vec_d){-0.66, 0.0});
+	if (c == 'E')
+		ft_set_orient(cub, (t_vec_d){0.0, 1.0}, (t_vec_d){0.66, 0.0});
+}
+
 int		*store_line_map(t_cub *cub, t_map *ref, int index)
 {
 	int	i;
@@ -50,6 +70,7 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 			cub->camera.posx += 0.5;
 			cub->camera.posy = (double)i;
 			cub->camera.posy -= 0.5;
+			set_orientation(cub, ref->map[i]);
 			ref->map[i] = '0';
 		}
 		line[i] = ref->map[i] - 48;
@@ -58,39 +79,4 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 	while (i < max)
 		line[i++] = ' ' - 48;
 	return (line);
-}
-
-int		**allocate_map(t_cub *cub, int index, int max)
-{
-	int	i;
-	int	**map;
-
-	i = 0;
-	if (index <= 0 || max <= 0)
-		display_error(cub, "Critical error when allocation map!");
-	if ((map = (int**)malloc(sizeof(int*) * index)) == NULL)
-		display_error(cub, "Critical error when allocation map!");
-	while (i < index)
-	{
-		if ((map[i] = (int*)malloc(sizeof(int) * max)) == NULL)
-			display_error(cub, "Critical error when allocation map!");
-		i++;
-	}
-	return (map);
-}
-
-void	create_map(t_cub *cub, t_map **map)
-{
-	int	index;
-
-	index = 0;
-	cub->map.xsize = get_max_len(*map);
-	cub->map.map = allocate_map(cub, cub->map.ysize, cub->map.xsize);
-	while (map[0] != NULL)
-	{
-		cub->map.map[index] = store_line_map(cub, map[0], index);
-		map[0] = map[0]->next;
-		index++;
-	}
-	check_map(cub);
 }

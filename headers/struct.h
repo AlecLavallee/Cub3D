@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:30:46 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 17:32:15 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ typedef struct		s_vec
 	int				x;
 	int				y;
 }					t_vec;
+
+typedef struct		s_vec_d
+{
+	double				x;
+	double				y;
+}					t_vec_d;
 
 typedef struct		s_mlx
 {
