@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 06:45:34 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 14:01:40 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	player_move(t_cub *cub)
 		move_left(cub);
 	if (cub->player.mvmtright)
 		move_right(cub);
-	if (cub->player.mvmtright)
+	if (cub->player.mvmtrotl)
 		rot_left(cub);
 	if (cub->player.mvmtrotr)
 		rot_right(cub);

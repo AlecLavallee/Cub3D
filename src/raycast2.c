@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:26:06 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 13:59:19 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,20 @@ t_texture	*get_tex_ptr(t_cub *cub, int index)
 
 void		draw_textured_row(t_cub *cub, int x, int y)
 {
+	t_texture	*tex_ptr;
 	unsigned	*img_ptr;
+	unsigned	*color_ptr;
 	int			bpp;
 	int			size_line;
 	int			endian;
 	unsigned	color;
 
-	color = (unsigned)(mlx_get_data_addr(get_tex_ptr(cub, cub->camera.texnum),
-	&bpp, &size_line, &endian)
-	[TEX_HEIGHT * cub->camera.texy + cub->camera.texx]);
+	// doit definir side du mur
+	tex_ptr = get_tex_ptr(cub, cub->camera.texnum);
+	color_ptr = (unsigned*)mlx_get_data_addr(tex_ptr->image.img_ptr,
+	&bpp, &size_line, &endian);
+	color = \
+	(unsigned)(color_ptr[TEX_HEIGHT * cub->camera.texy + cub->camera.texx]);
 	if (cub->camera.side == 1)
 		color = (unsigned)(color >> 1) & 8355711;
 	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, \

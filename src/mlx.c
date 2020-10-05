@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:09:36 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 12:10:41 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_key_release(int keycode, void *param)
 	if (keycode == 2)
 		cub->player.mvmtright = 0;
 	if (keycode == 123)
-		cub->player.mvmtright = 0;
+		cub->player.mvmtrotl = 0;
 	if (keycode == 124)
 		cub->player.mvmtrotr = 0;
 	return (0);
