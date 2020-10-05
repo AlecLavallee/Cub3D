@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 01:54:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:03:28 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		draw_scanline(t_cub *cub, int x, t_vec limit, int color);
 void		draw_textured_row(t_cub *cub, int x, int y);
 void		draw(t_cub *cub, int x);
 unsigned	get_color_rgb(unsigned char *color);
+t_texture	*get_tex_ptr(t_cub *cub, int index);
 int			raycast(t_cub *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 13:59:19 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:01:23 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,42 +44,32 @@ void		draw_scanline(t_cub *cub, int x, t_vec limit, int color)
 		img_ptr[(limit.x * size_line / 4) + x] = color;
 }
 
-t_texture	*get_tex_ptr(t_cub *cub, int index)
-{
-	if (index == 0)
-		return (&cub->map.textures.no);
-	if (index == 1)
-		return (&cub->map.textures.so);
-	if (index == 2)
-		return (&cub->map.textures.we);
-	if (index == 3)
-		return (&cub->map.textures.ea);
-	if (index == 4)
-		return (&cub->map.textures.sprite);
-	return (NULL);
-}
-
-void		draw_textured_row(t_cub *cub, int x, int y)
+unsigned	get_color_row(t_cub *cub)
 {
 	t_texture	*tex_ptr;
-	unsigned	*img_ptr;
 	unsigned	*color_ptr;
-	int			bpp;
-	int			size_line;
-	int			endian;
 	unsigned	color;
 
-	// doit definir side du mur
 	tex_ptr = get_tex_ptr(cub, cub->camera.texnum);
 	color_ptr = (unsigned*)mlx_get_data_addr(tex_ptr->image.img_ptr,
-	&bpp, &size_line, &endian);
+	&tex_ptr->image.bpp, &tex_ptr->image.linesize, &tex_ptr->image.endian);
 	color = \
 	(unsigned)(color_ptr[TEX_HEIGHT * cub->camera.texy + cub->camera.texx]);
 	if (cub->camera.side == 1)
 		color = (unsigned)(color >> 1) & 8355711;
-	img_ptr = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, \
+	return (color);
+}
+
+void		draw_textured_row(t_cub *cub, int x, int y)
+{
+	unsigned	*img_data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+
+	img_data = (unsigned*)mlx_get_data_addr(cub->image.img_ptr, \
 	&bpp, &size_line, &endian);
-	img_ptr[(y * size_line / 4) + x] = color;
+	img_data[(y * size_line / 4) + x] = (unsigned)get_color_row(cub);
 }
 
 void		draw(t_cub *cub, int x)

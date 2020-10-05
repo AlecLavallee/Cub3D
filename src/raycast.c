@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 13:51:09 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:11:52 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void	raycast_init(t_cub *cub)
 	else
 	{
 		cub->camera.stepx = 1;
-		cub->camera.sidedistx =
-		((double)cub->camera.mapx + 1.0 - cub->camera.posx)
-		* cub->camera.deltadistx;
+		cub->camera.sidedistx = ((double)cub->camera.mapx + 1.0
+		- cub->camera.posx) * cub->camera.deltadistx;
 	}
 	if (cub->camera.raydiry < 0)
 	{
@@ -48,9 +47,8 @@ void	raycast_init(t_cub *cub)
 	else
 	{
 		cub->camera.stepy = 1;
-		cub->camera.sidedisty =
-		((double)cub->camera.mapy + 1.0 - cub->camera.posy)
-		* cub->camera.deltadisty;
+		cub->camera.sidedisty = ((double)cub->camera.mapy + 1.0
+		- cub->camera.posy) * cub->camera.deltadisty;
 	}
 }
 

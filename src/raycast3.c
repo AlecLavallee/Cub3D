@@ -6,13 +6,28 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:39:22 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:30:15 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:12:10 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		raycast(t_cub *cub)
+t_texture	*get_tex_ptr(t_cub *cub, int index)
+{
+	if (index == 0)
+		return (&cub->map.textures.no);
+	if (index == 1)
+		return (&cub->map.textures.so);
+	if (index == 2)
+		return (&cub->map.textures.we);
+	if (index == 3)
+		return (&cub->map.textures.ea);
+	if (index == 4)
+		return (&cub->map.textures.sprite);
+	return (NULL);
+}
+
+int			raycast(t_cub *cub)
 {
 	int	i;
 

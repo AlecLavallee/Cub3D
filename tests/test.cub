@@ -1,4 +1,4 @@
-R 700 700
+R 1280 1024
 F 220,100,0
 C 225,30,0
 SO ./textures/colorstone.xpm
