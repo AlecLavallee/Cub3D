@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 01:52:37 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:53:41 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "mvmt.h"
 # include "raycast.h"
 # include "parsing.h"
+# include "sprites.h"
 
 # define FALSE 1
 # define TRUE 0

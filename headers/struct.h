@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 17:32:15 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:02:59 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct		s_camera
 	double			step;
 	double			wallx;
 	double			texpos;
+	double			*zbuffer;
 }					t_camera;
 
 typedef struct		s_map_cub

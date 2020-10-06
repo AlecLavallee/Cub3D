@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 06:14:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:10:47 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ int			parse_line_info(t_cub *cub, char *line)
 	if (type == 'R')
 	{
 		parse_resolution(cub, line);
+		if ((cub->camera.zbuffer =
+		(double*)malloc(sizeof(double) * cub->mlx.screenheight)) == NULL)
+			display_error(cub, "Zbuffer allocation failed!");
+		ft_bzero(cub->camera.zbuffer, cub->mlx.screenheight);
 		return (0);
 	}
 	if (type == 'N' || type == 'S' || type == 'W' || type == 'E')

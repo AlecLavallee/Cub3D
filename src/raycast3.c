@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:39:22 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 15:12:10 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/06 18:02:30 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,14 @@ t_texture	*get_tex_ptr(t_cub *cub, int index)
 
 int			raycast(t_cub *cub)
 {
-	int	i;
+	t_s		*sprites;
+	int		i;
 
 	i = 0;
 	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenheight);
 	player_move(cub);
+	if (!(cub->camera.zbuffer = (double*)malloc(sizeof(double) * cub->mlx.screenheight)))
+		display_error(cub, "Zbuffer allocation failed!");
 	while (i < cub->mlx.screenwidth)
 	{
 		cub->camera.hit = 0;
@@ -45,8 +48,15 @@ int			raycast(t_cub *cub)
 		draw_calc(cub);
 		text_calc(cub);
 		get_tex_num(cub);
-		draw(cub, i++);
+		draw(cub, i);
+		draw_sprites(cub);
+		cub->camera.zbuffer[i++] = cub->camera.perpwalldist;
 	}
+	sprites = get_sprites(cub);
+	combsort_sprites(sprites, count_sprites(cub));
+	draw_sprites(cub);
+	free(cub->camera.zbuffer);
+	free(sprites);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, \
 	cub->image.img_ptr, 0, 0);
 	return (0);
