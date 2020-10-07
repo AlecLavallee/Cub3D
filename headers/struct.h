@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/06 13:02:59 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:08:13 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,29 @@ typedef struct		s_vec_d
 	double				x;
 	double				y;
 }					t_vec_d;
+
+typedef struct	s_s
+{
+				t_vec_d	pos;
+				double	dist;
+}				t_s;
+
+typedef struct	s_sprite
+{
+	double		spritescreenx;
+	double		spritex;
+	double		spritey;
+	double		invdet;
+	double		transformx;
+	double		transformy;
+	int			numsprites;
+	int			spriteheight;
+	int			spritewidth;
+	int			drawstarty;
+	int			drawendy;
+	int			drawstartx;
+	int			drawendx;
+}				t_sprite;
 
 typedef struct		s_mlx
 {
@@ -142,6 +165,7 @@ typedef struct		s_cub
 	t_map_cub		map;
 	t_camera		camera;
 	t_player		player;
+	t_sprite		sprite;
 }					t_cub;
 
 #endif

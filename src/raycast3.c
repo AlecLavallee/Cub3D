@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:39:22 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/06 18:02:30 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:34:22 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,11 @@ int			raycast(t_cub *cub)
 		text_calc(cub);
 		get_tex_num(cub);
 		draw(cub, i);
-		draw_sprites(cub);
 		cub->camera.zbuffer[i++] = cub->camera.perpwalldist;
 	}
 	sprites = get_sprites(cub);
 	combsort_sprites(sprites, count_sprites(cub));
-	draw_sprites(cub);
+	draw_sprites(cub, sprites, i);
 	free(cub->camera.zbuffer);
 	free(sprites);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, \

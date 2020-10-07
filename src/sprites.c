@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:16:47 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/06 18:00:14 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:10:39 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_s		*get_sprites(t_cub *cub)
 	int		j;
 
 	count = count_sprites(cub);
+	cub->sprite.numsprites = count;
 	if (!(sprites = (t_s*)malloc(sizeof(t_s) * count)))
 		return (NULL);
 	i = 0;
@@ -89,11 +90,4 @@ void	combsort_sprites(t_s *sprites, int len)
 		}
 		i++;
 	}
-}
-
-void	draw_sprites(t_cub *cub)
-{
-	(void)cub;
-	char c = 'a';
-	write(1, &c, 1);
 }

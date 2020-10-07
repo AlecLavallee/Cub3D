@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/10/06 15:07:23 by alelaval         ###   ########.fr        #
+#    Updated: 2020/10/07 17:05:30 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC = $(addprefix $(PATH_S), \
 	raycast2.c \
 	raycast3.c \
 	sprites.c \
+	sprites2.c \
 	loader.c \
 	utils.c \
 	save.c \
