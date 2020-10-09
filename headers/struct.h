@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/07 17:08:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/09 16:49:04 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_s
 
 typedef struct	s_sprite
 {
-	double		spritescreenx;
+	int			spritescreenx;
 	double		spritex;
 	double		spritey;
 	double		invdet;
