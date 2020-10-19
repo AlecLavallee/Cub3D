@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:17:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/12 16:49:59 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:32:38 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	sprite_transform(t_cub *cub)
 	cub->sprite.invdet = 1.0 / (cub->camera.planex * cub->camera.diry - cub->camera.dirx * cub->camera.planey);
 	cub->sprite.transformx = cub->sprite.invdet * (cub->camera.diry * cub->sprite.spritex - cub->camera.dirx * cub->sprite.spritey);
 	cub->sprite.transformy = cub->sprite.invdet * (-cub->camera.planey * cub->sprite.spritex + cub->camera.planex * cub->sprite.spritey);
+	cub->sprite.spritescreenx = (int)((cub->mlx.screenwidth / 2) * (1 + cub->sprite.transformx / cub->sprite.transformy));
 }
 
 void	sprite_calc(t_cub *cub)
@@ -69,6 +70,7 @@ void	draw_textured_sprite(t_cub *cub, int stripe)
 	int		y;
 	unsigned color;
 
+	ft_putstr("texture\n");
 	y = cub->sprite.drawstarty;
 	while (y < cub->sprite.drawendy)
 	{
@@ -85,8 +87,6 @@ void	draw_sprite(t_cub *cub)
 {
 	int stripe;
 
-	cub->sprite.spritescreenx = (int)((cub->mlx.screenwidth / 2) * (1 + cub->sprite.transformx / cub->sprite.transformy));
-	sprite_calc(cub);
 	stripe = cub->sprite.drawstartx;
 	while (stripe < cub->sprite.drawendx)
 	{
@@ -107,6 +107,7 @@ void	draw_sprites(t_cub *cub, t_s *sprites)
 		cub->sprite.spritex = sprites[i].pos.x - cub->camera.posx;
 		cub->sprite.spritey = sprites[i].pos.y - cub->camera.posy;
 		sprite_transform(cub);
+		sprite_calc(cub);
 		draw_sprite(cub);
 		i++;
 	}

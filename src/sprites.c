@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:16:47 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/09 17:41:28 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:36:26 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_s		*get_sprites(t_cub *cub)
 		{
 			if (cub->map.map[i][j] == 2)
 			{
-				sprites[--count].pos = (t_vec_d){i + 0.5, j + 0.5};
+				sprites[--count].pos = (t_vec_d){j + 0.5, i + 0.5};
 				sprites[count].dist = get_sprite_dist(cub, sprites[count].pos);
 			}
 			j++;
