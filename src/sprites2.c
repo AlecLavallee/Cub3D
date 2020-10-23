@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:17:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/19 15:47:39 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/23 16:04:20 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	draw_textured_sprite(t_cub *cub, int stripe)
 	int		y;
 	unsigned color;
 
-	ft_putstr("texture\n");
 	y = cub->sprite.drawstarty;
 	while (y < cub->sprite.drawendy)
 	{
@@ -90,11 +89,13 @@ void	draw_sprite(t_cub *cub)
 	stripe = cub->sprite.drawstartx;
 	while (stripe < cub->sprite.drawendx)
 	{
-		cub->camera.texx = (int)(256 * (stripe - (-cub->sprite.spritewidth / 2 + cub->sprite.spritescreenx) * TEX_WIDTH / cub->sprite.spritewidth) / 256);
+		cub->camera.texx = (int)(256 * (stripe - (-cub->sprite.spritewidth / 2 + cub->sprite.spritescreenx)) * TEX_WIDTH / cub->sprite.spritewidth);
+		cub->camera.texx /= 256;
+		//printf("texx : %d\n", cub->camera.texx);
 		//printf("stripe : %d, transformy : %f, zbuffer : %f\n", stripe, cub->sprite.transformy, cub->camera.zbuffer[stripe]);
 		if (cub->sprite.transformy > 0 && stripe > 0 && stripe < cub->mlx.screenwidth && cub->sprite.transformy < cub->camera.zbuffer[stripe])
 		{
-			printf("stripe : %d, transformy : %f, zbuffer : %f\n", stripe, cub->sprite.transformy, cub->camera.zbuffer[stripe]);
+			// printf("stripe : %d, transformy : %f, zbuffer : %f\n", stripe, cub->sprite.transformy, cub->camera.zbuffer[stripe]);
 			draw_textured_sprite(cub, stripe);
 		}
 		stripe++;
@@ -108,7 +109,7 @@ void	draw_sprites(t_cub *cub, t_s *sprites)
 	i = 0;
 	while (i < cub->sprite.numsprites)
 	{
-		printf("%i : sprite.pos.x : %f, sprite.pos.y : %f, sprite.dist : %f\n", i, sprites[i].pos.x, sprites[i].pos.y, sprites[i].dist);
+		printf("%i : sprite.pos.x : %f, sprite.pos.y : %f, sprite.dist : %f", i, sprites[i].pos.x, sprites[i].pos.y, sprites[i].dist);
 		cub->sprite.spritex = sprites[i].pos.x - cub->camera.posx;
 		cub->sprite.spritey = sprites[i].pos.y - cub->camera.posy;
 		cub->sprite.invdet = 1.0 / (cub->camera.planex * cub->camera.diry - cub->camera.dirx * cub->camera.planey);
@@ -122,13 +123,14 @@ void	draw_sprites(t_cub *cub, t_s *sprites)
 		cub->sprite.drawendy = cub->sprite.spriteheight / 2 + cub->mlx.screenheight / 2;
 		if (cub->sprite.drawendy >= cub->mlx.screenheight)
 			cub->sprite.drawendy = cub->mlx.screenheight - 1;
-		cub->sprite.spritewidth = abs((int)(cub->mlx.screenheight / cub->sprite.transformy));
+		cub->sprite.spritewidth = abs((int)((double)cub->mlx.screenheight / cub->sprite.transformy));
 		cub->sprite.drawstartx = -cub->sprite.spritewidth / 2 + cub->sprite.spritescreenx;
 		if (cub->sprite.drawstartx < 0)
 			cub->sprite.drawstartx = 0;
 		cub->sprite.drawendx = cub->sprite.spritewidth / 2 + cub->sprite.spritescreenx;
 		if (cub->sprite.drawendx >= cub->mlx.screenwidth)
 			cub->sprite.drawendx = cub->mlx.screenwidth - 1;
+		printf("Draw end x: %d\t Sprite width %d\tTransform y: %f\n", cub->sprite.drawendx, cub->sprite.spritewidth, cub->sprite.transformy);
 		//sprintf("Draw start X : %d, draw end X : %d\n", cub->sprite.drawstartx, cub->sprite.drawendx);
 		draw_sprite(cub);
 		i++;
