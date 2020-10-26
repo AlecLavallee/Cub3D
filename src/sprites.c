@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:16:47 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/19 15:43:22 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:25:11 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int		count_sprites(t_cub *cub)
 
 double	get_sprite_dist(t_cub *cub, t_vec_d pos)
 {
-	return ((cub->camera.posx - pos.x)\
-		* (cub->camera.posx - pos.x)\
-		+ (cub->camera.posy - pos.y)\
+	return ((cub->camera.posx - pos.x)
+		* (cub->camera.posx - pos.x)
+		+ (cub->camera.posy - pos.y)
 		* (cub->camera.posy - pos.y));
 }
 
@@ -71,7 +71,9 @@ t_s		*get_sprites(t_cub *cub)
 			if (cub->map.map[i][j] == 2)
 			{
 				sprites[--count].pos = (t_vec_d){i + 0.5, j + 0.5};
-				sprites[count].dist = get_sprite_dist(cub, sprites[count].pos);
+				//sprites[count].dist = get_sprite_dist(cub, sprites[count].pos);
+				sprites[count].dist = ((cub->camera.posx - sprites[count].pos.x) * (cub->camera.posx - sprites[count].pos.x)
+				+ (cub->camera.posy - sprites[count].pos.y) * (cub->camera.posy - sprites[count].pos.y));
 			}
 			j++;
 		}
@@ -92,6 +94,7 @@ void	combsort_sprites(t_s *sprites, int len)
 			ft_swap(&sprites[i], &sprites[i + 1]);
 			i = 0;
 		}
-		i++;
+		else
+			i++;
 	}
 }
