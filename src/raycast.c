@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 15:11:52 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/10/28 17:46:08 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ray_init(t_cub *cub)
 {
+	cub->camera.hit = 0;
 	cub->camera.raydirx = cub->camera.dirx + cub->camera.planex
 	* cub->camera.camerax;
 	cub->camera.raydiry = cub->camera.diry + cub->camera.planey
