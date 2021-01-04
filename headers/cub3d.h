@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/06 12:53:41 by alelaval         ###   ########.fr       */
+/*   Updated: 2020/12/16 15:12:01 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 
-# include <mlx.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
 # include <libft.h>
+# include <mlx.h>
 # include "struct.h"
 # include "mvmt.h"
 # include "raycast.h"

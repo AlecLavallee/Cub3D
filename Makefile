@@ -6,7 +6,7 @@
 #    By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2020/10/28 17:28:48 by alelaval         ###   ########.fr        #
+#    Updated: 2021/01/04 11:14:09 by alelaval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CFLAGS += -I $(LIBFT_PTH)headers/
 CFLAGS += -I /usr/X11/include
 CFLAGS += -g
 LFLAGS = -L$(LIBFT_PTH) -lft
-LFLAGS += -lmlx -framework OpenGL -framework AppKit
+LFLAGS += -Lmlx/ -lmlx -framework OpenGL -framework AppKit
 
 LIBFT_PTH = libft/
 LIBFT = $(addprefix $(LIBFT_PTH), libft.a)
