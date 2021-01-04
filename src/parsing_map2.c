@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:26:57 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 18:04:13 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:50:18 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int		**allocate_map(t_cub *cub, int index, int max)
 
 void	create_map(t_cub *cub, t_map **map)
 {
-	int	index;
+	int		index;
+	void	*prev;
 
 	index = 0;
 	cub->map.xsize = get_max_len(*map);
@@ -102,8 +103,13 @@ void	create_map(t_cub *cub, t_map **map)
 	while (map[0] != NULL)
 	{
 		cub->map.map[index] = store_line_map(cub, map[0], index);
+		free(map[0]->map);
+		prev = map[0];
 		map[0] = map[0]->next;
+		free(prev);
 		index++;
 	}
+	free(map[0]);
+	ft_lstclear(map, (void*)ft_lstdelone);
 	check_map(cub);
 }
