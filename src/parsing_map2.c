@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:26:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/01/04 16:50:18 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/01/05 13:54:10 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int		**allocate_map(t_cub *cub, int index, int max)
 
 	i = 0;
 	if (index <= 0 || max <= 0)
-		display_error(cub, "Critical error when allocation map!");
+		display_error(cub, "Critical error when allocating map!");
 	if ((map = (int**)malloc(sizeof(int*) * index)) == NULL)
-		display_error(cub, "Critical error when allocation map!");
+		display_error(cub, "Critical error when allocating map!");
 	while (i < index)
 	{
 		if ((map[i] = (int*)malloc(sizeof(int) * max)) == NULL)
-			display_error(cub, "Critical error when allocation map!");
+			display_error(cub, "Critical error when allocating map!");
 		i++;
 	}
 	return (map);
@@ -110,6 +110,5 @@ void	create_map(t_cub *cub, t_map **map)
 		index++;
 	}
 	free(map[0]);
-	ft_lstclear(map, (void*)ft_lstdelone);
 	check_map(cub);
 }
