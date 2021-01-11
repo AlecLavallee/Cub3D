@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:26:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/01/05 13:54:10 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/01/05 17:22:41 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ int		**allocate_map(t_cub *cub, int index, int max)
 		display_error(cub, "Critical error when allocating map!");
 	while (i < index)
 	{
-		if ((map[i] = (int*)malloc(sizeof(int) * max)) == NULL)
-			display_error(cub, "Critical error when allocating map!");
+		map[i] = NULL;
 		i++;
 	}
 	return (map);

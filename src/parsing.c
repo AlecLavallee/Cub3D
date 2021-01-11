@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/01/04 16:53:05 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/01/11 15:29:47 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void		read_file(t_cub *cub, char *path)
 	}
 	parse_line(cub, line);
 	free(line);
+	close(cub->file.fd);
 	if (cub->file.mapping == 0)
 		display_error(cub, "No valid map in config file!");
 	if (cub->file.orientation == 0)

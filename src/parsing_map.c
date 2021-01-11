@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 18:04:26 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/01/05 17:19:20 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,10 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 {
 	int	i;
 	int	*line;
-	int	max;
 
 	i = 0;
-	max = cub->map.xsize;
-	line = (int*)malloc(sizeof(int) * max);
-	while (i < max && ref->map[i] != '\0')
+	line = (int*)malloc(sizeof(int) * cub->map.xsize);
+	while (i < cub->map.xsize && ref->map[i] != '\0')
 	{
 		if (ref->map[i] == 'N' || ref->map[i] == 'S'
 			|| ref->map[i] == 'E' || ref->map[i] == 'W')
@@ -76,7 +74,7 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 		line[i] = ref->map[i] - 48;
 		i++;
 	}
-	while (i < max)
+	while (i < cub->map.xsize)
 		line[i++] = ' ' - 48;
 	return (line);
 }
