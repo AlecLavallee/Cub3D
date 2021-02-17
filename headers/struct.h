@@ -6,7 +6,7 @@
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/28 17:42:54 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/02/07 18:11:24 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct		s_cub
 {
 	int				flags;
 	t_file			file;
+	t_bmp			bmp;
 	t_mlx			mlx;
 	t_image			image;
 	t_map_cub		map;

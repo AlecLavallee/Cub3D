@@ -20,11 +20,12 @@ RM = rm -rf
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I headers/
-CFLAGS += -I $(LIBFT_PTH)headers/
-CFLAGS += -I /usr/X11/include
 CFLAGS += -g
+LFLAGS = -L$(LIBFT_PTH)headers/
 LFLAGS = -L$(LIBFT_PTH) -lft
-LFLAGS += -Lmlx/ -lmlx -framework OpenGL -framework AppKit
+LFLAGS += -Lmlx/ -lmlx_Linux
+LFLAGS +=  -L/usr/lib -Imlx_Linux
+LFLAGS += -lXext -lX11 -lm -lz
 
 LIBFT_PTH = libft/
 LIBFT = $(addprefix $(LIBFT_PTH), libft.a)

@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2021/02/01 22:35:49 by alelaval         ###   ########.fr       */
+/*   Created: 2019/11/07 10:45:08 by alelaval          #+#    #+#             */
+/*   Updated: 2020/09/29 05:10:48 by alelaval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-
-# define CUB3D_H
-
-# define TEX_WIDTH 64
-# define TEX_HEIGHT 64
-
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <math.h>
-# include "libft.h"
-# include <mlx.h>
-# include "struct.h"
-# include "mvmt.h"
-# include "raycast.h"
-# include "parsing.h"
-# include "sprites.h"
-# include "save.h"
 
-# define FALSE 1
-# define TRUE 0
+# define BUFFER_SIZE 32
 
-t_cub	*init_cub(t_cub *cub);
-void	mlx_gestion(t_cub *cub);
-void	display_error(t_cub *cub, const char *error);
+int		get_next_line(int fd, char **line);
+int		ft_secure(char **stock, char **line, int i);
+int		ft_strclen(const char *str, char c);
+char	*ft_strcat(char *s1, const char *s2);
+char	*ft_strncpy(char *dst, char *src, int n);
+char	*ft_strtrim_left(char *str, int n);
 
 #endif
