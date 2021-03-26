@@ -21,9 +21,15 @@ int		main(int ac, char **av)
 	if (ac == 1)
 		display_error(&cub, "There's no arguments!");
 	if (ac == 2)
+	{
+		cub.save = 0;
 		parsing(av[1], &cub);
+	}
 	if (ac == 3 && !ft_strcmp(av[2], "--save"))
-		save(&cub, "save");
+	{
+		cub.save = 1;
+		parsing(av[1], &cub);
+	}
 	else
 		save_error();
 	if (ac > 3)

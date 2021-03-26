@@ -187,6 +187,7 @@ typedef struct	s_bmp {
 typedef struct		s_cub
 {
 	int				flags;
+	int				save;
 	t_file			file;
 	t_bmp			bmp;
 	t_mlx			mlx;

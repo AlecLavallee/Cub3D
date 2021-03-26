@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	write_header(t_cub *cub, int fd, t_bmp_file_header file)
+void	write_file(t_cub *cub, int fd, t_bmp_file_header file)
 {
 	int		ret;
 
@@ -24,7 +24,7 @@ void	write_header(t_cub *cub, int fd, t_bmp_file_header file)
 	ret = write(fd, &file.offset, 4);
 	if (ret < 0)
 	{
-		display_error(cub, "BMP Header");
+		display_error(cub, "BMP Header invalid");
 		close_game(cub);
 	}
 }
@@ -47,30 +47,39 @@ void	write_info(t_cub *cub, int fd, t_bmp_info_header file)
 	ret = write(fd, &file.colors_important, 4);
 	if (ret < 0)
 	{
-		display_error(cub, "BMP info header");
+		display_error(cub, "BMP info header invalid");
 		close_game(cub);
 	}
 }
 
-void	writing_metadata(t_cub *cub, int fd, t_bmp file)
+void	write_metadata(t_cub *cub, int fd, t_bmp file)
 {
 	write_file(cub, fd, file.file_header);
-	write_header(cub, fd, file.info_header);
+	write_info(cub, fd, file.info_header);
+}
+
+void	write_data(t_cub *cub, int fd, t_bmp file)
+{
+	(void)cub;
+	(void)fd;
+	(void)file;
 }
 
 void	save(t_cub *cub, char const *filename)
 {
+	exit(0);
 	int		fd;
 	t_bmp	file;
 
-	fd = open(filename, O_WRONLY | O_CREAT, S_IRWXU | S_IROTH | S_IRGRP);
+	file = cub->bmp;
+	fd = open(filename, O_WRONLY | O_CREAT | S_IRWXU | S_IROTH | S_IRGRP);
 	if (fd < 0)
-		die("save", NULL);
-	file = get_metadata(cub->image.img_ptr, cub->mlx.screenwidth);
-	if (file.data == NULL)
-		die("save", "fail to load datas.");
+		display_error(cub, "invalid file descriptor");
 	write_metadata(cub, fd, file);
-	if (write(fd, file.data, cub->mlx.screenwidth * cub->mlx.screenheight \
+	if (cub->bmp.data == NULL)
+		display_error(cub, "failed to load data");
+	write_data(cub, fd, file);
+	if (write(fd, cub->bmp.data, cub->mlx.screenwidth * cub->mlx.screenheight \
 	* (file.info_header.bit_per_pix / 8)) == -1)
-		die("save", NULL);
+		display_error(cub, "error while saving game");
 }

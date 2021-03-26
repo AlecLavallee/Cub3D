@@ -65,6 +65,8 @@ int			raycast(t_cub *cub)
 	while (i < cub->mlx.screenwidth)
 		raycast_core(cub, &i);
 	sprite_manager(cub);
+	if (cub->save == 1)
+		save(cub, "save");
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, \
 	cub->image.img_ptr, 0, 0);
 	return (0);
