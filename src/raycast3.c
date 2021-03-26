@@ -51,6 +51,7 @@ void		raycast_core(t_cub *cub, int *i)
 	draw(cub, *i);
 	cub->camera.zbuffer[(*i)++] = cub->camera.perpwalldist;
 }
+
 int			raycast(t_cub *cub)
 {
 	int		i;
@@ -62,9 +63,7 @@ int			raycast(t_cub *cub)
 	(double*)malloc(sizeof(double) * cub->mlx.screenheight)))
 		display_error(cub, "Zbuffer allocation failed!");
 	while (i < cub->mlx.screenwidth)
-	{
 		raycast_core(cub, &i);
-	}
 	sprite_manager(cub);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, \
 	cub->image.img_ptr, 0, 0);

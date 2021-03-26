@@ -13,7 +13,7 @@
 #include "cub3d.h"
 #include "libft.h"
 
-t_bmp_file_header		get_file_header(uint32_t file_size, uint32_t offset)
+t_bmp_file_header		get_file_header(uint file_size, uint offset)
 {
 	t_bmp_file_header	new;
 
