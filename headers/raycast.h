@@ -27,6 +27,7 @@ void		draw_textured_row(t_cub *cub, int x, int y);
 void		draw(t_cub *cub, int x);
 unsigned	get_color_rgb(unsigned char *color);
 t_texture	*get_tex_ptr(t_cub *cub, int index);
+void		raycast_core(t_cub *cub, int *i);
 int			raycast(t_cub *cub);
 
 #endif

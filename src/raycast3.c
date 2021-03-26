@@ -38,6 +38,19 @@ void		sprite_manager(t_cub *cub)
 	free(sprites);
 }
 
+void		raycast_core(t_cub *cub, int *i)
+{
+	cub->camera.camerax = (2 * (*i) / (double)cub->mlx.screenwidth - 1);
+	ray_init(cub);
+	raycast_init(cub);
+	dda(cub);
+	perp_wall_dist(cub);
+	draw_calc(cub);
+	text_calc(cub);
+	get_tex_num(cub);
+	draw(cub, *i);
+	cub->camera.zbuffer[(*i)++] = cub->camera.perpwalldist;
+}
 int			raycast(t_cub *cub)
 {
 	int		i;
@@ -50,16 +63,7 @@ int			raycast(t_cub *cub)
 		display_error(cub, "Zbuffer allocation failed!");
 	while (i < cub->mlx.screenwidth)
 	{
-		cub->camera.camerax = (2 * i / (double)cub->mlx.screenwidth - 1);
-		ray_init(cub);
-		raycast_init(cub);
-		dda(cub);
-		perp_wall_dist(cub);
-		draw_calc(cub);
-		text_calc(cub);
-		get_tex_num(cub);
-		draw(cub, i);
-		cub->camera.zbuffer[i++] = cub->camera.perpwalldist;
+		raycast_core(cub, &i);
 	}
 	sprite_manager(cub);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.window, \
