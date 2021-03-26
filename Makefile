@@ -25,7 +25,7 @@ LFLAGS = -L$(LIBFT_PTH)headers/
 LFLAGS = -L$(LIBFT_PTH) -lft
 LFLAGS += -Lmlx/ -lmlx_Linux
 LFLAGS +=  -L/usr/lib -Imlx_Linux
-LFLAGS += -lXext -lX11 -lm -lz
+LFLAGS += -lXext -lX11 -lm
 
 LIBFT_PTH = libft/
 LIBFT = $(addprefix $(LIBFT_PTH), libft.a)
