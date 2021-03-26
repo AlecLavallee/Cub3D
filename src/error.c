@@ -20,3 +20,11 @@ void	display_error(t_cub *cub, const char *error)
 	ft_putchar('\n');
 	close_game(cub);
 }
+
+void	save_error()
+{
+	ft_putstr("Error\n");
+	ft_putstr("Argument for save is invalid!");
+	ft_putchar('\n');
+	exit(0);
+}

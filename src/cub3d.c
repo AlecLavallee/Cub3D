@@ -22,8 +22,10 @@ int		main(int ac, char **av)
 		display_error(&cub, "There's no arguments!");
 	if (ac == 2)
 		parsing(av[1], &cub);
-	if (ac == 3)
-		save();
+	if (ac == 3 && !ft_strcmp(av[2], "--save"))
+		save(&cub, "save");
+	else
+		save_error();
 	if (ac > 3)
 		display_error(&cub, "Too many arguments!");
 	return (0);
