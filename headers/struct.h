@@ -157,31 +157,31 @@ typedef struct		s_file
 }					t_file;
 
 typedef struct	s_bmp_file_header {
-	uint	file_type;
-	uint	file_size;
-	uint	reserved1;
-	uint	reserved2;
-	uint	offset;
+	unsigned	file_type;
+	unsigned	file_size;
+	unsigned	reserved1;
+	unsigned	reserved2;
+	unsigned	offset;
 }				t_bmp_file_header;
 
 typedef struct	s_bmp_info_header {
-	uint	header_size;
-	int		img_width;
-	int		img_height;
-	uint	planes;
-	uint	bit_per_pix;
-	uint	compression;
-	uint	img_size;
-	int		x_pixels_per_meter;
-	int		y_pixels_per_meter;
-	uint	colors_used;
-	uint	colors_important;
+	unsigned	header_size;
+	int			img_width;
+	int			img_height;
+	unsigned	planes;
+	unsigned	bit_per_pix;
+	unsigned	compression;
+	unsigned	img_size;
+	int			x_pixels_per_meter;
+	int			y_pixels_per_meter;
+	unsigned	colors_used;
+	unsigned	colors_important;
 }				t_bmp_info_header;
 
 typedef struct	s_bmp {
 	t_bmp_file_header	file_header;
 	t_bmp_info_header	info_header;
-	uint				*data;
+	unsigned				*data;
 }				t_bmp;
 
 typedef struct		s_cub

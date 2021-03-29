@@ -56,30 +56,24 @@ void	write_metadata(t_cub *cub, int fd, t_bmp file)
 {
 	write_file(cub, fd, file.file_header);
 	write_info(cub, fd, file.info_header);
-}
-
-void	write_data(t_cub *cub, int fd, t_bmp file)
-{
-	(void)cub;
-	(void)fd;
-	(void)file;
+	//write(fd, &cub->image.img_ptr, file.info_header.img_size);
 }
 
 void	save(t_cub *cub, char const *filename)
 {
-	exit(0);
 	int		fd;
 	t_bmp	file;
 
 	file = cub->bmp;
-	fd = open(filename, O_WRONLY | O_CREAT | S_IRWXU | S_IROTH | S_IRGRP);
+	fd = open(filename, O_WRONLY | O_CREAT , S_IRWXU | S_IROTH | S_IRGRP); 
 	if (fd < 0)
 		display_error(cub, "invalid file descriptor");
 	write_metadata(cub, fd, file);
+	cub->bmp.data = (unsigned int *)cub->image.img_ptr;
 	if (cub->bmp.data == NULL)
 		display_error(cub, "failed to load data");
-	write_data(cub, fd, file);
-	if (write(fd, cub->bmp.data, cub->mlx.screenwidth * cub->mlx.screenheight \
+	/*if (write(fd, cub->bmp.data, 50 + (cub->mlx.screenwidth * cub->mlx.screenheight) \
 	* (file.info_header.bit_per_pix / 8)) == -1)
-		display_error(cub, "error while saving game");
+		display_error(cub, "error while saving game");*/
+	close_game(cub);
 }
