@@ -12,6 +12,36 @@
 
 #include "cub3d.h"
 
+t_bmp_file_header	init_file(t_cub *cub)
+{
+	t_bmp_file_header	new;
+
+	ft_memcpy(&new.file_type, "\x42\x4d", 2);
+	new.file_size = 54 + (cub->mlx.screenheight * cub->mlx.screenwidth * cub->image.bpp / 8);
+	new.reserved1 = 0;
+	new.reserved2 = 0;
+	new.offset = 14 + 40;
+	return (new);
+}
+
+t_bmp_info_header	init_header(t_cub *cub)
+{
+	t_bmp_info_header	new;
+	
+	new.header_size = 40;
+	new.img_width = cub->mlx.screenwidth;
+	new.img_height = -cub->mlx.screenheight;
+	new.planes = 1;
+	new.bit_per_pix = 32;
+	new.compression = 0;
+	new.img_size = 0;
+	new.x_pixels_per_meter = 0;
+	new.y_pixels_per_meter = 0;
+	new.colors_used = 0;
+	new.colors_important = 0;
+	return (new);
+}
+
 void	write_file(t_cub *cub, int fd, t_bmp_file_header file)
 {
 	int		ret;
@@ -52,11 +82,20 @@ void	write_info(t_cub *cub, int fd, t_bmp_info_header file)
 	}
 }
 
+t_bmp	get_metadata(t_cub *cub)
+{
+	t_bmp	new;
+
+	new.file_header = init_file(cub);
+	new.info_header = init_header(cub);
+	new.data = (uint8_t *)mlx_get_data_addr(cub->image.img_ptr, &cub->image.bpp, &cub->image.linesize, &cub->image.endian);
+	return (new);
+}
+
 void	write_metadata(t_cub *cub, int fd, t_bmp file)
 {
 	write_file(cub, fd, file.file_header);
 	write_info(cub, fd, file.info_header);
-	//write(fd, &cub->image.img_ptr, file.info_header.img_size);
 }
 
 void	save(t_cub *cub, char const *filename)
@@ -64,16 +103,14 @@ void	save(t_cub *cub, char const *filename)
 	int		fd;
 	t_bmp	file;
 
-	file = cub->bmp;
 	fd = open(filename, O_WRONLY | O_CREAT , S_IRWXU | S_IROTH | S_IRGRP); 
 	if (fd < 0)
 		display_error(cub, "invalid file descriptor");
+	file = get_metadata(cub);
 	write_metadata(cub, fd, file);
-	cub->bmp.data = (unsigned int *)cub->image.img_ptr;
-	if (cub->bmp.data == NULL)
+	if (file.data == NULL)
 		display_error(cub, "failed to load data");
-	/*if (write(fd, cub->bmp.data, 50 + (cub->mlx.screenwidth * cub->mlx.screenheight) \
-	* (file.info_header.bit_per_pix / 8)) == -1)
-		display_error(cub, "error while saving game");*/
+	if (write(fd, file.data, (cub->mlx.screenheight * cub->mlx.screenwidth * file.info_header.bit_per_pix / 8)) == -1)
+		display_error(cub, "error while saving game");
 	close_game(cub);
 }
