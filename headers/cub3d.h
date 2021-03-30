@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stdint.h>
 # include <math.h>
 # include "libft.h"
 # include <mlx.h>

@@ -156,40 +156,11 @@ typedef struct		s_file
 	t_map			*lstmap;
 }					t_file;
 
-typedef struct	s_bmp_file_header {
-	unsigned	file_type;
-	unsigned	file_size;
-	unsigned	reserved1;
-	unsigned	reserved2;
-	unsigned	offset;
-}				t_bmp_file_header;
-
-typedef struct	s_bmp_info_header {
-	unsigned	header_size;
-	int			img_width;
-	int			img_height;
-	unsigned	planes;
-	unsigned	bit_per_pix;
-	unsigned	compression;
-	unsigned	img_size;
-	int			x_pixels_per_meter;
-	int			y_pixels_per_meter;
-	unsigned	colors_used;
-	unsigned	colors_important;
-}				t_bmp_info_header;
-
-typedef struct	s_bmp {
-	t_bmp_file_header	file_header;
-	t_bmp_info_header	info_header;
-	unsigned				*data;
-}				t_bmp;
-
 typedef struct		s_cub
 {
 	int				flags;
 	int				save;
 	t_file			file;
-	t_bmp			bmp;
 	t_mlx			mlx;
 	t_image			image;
 	t_map_cub		map;
