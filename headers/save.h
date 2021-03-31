@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 22:25:15 by alelaval          #+#    #+#             */
-/*   Updated: 2021/02/01 22:45:47 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:32:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ typedef struct	s_bmp {
 	uint8_t				*data;
 }				t_bmp;
 
+t_bmp	get_metadata(t_cub *cub);
 void	save_error(void);
 void	save(t_cub *cub, const char *file);
 void	write_metadata(t_cub *cub, int fd, t_bmp file);
 void	write_data(t_cub *cub, int fd, t_bmp file);
-
+void	write_file(t_cub *cub, int fd, t_bmp_file_header file);
+void	write_info(t_cub *cub, int fd, t_bmp_info_header file);
 #endif

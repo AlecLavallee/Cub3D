@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2021/02/01 22:35:49 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:28:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <math.h>
+# include "mlx.h"
 # include "libft.h"
-# include <mlx.h>
 # include "struct.h"
 # include "save.h"
 # include "mvmt.h"

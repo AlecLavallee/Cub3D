@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2021/02/01 21:54:56 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:46:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@ void	free_map(t_cub *cub)
 
 	i = 0;
 	while (cub->map.map[i])
-		free(cub->map.map[i++]);
+	{
+		if (cub->map.map[i] == NULL)
+			break;
+		else
+			free(cub->map.map[i++]);
+	}
 	free(cub->map.map);
 }
 
 void	free_textures(t_cub *cub)
 {
-	if (cub->map.textures.no.image.img_ptr)	
+	if (cub->map.textures.no.image.img_ptr)
 		mlx_destroy_image(cub->mlx.mlx, cub->map.textures.no.image.img_ptr);
 	if (cub->map.textures.so.image.img_ptr)
 		mlx_destroy_image(cub->mlx.mlx, cub->map.textures.so.image.img_ptr);
@@ -39,7 +44,10 @@ void	free_textures(t_cub *cub)
 int		close_game(t_cub *cub)
 {
 	free_textures(cub);
-	free_map(cub);
+	if (cub->map.map == NULL)
+		;
+	else
+		free_map(cub);
 	if (cub->image.img_ptr)
 		mlx_destroy_image(cub->mlx.mlx, cub->image.img_ptr);
 	if (cub->mlx.window)
