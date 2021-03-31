@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:36:44 by alelaval          #+#    #+#             */
-/*   Updated: 2021/03/31 14:11:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/31 16:22:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,33 +92,4 @@ t_bmp					get_metadata(t_cub *cub)
 	new.data = (uint8_t *)mlx_get_data_addr(cub->image.img_ptr, \
 		&cub->image.bpp, &cub->image.linesize, &cub->image.endian);
 	return (new);
-}
-
-void					write_metadata(t_cub *cub, int fd, t_bmp file)
-{
-	write_file(cub, fd, file.file_header);
-	write_info(cub, fd, file.info_header);
-}
-
-void					save(t_cub *cub, char const *filename)
-{
-	int		fd;
-	int		size;
-	t_bmp	file;
-
-	size = cub->mlx.screenheight * cub->mlx.screenwidth;
-	(void)size;
-	fd = \
-	open(filename, \
-		O_WRONLY | O_CREAT, S_IRWXU | S_IROTH | S_IRGRP);
-	if (fd < 0)
-		display_error(cub, "invalid file descriptor");
-	file = get_metadata(cub);
-	write_metadata(cub, fd, file);
-	if (file.data == NULL)
-		display_error(cub, "failed to load data");
-	if (write(fd, file.data, (cub->mlx.screenheight * cub->mlx.screenwidth \
-		* file.info_header.bit_per_pix / 8)) == -1)
-		display_error(cub, "error while saving game");
-	close_game(cub);
 }
