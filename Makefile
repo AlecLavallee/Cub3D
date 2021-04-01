@@ -6,16 +6,16 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2021/03/31 16:53:55 by user42           ###   ########.fr        #
+#    Updated: 2021/04/01 14:49:18 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3D
 
 MKDIR = mkdir -p
-MAKE = make -C
-MAKE_BONUS = make bonus -C libft/
-MAKE_MLX = make -C mlx/
+MAKE = make -s -C
+MAKE_BONUS = make -s -C libft/
+MAKE_MLX = make -s -C mlx/
 RM = rm -rf
 
 CC = gcc
@@ -25,7 +25,6 @@ CFLAGS += -g
 LFLAGS = -L$(LIBFT_PTH)headers/
 LFLAGS = -L$(LIBFT_PTH) -lft
 LFLAGS += -Lmlx/ -lmlx_Linux
-LFLAGS +=  -L/usr/lib -Imlx_Linux
 LFLAGS += -lXext -lX11 -lm
 
 LIBFT_PTH = libft/
@@ -59,9 +58,9 @@ PATH_B = build/
 OBJ = $(addprefix $(PATH_B), $(notdir $(SRC:.c=.o)))
 
 .PHONY: all clean fclean re
-all: $(LIBFT) $(MLX) $(PATH_B) $(NAME)
+all: $(MLX) $(LIBFT) $(PATH_B) $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) 
 	$(CC) $^ -o $@ $(LFLAGS)
 
 $(PATH_B)%.o: $(PATH_S)%.c
@@ -78,6 +77,8 @@ $(PATH_B):
 	
 clean:
 	$(RM) $(PATH_B) && $(MAKE) $(LIBFT_PTH) clean
+	make clean -s -C mlx/
+	make fclean -s -C libft/
 
 fclean: clean
 	$(RM) $(NAME) && $(MAKE) $(LIBFT_PTH) fclean
