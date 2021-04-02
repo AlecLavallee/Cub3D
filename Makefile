@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:36:45 by alelaval          #+#    #+#              #
-#    Updated: 2021/04/01 14:49:18 by user42           ###   ########.fr        #
+#    Updated: 2021/04/02 11:36:49 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,15 @@ RM = rm -rf
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -I headers/ -I mlx/
+CFLAGS += -I headers/ -I mlx/ -I libft/headers/
 CFLAGS += -g
 LFLAGS = -L$(LIBFT_PTH)headers/
 LFLAGS = -L$(LIBFT_PTH) -lft
 LFLAGS += -Lmlx/ -lmlx_Linux
 LFLAGS += -lXext -lX11 -lm
+
+MLX_PTH = mlx/
+MLX = $(addprefix $(MLX_PTH), libmlx_Linux.a)
 
 LIBFT_PTH = libft/
 LIBFT = $(addprefix $(LIBFT_PTH), libft.a)
@@ -58,7 +61,7 @@ PATH_B = build/
 OBJ = $(addprefix $(PATH_B), $(notdir $(SRC:.c=.o)))
 
 .PHONY: all clean fclean re
-all: $(MLX) $(LIBFT) $(PATH_B) $(NAME)
+all: $(LIBFT) $(MLX) $(PATH_B) $(NAME)
 
 $(NAME): $(OBJ) 
 	$(CC) $^ -o $@ $(LFLAGS)
