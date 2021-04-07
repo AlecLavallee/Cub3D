@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/01/11 15:29:47 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:52:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ void		parse_resolution(t_cub *cub, char *line)
 
 	check_flag(cub, R, 0);
 	line += 2;
-	height = ft_atoi(line);
-	if (height > 2560)
-		cub->mlx.screenheight = 2560;
-	else
-		cub->mlx.screenheight = height;
-	while (ft_isdigit(*line))
-		line++;
 	width = ft_atoi(line);
 	if (width > 1440)
 		cub->mlx.screenwidth = 1440;
 	else
 		cub->mlx.screenwidth = width;
+	while (ft_isdigit(*line))
+		line++;
+	height = ft_atoi(line);
+	if (height > 2560)
+		cub->mlx.screenheight = 2560;
+	else
+		cub->mlx.screenheight = height;
 	check_flag(cub, R, 1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:39:22 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/28 17:48:35 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:51:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			raycast(t_cub *cub)
 	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenheight);
 	player_move(cub);
 	if (!(cub->camera.zbuffer =
-	(double*)malloc(sizeof(double) * cub->mlx.screenheight)))
+	(double*)malloc(sizeof(double) * cub->mlx.screenwidth)))
 		display_error(cub, "Zbuffer allocation failed!");
 	while (i < cub->mlx.screenwidth)
 		raycast_core(cub, &i);
