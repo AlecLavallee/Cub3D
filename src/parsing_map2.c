@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:26:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/01/05 17:22:41 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:10:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,14 @@ int		**allocate_map(t_cub *cub, int index, int max)
 	i = 0;
 	if (index <= 0 || max <= 0)
 		display_error(cub, "Critical error when allocating map!");
-	if ((map = (int**)malloc(sizeof(int*) * index)) == NULL)
+	if ((map = (int**)malloc(sizeof(int*) * (index + 1))) == NULL)
 		display_error(cub, "Critical error when allocating map!");
 	while (i < index)
 	{
 		map[i] = NULL;
 		i++;
 	}
+	map[i] = NULL;
 	return (map);
 }
 
