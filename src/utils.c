@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:31:42 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:27:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,22 @@ unsigned	get_color_rgb(unsigned char *color)
 	ret_color += color[1];
 	ret_color += color[2];
 	return (ret_color);
+}
+
+void		check_screen_size(t_cub *cub)
+{
+	int x;
+	int y;
+
+	x = cub->mlx.screenwidth;
+	y = cub->mlx.screenheight;
+	mlx_get_screen_size(cub->mlx.mlx, &x, &y);
+	if (x <= cub->mlx.screenwidth)
+		cub->mlx.screenwidth = x;
+	if (y <= cub->mlx.screenheight)
+		cub->mlx.screenheight = y;
+	if (cub->mlx.screenwidth <= 50)
+		cub->mlx.screenwidth = 50;
+	if (cub->mlx.screenheight <= 50)
+		cub->mlx.screenheight = 50;
 }

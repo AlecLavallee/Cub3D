@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 15:03:28 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/04/12 15:23:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define RAYCAST_H
 
 void		get_tex_num(t_cub *cub);
+void        check_screen_size(t_cub *cub);
 void		mlx_clear_img(void *img_ptr, int height_res);
 void		ray_init(t_cub *cub);
 void		raycast_init(t_cub *cub);

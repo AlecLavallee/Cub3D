@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/07 17:52:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/12 15:22:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			parse_line_info(t_cub *cub, char *line)
 	if (type == 'R')
 	{
 		parse_resolution(cub, line);
+        check_screen_size(cub);
 		return (0);
 	}
 	if (type == 'N' || type == 'S' || type == 'W' || type == 'E')
