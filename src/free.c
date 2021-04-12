@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2021/03/31 16:59:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/12 15:43:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,8 @@ void	free_map(t_cub *cub)
 	int i;
 
 	i = 0;
-	while (cub->map.map[i])
-	{
-		if (cub->map.map[i] == NULL)
-			break ;
-		else
-			free(cub->map.map[i++]);
-	}
+	while (cub->map.map[i] != NULL)
+		free(cub->map.map[i++]);
 	free(cub->map.map);
 }
 
