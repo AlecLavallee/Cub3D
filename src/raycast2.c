@@ -82,6 +82,7 @@ void		draw(t_cub *cub, int x)
 	y = cub->camera.drawstart;
 	height = (int)(cub->mlx.screenheight / cub->camera.perpwalldist);
 	begin = -height / 2 + cub->mlx.screenheight / 2;
+	end = 0;
 	if (begin < 0)
 		begin = 0;
 	draw_scanline(cub, x, (t_vec){0, begin - 1},

@@ -66,7 +66,7 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 		{
 			cub->camera.posx = (double)index;
 			cub->camera.posx += 0.5;
-			cub->camera.posy = (double)i;
+			cub->camera.posy = (double)(i + 1);
 			cub->camera.posy -= 0.5;
 			set_orientation(cub, ref->map[i]);
 			ref->map[i] = '0';
