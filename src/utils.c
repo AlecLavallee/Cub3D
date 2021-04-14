@@ -42,7 +42,7 @@ t_cub		*init_cub(t_cub *cub)
 	cub->camera.planey = 0.66;
 	cub->camera.hit = 0;
 	cub->camera.rotspeed = 0.15;
-	cub->player.movespeed = 0.15;
+	cub->player.movespeed = 0.20;
 	return (cub);
 }
 
