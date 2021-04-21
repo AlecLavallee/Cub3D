@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:33:19 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:34:42 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/04/21 17:14:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
+
+void	check_colors(t_cub *cub, int r, int g, int b)
+{
+	if (r > 255 || g > 255 || b > 255)
+		display_error(cub, "one of the colors is above 255!");
+	if (r < 0 || g < 0 || b < 0)
+		display_error(cub, "one of the colors is below 255!");
+}
 
 void	set_color(unsigned char color[4], unsigned char r, unsigned char g,
 		unsigned char b)
@@ -22,30 +30,38 @@ void	set_color(unsigned char color[4], unsigned char r, unsigned char g,
 	color[3] = 0;
 }
 
-void	parse_color(t_cub *cub, char *line)
+void	affect_colors(t_cub *cub, unsigned char res[3], char type)
 {
-	char			type;
-	unsigned char	res[3];
-
-	type = *line;
-	line += 2;
-	res[0] = (unsigned char)ft_atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	line += (*line == ',');
-	res[1] = (unsigned char)ft_atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	line += (*line == ',');
-	res[2] = (unsigned char)ft_atoi(line);
 	if (type == 'C')
 	{
-		set_color(cub->map.colorceiling, res[0], res[1], res[2]);
+		set_color(cub->map.colorceiling, (unsigned char)res[0],
+		(unsigned char)res[1], (unsigned char)res[2]);
 		check_flag(cub, CC, 1);
 	}
 	else if (type == 'F')
 	{
-		set_color(cub->map.colorfloor, res[0], res[1], res[2]);
+		set_color(cub->map.colorfloor, (unsigned char)res[0],
+		(unsigned char)res[1], (unsigned char)res[2]);
 		check_flag(cub, CF, 1);
 	}
+}
+
+void	parse_color(t_cub *cub, char *line)
+{
+	char			type;
+	int				res[3];
+
+	type = *line;
+	line += 2;
+	res[0] = ft_atoi(line);
+	while (ft_isdigit(*line))
+		line++;
+	line += (*line == ',');
+	res[1] = ft_atoi(line);
+	while (ft_isdigit(*line))
+		line++;
+	line += (*line == ',');
+	res[2] = ft_atoi(line);
+	check_colors(cub, res[0], res[1], res[2]);
+	affect_colors(cub, (unsigned char*)res, type);
 }

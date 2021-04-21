@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 01:12:46 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 02:31:47 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:53:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		parse_textures(t_cub *cub, const char *texture, int index);
 void		parse_resolution(t_cub *cub, char *line);
 void		parse_color(t_cub *cub, char *line);
 void		parse_cub(t_cub *cub);
+void		check_colors(t_cub *cub, int r, int g, int b);
 void		check_map(t_cub *cub);
 void		check_sprite(t_cub *cub, int i, int j);
 void		check_tile(t_cub *cub, int i, int j);

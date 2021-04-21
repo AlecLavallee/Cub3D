@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/12 15:22:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:08:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,15 @@ void		parse_resolution(t_cub *cub, char *line)
 	check_flag(cub, R, 0);
 	line += 2;
 	width = ft_atoi(line);
-	if (width > 1440)
-		cub->mlx.screenwidth = 1440;
-	else
-		cub->mlx.screenwidth = width;
+	if (width <= 0)
+		display_error(cub, "width is negative or zeroed!");
+	cub->mlx.screenwidth = width;
 	while (ft_isdigit(*line))
 		line++;
 	height = ft_atoi(line);
-	if (height > 2560)
-		cub->mlx.screenheight = 2560;
-	else
-		cub->mlx.screenheight = height;
+	if (height <= 0)
+		display_error(cub, "height is negative or zeroed!");
+	cub->mlx.screenheight = height;
 	check_flag(cub, R, 1);
 }
 
@@ -65,7 +63,7 @@ int			parse_line_info(t_cub *cub, char *line)
 	if (type == 'R')
 	{
 		parse_resolution(cub, line);
-        check_screen_size(cub);
+		check_screen_size(cub);
 		return (0);
 	}
 	if (type == 'N' || type == 'S' || type == 'W' || type == 'E')
