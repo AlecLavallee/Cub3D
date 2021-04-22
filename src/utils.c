@@ -65,16 +65,10 @@ unsigned	get_color_rgb(unsigned char *color)
 	unsigned char		*bytes_color;
 
 	ret_color = 0;
-	//ft_memcpy(&ret_color, color, 4);
-	/*ret_color |= color[0];
-	ret_color |= color[1] << 8;
-	ret_color |= color[2] << 16;*/
 	bytes_color = (unsigned char*)&ret_color;
 	bytes_color[0] = color[2];
 	bytes_color[1] = color[1];
 	bytes_color[2] = color[0];
-	// printf("Parser: %d, %d, %d, %d\n", color[0], color[1], color[2], color[3]);
-	// printf("Unsigned: %d, %d, %d, %d\n", bytes_color[0], bytes_color[1], bytes_color[2], bytes_color[3]);
 	return (ret_color);
 }
 
