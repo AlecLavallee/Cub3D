@@ -86,7 +86,7 @@ void		draw(t_cub *cub, int x)
 	if (begin < 0)
 		begin = 0;
 	draw_scanline(cub, x, (t_vec){0, begin - 1},
-	get_color_rgb(cub->map.colorfloor));
+	get_color_rgb(cub->map.colorceiling));
 	while (y++ < cub->camera.drawend)
 	{
 		cub->camera.texy = (int)cub->camera.texpos & (TEX_HEIGHT - 1);
@@ -97,5 +97,5 @@ void		draw(t_cub *cub, int x)
 		draw_textured_row(cub, x, y);
 	}
 	draw_scanline(cub, x, (t_vec){end + 1, cub->mlx.screenheight - 1}, \
-		get_color_rgb(cub->map.colorceiling));
+		get_color_rgb(cub->map.colorfloor));
 }

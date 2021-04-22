@@ -30,7 +30,7 @@ void	set_color(unsigned char color[4], unsigned char r, unsigned char g,
 	color[3] = 0;
 }
 
-void	affect_colors(t_cub *cub, unsigned char res[3], char type)
+void	affect_colors(t_cub *cub, int res[3], char type)
 {
 	if (type == 'C')
 	{
@@ -54,14 +54,14 @@ void	parse_color(t_cub *cub, char *line)
 	type = *line;
 	line += 2;
 	res[0] = ft_atoi(line);
-	while (ft_isdigit(*line))
+	while (ft_isdigit(*line) || ft_isspace(*line))
 		line++;
 	line += (*line == ',');
 	res[1] = ft_atoi(line);
-	while (ft_isdigit(*line))
+	while (ft_isdigit(*line) || ft_isspace(*line))
 		line++;
 	line += (*line == ',');
 	res[2] = ft_atoi(line);
 	check_colors(cub, res[0], res[1], res[2]);
-	affect_colors(cub, (unsigned char*)res, type);
+	affect_colors(cub, res, type);
 }
