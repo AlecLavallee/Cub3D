@@ -15,14 +15,13 @@
 unsigned	get_color_sprite(t_cub *cub)
 {
 	t_texture	*tex_ptr;
-	unsigned	*color_ptr;
-	unsigned	color;
+	int			*color_ptr;
+	int			color;
 
 	tex_ptr = &cub->map.textures.sprite;
-	color_ptr = (unsigned*)mlx_get_data_addr(tex_ptr->image.img_ptr,
+	color_ptr = (int*)mlx_get_data_addr(tex_ptr->image.img_ptr,
 	&tex_ptr->image.bpp, &tex_ptr->image.linesize, &tex_ptr->image.endian);
-	color = \
-	(unsigned)(color_ptr[TEX_WIDTH * cub->camera.texy + cub->camera.texx]);
+	color = (int)(color_ptr[TEX_WIDTH * cub->camera.texy + cub->camera.texx]);
 	return (color);
 }
 
