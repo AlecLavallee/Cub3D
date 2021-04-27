@@ -16,11 +16,14 @@ t_texture	load_tex(t_cub *cub, char *path)
 {
 	t_texture	tex;
 	int			config[3];
+	int			test;
 
+	if ((test = open(path, O_RDONLY)) == -1)
+		display_error(cub, "Texture path invalid!");
 	tex.image.img_ptr = mlx_xpm_file_to_image(cub->mlx.mlx, path,
 			&tex.width, &tex.height);
 	if (!tex.image.img_ptr)
-		return (tex);
+		display_error(cub, "Invalid XPM file!");
 	config[0] = 32;
 	config[1] = tex.width * 4;
 	config[2] = 0;
