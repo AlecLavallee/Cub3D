@@ -54,14 +54,11 @@ void	parse_color(t_cub *cub, char *line)
 	type = *line;
 	line += 2;
 	res[0] = ft_atoi(line);
-	while (ft_isdigit(*line) || ft_isspace(*line))
-		line++;
-	line += (*line == ',');
+	check_spacing(cub, &line);
 	res[1] = ft_atoi(line);
-	while (ft_isdigit(*line) || ft_isspace(*line))
-		line++;
-	line += (*line == ',');
+	check_spacing(cub, &line);
 	res[2] = ft_atoi(line);
+	check_ending(cub, &line);
 	check_colors(cub, res[0], res[1], res[2]);
 	affect_colors(cub, res, type);
 }

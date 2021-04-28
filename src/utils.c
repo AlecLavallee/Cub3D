@@ -58,10 +58,9 @@ void		get_tex_num(t_cub *cub)
 		cub->camera.texnum = 3;
 }
 
-#include <stdio.h>
 unsigned	get_color_rgb(unsigned char *color)
 {
-	unsigned 			ret_color;
+	unsigned			ret_color;
 	unsigned char		*bytes_color;
 
 	ret_color = 0;

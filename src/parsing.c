@@ -30,6 +30,7 @@ void		parse_resolution(t_cub *cub, char *line)
 	if (height <= 0)
 		display_error(cub, "height is negative or zeroed!");
 	cub->mlx.screenheight = height;
+	check_string_res(cub, line);
 	check_flag(cub, R, 1);
 }
 

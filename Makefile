@@ -52,6 +52,7 @@ SRC = $(addprefix $(PATH_S), \
 	sprites3.c \
 	loader.c \
 	utils.c \
+	utils2.c \
 	save.c \
 	save2.c \
 	error.c \
