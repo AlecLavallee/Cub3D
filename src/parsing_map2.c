@@ -30,21 +30,20 @@ void	check_sprite(t_cub *cub, int i, int j)
 
 void	check_tile(t_cub *cub, int i, int j)
 {
-	if (i == 0 || j == 0)
+	int **ref;
+
+	ref = cub->map.map;
+	if (i == 0 || i == cub->map.ysize - 1)
 		display_error(cub, "Map not closed!");
-	if (i >= cub->map.ysize - 1 || j >= cub->map.xsize - 1)
+	if (j == 0 || j == cub->map.xsize - 1)
 		display_error(cub, "Map not closed!");
-	if (cub->map.map[i - 1][j] != 1 && cub->map.map[i - 1][j] != 0
-		&& cub->map.map[i - 1][j] != 2)
+	if (ref[i + 1][j] == ' ' || ref[i - 1][j] == ' ')
 		display_error(cub, "Map not closed!");
-	if (cub->map.map[i + 1][j] != 1 && cub->map.map[i + 1][j] != 0
-		&& cub->map.map[i + 1][j] != 2)
+	if (ref[i][j + 1] == ' ' || ref[i][j + 1] == ' ')
 		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j - 1] != 1 && cub->map.map[i][j - 1] != 0
-		&& cub->map.map[i][j - 1] != 2)
+	if (ref[i + 1][j + 1] == ' ' || ref[i - 1][j - 1] == ' ')
 		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j + 1] != 1 && cub->map.map[i][j + 1] != 0
-		&& cub->map.map[i][j + 1] != 2)
+	if (ref[i - 1][j + 1] == ' ' || ref[i - 1][j + 1] == ' ')
 		display_error(cub, "Map not closed!");
 }
 
@@ -63,9 +62,6 @@ void	check_map(t_cub *cub)
 				check_tile(cub, i, j);
 			if (cub->map.map[i][j] == 2)
 				check_sprite(cub, i, j);
-			if (cub->map.map[i][j] != 0 && cub->map.map[i][j] != 1
-				&& cub->map.map[i][j] != 2)
-				cub->map.map[i][j] = 1;
 			j++;
 		}
 		j = 0;

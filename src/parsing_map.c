@@ -75,6 +75,6 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 		i++;
 	}
 	while (i < cub->map.xsize)
-		line[i++] = ' ' - 48;
+		line[i++] = ' ';
 	return (line);
 }

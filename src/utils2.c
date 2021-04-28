@@ -30,7 +30,7 @@ void	check_string_res(t_cub *cub, char *line)
 void	check_ending(t_cub *cub, char **line)
 {
 	while (ft_isdigit(**line))
-		(*line)++;	
+		(*line)++;
 	while (ft_isspace(**line))
 		(*line)++;
 	while (**line)
