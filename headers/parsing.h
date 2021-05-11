@@ -32,6 +32,7 @@ void		read_file(t_cub *cub, char *file);
 void		parsing(char *file, t_cub *cub);
 void		parse_map(char ***map, int index, t_cub *cub);
 void		parse_textures(t_cub *cub, const char *texture, int index);
+void		texture_loader(t_cub *cub, const char *type, char *line);
 void		parse_resolution(t_cub *cub, char *line);
 void    	check_string_res(t_cub *cub, char *line);
 void		check_spacing(t_cub *cub, char **line);

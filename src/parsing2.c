@@ -32,13 +32,13 @@ void	check_flags(t_cub *cub)
 
 void	set_texture_flag(t_cub *cub, const char *type)
 {
-	if (type[0] == 'N')
+	if (ft_strncmp(type, "NO ", 3) == 0)
 		check_flag(cub, NO, 1);
-	if (type[0] == 'E')
+	if (ft_strncmp(type, "EA ", 3) == 0)
 		check_flag(cub, EA, 1);
-	if (type[0] == 'W')
+	if (ft_strncmp(type, "WE ", 3) == 0)
 		check_flag(cub, WE, 1);
-	if (type[0] == 'S' && type[1] == 'O')
+	if (ft_strncmp(type, "SO ", 3) == 0)
 		check_flag(cub, SO, 1);
 	if (type[0] == 'S' && type[1] == ' ')
 		check_flag(cub, S, 1);

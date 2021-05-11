@@ -36,23 +36,21 @@ void		parse_resolution(t_cub *cub, char *line)
 
 void		parse_texture(t_cub *cub, char *line)
 {
-	char type[2];
+	char type[3];
+	char *copy;
 
+	copy = line;
 	type[0] = line[0];
 	type[1] = line[1];
-	while (ft_isalpha(*line))
-		line++;
-	line++;
-	if (type[0] == 'N' && !check_flag(cub, NO, 0))
-		cub->map.textures.no = load_tex(cub, line);
-	if (type[0] == 'E' && !check_flag(cub, EA, 0))
-		cub->map.textures.ea = load_tex(cub, line);
-	if (type[0] == 'W' && !check_flag(cub, WE, 0))
-		cub->map.textures.we = load_tex(cub, line);
-	if (type[0] == 'S' && type[1] == 'O' && !check_flag(cub, SO, 0))
-		cub->map.textures.so = load_tex(cub, line);
-	if (type[0] == 'S' && type[1] == ' ' && !check_flag(cub, S, 0))
-		cub->map.textures.sprite = load_tex(cub, line);
+	type[2] = line[2];
+	if (ft_strncmp(copy, "NO ", 3) == 0 || ft_strncmp(copy, "SO ", 3) == 0 ||
+	ft_strncmp(copy, "EA ", 3) == 0 || ft_strncmp(copy, "WE ", 3) == 0 ||
+	ft_strncmp(copy, "S ", 2) == 0)
+	{
+		texture_loader(cub, (const char *)type, line);
+	}
+	else
+		display_error(cub, "Invalid texture descriptor!");
 	set_texture_flag(cub, (const char *)type);
 }
 
@@ -79,6 +77,8 @@ int			parse_line_info(t_cub *cub, char *line)
 	}
 	if (type == '\0')
 		return (0);
+	if (type != '1' && type != '0' && type != ' ')
+		display_error(cub, "invalid descriptor detected!");
 	return (1);
 }
 

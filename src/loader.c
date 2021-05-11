@@ -31,3 +31,17 @@ t_texture	load_tex(t_cub *cub, char *path)
 			&config[0], &config[1], &config[2]);
 	return (tex);
 }
+
+void		texture_loader(t_cub *cub, const char *type, char *line)
+{
+	if (ft_strncmp(type, "NO ", 3) == 0 && !check_flag(cub, NO, 0))
+		cub->map.textures.no = load_tex(cub, line + 3);
+	if (ft_strncmp(type, "EA ", 3) == 0 && !check_flag(cub, EA, 0))
+		cub->map.textures.ea = load_tex(cub, line + 3);
+	if (ft_strncmp(type, "WE ", 3) == 0 && !check_flag(cub, WE, 0))
+		cub->map.textures.we = load_tex(cub, line + 3);
+	if (ft_strncmp(type, "SO ", 3) == 0 && !check_flag(cub, SO, 0))
+		cub->map.textures.so = load_tex(cub, line + 3);
+	if (ft_strncmp(type, "S ", 2) == 0 && !check_flag(cub, S, 0))
+		cub->map.textures.sprite = load_tex(cub, line + 2);
+}
