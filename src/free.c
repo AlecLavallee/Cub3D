@@ -47,5 +47,11 @@ int		close_game(t_cub *cub)
 		mlx_destroy_image(cub->mlx.mlx, cub->image.img_ptr);
 	if (cub->mlx.window)
 		mlx_destroy_window(cub->mlx.mlx, cub->mlx.window);
+	if (cub->mlx.mlx)
+	{
+		mlx_destroy_display(cub->mlx.mlx);
+		free(cub->mlx.mlx);
+	}
+	cub->mlx.mlx = NULL;
 	exit(0);
 }
