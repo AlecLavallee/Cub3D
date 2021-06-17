@@ -21,13 +21,14 @@ int		check_flag(t_cub *cub, int flag, int set)
 	return (0);
 }
 
-void	check_flags(t_cub *cub)
+int		check_flags(t_cub *cub)
 {
 	int	flags;
 
 	flags = cub->flags;
 	if (flags != 255)
-		display_error(cub, "Descriptors are lacking before map declaration!");
+		return (1);
+	return (0);
 }
 
 void	set_texture_flag(t_cub *cub, const char *type)
@@ -72,5 +73,7 @@ void	parsing(char *file, t_cub *cub)
 	init_cub(cub);
 	read_file(cub, file);
 	create_map(cub, &cub->file.lstmap);
+	if (check_flags(cub))
+		display_error(cub, "Descriptors are lacking before map declaration!");
 	mlx_gestion(cub);
 }

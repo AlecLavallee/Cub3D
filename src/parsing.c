@@ -19,7 +19,7 @@ void		parse_resolution(t_cub *cub, char *line)
 	int height;
 
 	check_flag(cub, R, 0);
-	line += 2;
+	line++;
 	width = ft_atoi(line);
 	if (width <= 0)
 		display_error(cub, "width is negative or zeroed!");
@@ -43,9 +43,9 @@ void		parse_texture(t_cub *cub, char *line)
 	type[0] = line[0];
 	type[1] = line[1];
 	type[2] = line[2];
-	if (ft_strncmp(copy, "NO ", 3) == 0 || ft_strncmp(copy, "SO ", 3) == 0 ||
-	ft_strncmp(copy, "EA ", 3) == 0 || ft_strncmp(copy, "WE ", 3) == 0 ||
-	ft_strncmp(copy, "S ", 2) == 0)
+	if (ft_strncmp(copy, "NO", 2) == 0 || ft_strncmp(copy, "SO", 2) == 0 ||
+	ft_strncmp(copy, "EA", 2) == 0 || ft_strncmp(copy, "WE", 2) == 0 ||
+	(ft_strncmp(copy, "S .", 3) == 0 || ft_strncmp(copy, "S.", 2) == 0))
 	{
 		texture_loader(cub, (const char *)type, line);
 	}
@@ -91,7 +91,6 @@ void		parse_line(t_cub *cub, char *line)
 	}
 	else
 	{
-		check_flags(cub);
 		cub->file.mapping = 1;
 		if (is_valid_map(cub, line))
 			display_error(cub, "Map has invalid characters!");

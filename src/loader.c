@@ -18,6 +18,10 @@ t_texture	load_tex(t_cub *cub, char *path)
 	int			config[3];
 	int			test;
 
+	while (ft_isspace(*path))
+		path++;
+	ft_putstr(path);
+	ft_putstr("\n");
 	if ((test = open(path, O_RDONLY)) == -1)
 		display_error(cub, "Texture path invalid!");
 	tex.image.img_ptr = mlx_xpm_file_to_image(cub->mlx.mlx, path,
@@ -34,14 +38,15 @@ t_texture	load_tex(t_cub *cub, char *path)
 
 void		texture_loader(t_cub *cub, const char *type, char *line)
 {
-	if (ft_strncmp(type, "NO ", 3) == 0 && !check_flag(cub, NO, 0))
+	if (ft_strncmp(type, "NO", 2) == 0 && !check_flag(cub, NO, 0))
 		cub->map.textures.no = load_tex(cub, line + 3);
-	if (ft_strncmp(type, "EA ", 3) == 0 && !check_flag(cub, EA, 0))
+	if (ft_strncmp(type, "EA", 2) == 0 && !check_flag(cub, EA, 0))
 		cub->map.textures.ea = load_tex(cub, line + 3);
-	if (ft_strncmp(type, "WE ", 3) == 0 && !check_flag(cub, WE, 0))
+	if (ft_strncmp(type, "WE", 2) == 0 && !check_flag(cub, WE, 0))
 		cub->map.textures.we = load_tex(cub, line + 3);
-	if (ft_strncmp(type, "SO ", 3) == 0 && !check_flag(cub, SO, 0))
+	if (ft_strncmp(type, "SO", 2) == 0 && !check_flag(cub, SO, 0))
 		cub->map.textures.so = load_tex(cub, line + 3);
-	if (ft_strncmp(type, "S ", 2) == 0 && !check_flag(cub, S, 0))
+	if ((ft_strncmp(type, "S.", 2) == 0 || ft_strncmp(type, "S .", 3) == 0)
+	&& !check_flag(cub, S, 0))
 		cub->map.textures.sprite = load_tex(cub, line + 2);
 }

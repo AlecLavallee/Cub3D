@@ -46,7 +46,7 @@ void		check_sprite(t_cub *cub, int i, int j);
 void		check_tile(t_cub *cub, int i, int j);
 void		create_map(t_cub *cub, t_map **map);
 int			check_flag(t_cub *cub, int flag, int set);
-void		check_flags(t_cub *cub);
+int			check_flags(t_cub *cub);
 void		set_texture_flag(t_cub *cub, const char *type);
 int			get_index_map(t_map *ref);
 int			get_max_len(t_map *ref);

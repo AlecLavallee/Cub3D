@@ -52,7 +52,7 @@ void	parse_color(t_cub *cub, char *line)
 	int				res[3];
 
 	type = *line;
-	line += 2;
+	line++;
 	res[0] = ft_atoi(line);
 	check_spacing(cub, &line);
 	res[1] = ft_atoi(line);
