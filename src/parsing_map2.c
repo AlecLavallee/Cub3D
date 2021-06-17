@@ -12,39 +12,25 @@
 
 #include "cub3d.h"
 
-void	check_sprite(t_cub *cub, int i, int j)
-{
-	if (i == 0 || j == 0)
-		display_error(cub, "Map not closed!");
-	if (i >= cub->map.ysize - 1 || j >= cub->map.xsize - 1)
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i - 1][j] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i + 1][j] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j - 1] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-	if (cub->map.map[i][j + 1] == (' ' - 48))
-		display_error(cub, "Map not closed!");
-}
-
-void	check_tile(t_cub *cub, int i, int j)
+void	check_open(t_cub *cub, int i, int j)
 {
 	int **ref;
 
 	ref = cub->map.map;
-	if (i == 0 || i == cub->map.ysize - 1)
+	if (i == 0 || i >= cub->map.ysize - 1)
 		display_error(cub, "Map not closed!");
-	if (j == 0 || j == cub->map.xsize - 1)
+	if (j == 0 || j >= cub->map.xsize - 1)
 		display_error(cub, "Map not closed!");
 	if (ref[i + 1][j] == ' ' || ref[i - 1][j] == ' ')
 		display_error(cub, "Map not closed!");
 	if (ref[i][j + 1] == ' ' || ref[i][j + 1] == ' ')
 		display_error(cub, "Map not closed!");
-	if (ref[i + 1][j + 1] == ' ' || ref[i - 1][j - 1] == ' ')
+	/*if (ref[i + 1][j + 1] == ' ' || ref[i - 1][j - 1] == ' ')
 		display_error(cub, "Map not closed!");
-	if (ref[i - 1][j + 1] == ' ' || ref[i - 1][j + 1] == ' ')
-		display_error(cub, "Map not closed!");
+	if (ref[i - 1][j + 1] == ' ' || ref[i + 1][j - 1] == ' ')
+		display_error(cub, "Map not closed!");*/
+	if (ref[i][j] == '0')
+		ref[i][j] -= 48;
 }
 
 void	check_map(t_cub *cub)
@@ -56,12 +42,11 @@ void	check_map(t_cub *cub)
 	j = 0;
 	while (i < cub->map.ysize)
 	{
+		ft_putchar(i + 48);
 		while (j < cub->map.xsize)
 		{
-			if (cub->map.map[i][j] == 0)
-				check_tile(cub, i, j);
-			if (cub->map.map[i][j] == 2)
-				check_sprite(cub, i, j);
+			if (cub->map.map[i][j] == '0' || cub->map.map[i][j] == 2)
+				check_open(cub, i, j);
 			j++;
 		}
 		j = 0;

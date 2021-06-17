@@ -71,7 +71,8 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 			set_orientation(cub, ref->map[i]);
 			ref->map[i] = '0';
 		}
-		line[i] = ref->map[i] - 48;
+		if (ref->map[i] != ' ' && ref->map[i] != '0')
+			line[i] = ref->map[i] - 48;
 		i++;
 	}
 	while (i < cub->map.xsize)
