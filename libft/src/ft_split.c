@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:32:07 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/14 17:24:56 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:05:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		number(const char *s, char c)
+static int	number(const char *s, char c)
 {
 	int	i;
 	int	sub;
@@ -33,7 +33,7 @@ static int		number(const char *s, char c)
 	return (i);
 }
 
-static int		size(const char *s, char c)
+static int	size(const char *s, char c)
 {
 	int	size;
 
@@ -46,7 +46,7 @@ static int		size(const char *s, char c)
 	return (size);
 }
 
-static char		**panic(char **tab, int index)
+static char	**panic(char **tab, int index)
 {
 	while (index--)
 		free(tab[index]);
@@ -54,7 +54,7 @@ static char		**panic(char **tab, int index)
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	int		nb_word;

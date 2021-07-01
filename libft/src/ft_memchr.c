@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 13:30:48 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/09 14:36:22 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:09:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	if (s)
 	{
 		stop = c;
-		copy = (unsigned char*)s;
+		copy = (unsigned char *)s;
 		while (n--)
 		{
 			if (*copy == stop)

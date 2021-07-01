@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:43:19 by alelaval          #+#    #+#             */
-/*   Updated: 2019/11/22 11:42:12 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:57:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_secure(char **stock, char **line, int i)
+int	ft_secure(char **stock, char **line, int i)
 {
 	if (i == 1)
 	{
@@ -39,7 +39,7 @@ int		ft_secure(char **stock, char **line, int i)
 	return (0);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int				i;
 	static char		*stock = NULL;

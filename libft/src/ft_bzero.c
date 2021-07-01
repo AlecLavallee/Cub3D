@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 10:44:48 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/24 10:35:38 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:06:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_bzero(void *s, size_t n)
 
 	if (s)
 	{
-		str = (unsigned char*)s;
+		str = (unsigned char *)s;
 		while (n--)
 			*str++ = 0;
 	}

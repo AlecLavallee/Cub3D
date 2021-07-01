@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 11:44:08 by alelaval          #+#    #+#             */
-/*   Updated: 2019/10/21 15:49:28 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:33:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	len;
 	char	*str;
@@ -20,7 +20,8 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = (char*)malloc((sizeof(char) * (len + 1)))))
+	str = (char *)malloc((sizeof(char) * (len + 1)));
+	if (str == NULL)
 		return (NULL);
 	str[len] = '\0';
 	while (*s1)
