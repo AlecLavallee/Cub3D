@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:33:19 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/21 17:14:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 17:20:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	affect_colors(t_cub *cub, int res[3], char type)
 	if (type == 'C')
 	{
 		set_color(cub->map.colorceiling, (unsigned char)res[0],
-		(unsigned char)res[1], (unsigned char)res[2]);
+			(unsigned char)res[1], (unsigned char)res[2]);
 		check_flag(cub, CC, 1);
 	}
 	else if (type == 'F')
 	{
 		set_color(cub->map.colorfloor, (unsigned char)res[0],
-		(unsigned char)res[1], (unsigned char)res[2]);
+			(unsigned char)res[1], (unsigned char)res[2]);
 		check_flag(cub, CF, 1);
 	}
 }

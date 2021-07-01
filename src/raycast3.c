@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:39:22 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/07 17:51:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 18:39:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_texture	*get_tex_ptr(t_cub *cub, int index)
 	return (NULL);
 }
 
-void		sprite_manager(t_cub *cub)
+void	sprite_manager(t_cub *cub)
 {
 	t_s		*sprites;
 
@@ -38,7 +38,7 @@ void		sprite_manager(t_cub *cub)
 	free(sprites);
 }
 
-void		raycast_core(t_cub *cub, int *i)
+void	raycast_core(t_cub *cub, int *i)
 {
 	cub->camera.camerax = (2 * (*i) / (double)cub->mlx.screenwidth - 1);
 	ray_init(cub);
@@ -52,15 +52,15 @@ void		raycast_core(t_cub *cub, int *i)
 	cub->camera.zbuffer[(*i)++] = cub->camera.perpwalldist;
 }
 
-int			raycast(t_cub *cub)
+int	raycast(t_cub *cub)
 {
 	int		i;
 
 	i = 0;
 	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenheight);
 	player_move(cub);
-	if (!(cub->camera.zbuffer =
-	(double*)malloc(sizeof(double) * cub->mlx.screenwidth)))
+	if (!(cub->camera.zbuffer
+		= (double *)malloc(sizeof(double) * cub->mlx.screenwidth)))
 		display_error(cub, "Zbuffer allocation failed!");
 	while (i < cub->mlx.screenwidth)
 		raycast_core(cub, &i);

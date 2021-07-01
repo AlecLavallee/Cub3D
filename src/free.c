@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/12 15:43:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 17:30:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_map(t_cub *cub)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cub->map.map[i] != NULL)
@@ -36,7 +36,7 @@ void	free_textures(t_cub *cub)
 		mlx_destroy_image(cub->mlx.mlx, cub->map.textures.sprite.image.img_ptr);
 }
 
-int		close_game(t_cub *cub)
+int	close_game(t_cub *cub)
 {
 	free_textures(cub);
 	if (cub->map.map == NULL)

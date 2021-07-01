@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/18 16:33:30 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 17:30:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_texture	load_tex(t_cub *cub, char *path)
 	return (tex);
 }
 
-void		texture_loader(t_cub *cub, const char *type, char *line)
+void	texture_loader(t_cub *cub, const char *type, char *line)
 {
 	if (ft_strncmp(type, "NO", 2) == 0 && !check_flag(cub, NO, 0))
 		cub->map.textures.no = load_tex(cub, line + 3);
@@ -47,6 +47,6 @@ void		texture_loader(t_cub *cub, const char *type, char *line)
 	if (ft_strncmp(type, "SO", 2) == 0 && !check_flag(cub, SO, 0))
 		cub->map.textures.so = load_tex(cub, line + 3);
 	if ((ft_strncmp(type, "S.", 2) == 0 || ft_strncmp(type, "S .", 3) == 0)
-	&& !check_flag(cub, S, 0))
+		&& !check_flag(cub, S, 0))
 		cub->map.textures.sprite = load_tex(cub, line + 2);
 }

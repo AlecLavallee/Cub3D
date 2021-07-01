@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 22:19:31 by alelaval          #+#    #+#             */
-/*   Updated: 2021/02/01 22:40:43 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:19:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-t_bmp_file_header		get_file_header(uint file_size, uint offset)
+t_bmp_file_header	get_file_header(unsigned file_size, unsigned offset)
 {
 	t_bmp_file_header	new;
 
@@ -25,7 +25,7 @@ t_bmp_file_header		get_file_header(uint file_size, uint offset)
 	return (new);
 }
 
-t_bmp_info_header		get_info_header(unsigned *res, int bit_per_pix)
+t_bmp_info_header	get_info_header(unsigned int *res, int bit_per_pix)
 {
 	t_bmp_info_header	new;
 
@@ -43,7 +43,7 @@ t_bmp_info_header		get_info_header(unsigned *res, int bit_per_pix)
 	return (new);
 }
 
-t_bmp					get_metadata(void *mlx_img, unsigned *res_img)
+t_bmp	get_metadata(void *mlx_img, unsigned int *res_img)
 {
 	t_bmp	new;
 	int		bits_per_pix;

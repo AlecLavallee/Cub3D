@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:16:47 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/28 17:34:33 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 17:55:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_swap(t_s *x1, t_s *x2)
 	*x2 = x3;
 }
 
-int		count_sprites(t_cub *cub)
+int	count_sprites(t_cub *cub)
 {
 	int		i;
 	int		j;
@@ -52,15 +52,15 @@ double	get_sprite_dist(t_cub *cub, t_vec_d pos)
 		* (cub->camera.posy - pos.y));
 }
 
-t_s		*get_sprites(t_cub *cub)
+t_s	*get_sprites(t_cub *cub)
 {
-	t_s		*sprites;
-	int		count;
-	int		i;
-	int		j;
+	t_s	*sprites;
+	int	count;
+	int	i;
+	int	j;
 
 	count = count_sprites(cub);
-	if (!(sprites = (t_s*)malloc(sizeof(t_s) * count)))
+	if (!(sprites = (t_s *)malloc(sizeof(t_s) * count)))
 		return (NULL);
 	i = 0;
 	while (i < cub->map.ysize)

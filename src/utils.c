@@ -6,14 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:37:52 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/21 16:01:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 18:35:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-void		set_textures(t_cub *cub)
+void	set_textures(t_cub *cub)
 {
 	cub->image.img_ptr = NULL;
 	cub->image.img_data = NULL;
@@ -29,7 +29,7 @@ void		set_textures(t_cub *cub)
 	cub->map.textures.sprite.image.img_data = NULL;
 }
 
-t_cub		*init_cub(t_cub *cub)
+t_cub	*init_cub(t_cub *cub)
 {
 	cub->flags = 0;
 	set_textures(cub);
@@ -46,7 +46,7 @@ t_cub		*init_cub(t_cub *cub)
 	return (cub);
 }
 
-void		get_tex_num(t_cub *cub)
+void	get_tex_num(t_cub *cub)
 {
 	if (cub->camera.side == 0 && cub->camera.raydirx > 0)
 		cub->camera.texnum = 0;
@@ -58,23 +58,23 @@ void		get_tex_num(t_cub *cub)
 		cub->camera.texnum = 3;
 }
 
-unsigned	get_color_rgb(unsigned char *color)
+unsigned int	get_color_rgb(unsigned char *color)
 {
-	unsigned			ret_color;
-	unsigned char		*bytes_color;
+	unsigned int	ret_color;
+	unsigned char	*bytes_color;
 
 	ret_color = 0;
-	bytes_color = (unsigned char*)&ret_color;
+	bytes_color = (unsigned char *)&ret_color;
 	bytes_color[0] = color[2];
 	bytes_color[1] = color[1];
 	bytes_color[2] = color[0];
 	return (ret_color);
 }
 
-void		check_screen_size(t_cub *cub)
+void	check_screen_size(t_cub *cub)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = cub->mlx.screenwidth;
 	y = cub->mlx.screenheight;

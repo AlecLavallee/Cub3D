@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   sprites2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:17:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/28 17:29:40 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:21:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		sprite_transform(t_cub *cub)
+void	sprite_transform(t_cub *cub)
 {
-	cub->sprite.invdet = 1.0 /
-	(cub->camera.planex * cub->camera.diry - \
+	cub->sprite.invdet = 1.0
+		/ (cub->camera.planex * cub->camera.diry - \
 	cub->camera.dirx * cub->camera.planey);
 	cub->sprite.transformx = cub->sprite.invdet \
 	* (cub->camera.diry * cub->sprite.spritex \
 	- cub->camera.dirx * cub->sprite.spritey);
 	cub->sprite.transformy = cub->sprite.invdet
-	* (-cub->camera.planey * cub->sprite.spritex \
+		* (-cub->camera.planey * cub->sprite.spritex \
 	+ cub->camera.planex * cub->sprite.spritey);
 	cub->sprite.spritescreenx = (int)((cub->mlx.screenwidth / 2) \
 	* (1 + cub->sprite.transformx / cub->sprite.transformy));
 }
 
-void		sprite_calc(t_cub *cub)
+void	sprite_calc(t_cub *cub)
 {
-	cub->sprite.spriteheight =
-	abs((int)(cub->mlx.screenheight / cub->sprite.transformy));
-	cub->sprite.drawstarty =
-	-cub->sprite.spriteheight / 2 + cub->mlx.screenheight / 2;
+	cub->sprite.spriteheight
+		= abs((int)(cub->mlx.screenheight / cub->sprite.transformy));
+	cub->sprite.drawstarty
+		= -cub->sprite.spriteheight / 2 + cub->mlx.screenheight / 2;
 	if (cub->sprite.drawstarty < 0)
 		cub->sprite.drawstarty = 0;
 	cub->sprite.drawendy = cub->sprite.spriteheight / 2 \
@@ -51,27 +51,27 @@ void		sprite_calc(t_cub *cub)
 		cub->sprite.drawendx = cub->mlx.screenwidth - 1;
 }
 
-void		draw_sprite(t_cub *cub)
+void	draw_sprite(t_cub *cub)
 {
-	int stripe;
+	int	stripe;
 
 	stripe = cub->sprite.drawstartx;
 	while (stripe < cub->sprite.drawendx)
 	{
-		cub->camera.texx = (int)(256 * (stripe - (-cub->sprite.spritewidth / 2
+		cub->camera.texx = (int)(256 * (stripe - (-cub->sprite.spritewidth / 2 \
 		+ cub->sprite.spritescreenx)) * TEX_WIDTH / cub->sprite.spritewidth);
 		cub->camera.texx /= 256;
 		if (cub->sprite.transformy > 0 && stripe > 0
-		&& stripe < cub->mlx.screenwidth
-		&& cub->sprite.transformy < cub->camera.zbuffer[stripe])
+			&& stripe < cub->mlx.screenwidth
+			&& cub->sprite.transformy < cub->camera.zbuffer[stripe])
 			draw_textured_sprite(cub, stripe);
 		stripe++;
 	}
 }
 
-void		draw_sprites(t_cub *cub, t_s *sprites)
+void	draw_sprites(t_cub *cub, t_s *sprites)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < cub->sprite.numsprites)

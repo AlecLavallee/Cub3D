@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2021/01/26 15:59:26 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 17:31:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mlx_clear_img(void *img_ptr, int height_res)
 	ft_bzero(img_ret, size_line * height_res);
 }
 
-int		ft_key_release(int keycode, void *param)
+int	ft_key_release(int keycode, void *param)
 {
 	t_cub	*cub;
 
@@ -44,7 +44,7 @@ int		ft_key_release(int keycode, void *param)
 	return (0);
 }
 
-int		ft_key_hook(int keycode, void *param)
+int	ft_key_hook(int keycode, void *param)
 {
 	t_cub	*cub;
 

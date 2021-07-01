@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:36:44 by alelaval          #+#    #+#             */
-/*   Updated: 2021/03/31 16:58:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 17:18:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bmp_info_header	init_header(t_cub *cub)
 	return (new);
 }
 
-void				write_file(t_cub *cub, int fd, t_bmp_file_header file)
+void	write_file(t_cub *cub, int fd, t_bmp_file_header file)
 {
 	int		ret;
 
@@ -60,7 +60,7 @@ void				write_file(t_cub *cub, int fd, t_bmp_file_header file)
 	}
 }
 
-void				write_info(t_cub *cub, int fd, t_bmp_info_header file)
+void	write_info(t_cub *cub, int fd, t_bmp_info_header file)
 {
 	int		ret;
 
@@ -83,7 +83,7 @@ void				write_info(t_cub *cub, int fd, t_bmp_info_header file)
 	}
 }
 
-t_bmp				get_metadata(t_cub *cub)
+t_bmp	get_metadata(t_cub *cub)
 {
 	t_bmp	new;
 

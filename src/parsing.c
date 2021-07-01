@@ -6,17 +6,17 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/21 16:08:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 18:20:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-void		parse_resolution(t_cub *cub, char *line)
+void	parse_resolution(t_cub *cub, char *line)
 {
 	int	width;
-	int height;
+	int	height;
 
 	check_flag(cub, R, 0);
 	line++;
@@ -34,18 +34,18 @@ void		parse_resolution(t_cub *cub, char *line)
 	check_flag(cub, R, 1);
 }
 
-void		parse_texture(t_cub *cub, char *line)
+void	parse_texture(t_cub *cub, char *line)
 {
-	char type[3];
-	char *copy;
+	char	type[3];
+	char	*copy;
 
 	copy = line;
 	type[0] = line[0];
 	type[1] = line[1];
 	type[2] = line[2];
-	if (ft_strncmp(copy, "NO", 2) == 0 || ft_strncmp(copy, "SO", 2) == 0 ||
-	ft_strncmp(copy, "EA", 2) == 0 || ft_strncmp(copy, "WE", 2) == 0 ||
-	(ft_strncmp(copy, "S .", 3) == 0 || ft_strncmp(copy, "S.", 2) == 0))
+	if (ft_strncmp(copy, "NO", 2) == 0 || ft_strncmp(copy, "SO", 2) == 0 \
+	|| ft_strncmp(copy, "EA", 2) == 0 || ft_strncmp(copy, "WE", 2) == 0 \
+	|| (ft_strncmp(copy, "S .", 3) == 0 || ft_strncmp(copy, "S.", 2) == 0))
 	{
 		texture_loader(cub, (const char *)type, line);
 	}
@@ -54,9 +54,9 @@ void		parse_texture(t_cub *cub, char *line)
 	set_texture_flag(cub, (const char *)type);
 }
 
-int			parse_line_info(t_cub *cub, char *line)
+int	parse_line_info(t_cub *cub, char *line)
 {
-	char type;
+	char	type;
 
 	type = *line;
 	if (type == 'R')
@@ -82,7 +82,7 @@ int			parse_line_info(t_cub *cub, char *line)
 	return (1);
 }
 
-void		parse_line(t_cub *cub, char *line)
+void	parse_line(t_cub *cub, char *line)
 {
 	if ((parse_line_info(cub, line)) == 0 || *line == '\0')
 	{
@@ -99,7 +99,7 @@ void		parse_line(t_cub *cub, char *line)
 	}
 }
 
-void		read_file(t_cub *cub, char *path)
+void	read_file(t_cub *cub, char *path)
 {
 	char	*line;
 

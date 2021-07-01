@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mvmt.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 17:22:39 by alelaval          #+#    #+#             */
-/*   Updated: 2020/10/05 14:01:40 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:38:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	move_forward(t_cub *cub)
 		cub->camera.posx += cub->camera.dirx * cub->player.movespeed;
 	if (cub->map.map[(int)cub->camera.posx]
 		[(int)(cub->camera.posy + cub->camera.diry
-		* cub->player.movespeed)] == 0)
+			* cub->player.movespeed)] == 0)
 		cub->camera.posy += cub->camera.diry * cub->player.movespeed;
 }
 
@@ -33,7 +33,7 @@ void	move_backward(t_cub *cub)
 		cub->camera.posx -= cub->camera.dirx * cub->player.movespeed;
 	if (cub->map.map[(int)cub->camera.posx]
 		[(int)(cub->camera.posy - cub->camera.diry
-		* cub->player.movespeed)] == 0)
+			* cub->player.movespeed)] == 0)
 		cub->camera.posy -= cub->camera.diry * cub->player.movespeed;
 }
 
@@ -44,7 +44,8 @@ void	move_left(t_cub *cub)
 		[(int)cub->camera.posy] == 0)
 		cub->camera.posx -= cub->camera.planex * cub->player.movespeed;
 	if (cub->map.map[(int)cub->camera.posx]
-	[(int)(cub->camera.posy - cub->camera.planey * cub->player.movespeed)] == 0)
+		[(int)(cub->camera.posy - cub->camera.planey \
+		* cub->player.movespeed)] == 0)
 		cub->camera.posy -= cub->camera.planey * cub->player.movespeed;
 }
 
@@ -56,7 +57,7 @@ void	move_right(t_cub *cub)
 		cub->camera.posx += cub->camera.planex * cub->player.movespeed;
 	if (cub->map.map[(int)cub->camera.posx]
 		[(int)(cub->camera.posy + cub->camera.planey
-		* cub->player.movespeed)] == 0)
+			* cub->player.movespeed)] == 0)
 		cub->camera.posy += cub->camera.planey * cub->player.movespeed;
 }
 

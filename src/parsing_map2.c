@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:26:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/04/12 16:10:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 17:50:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,19 @@
 
 void	check_open(t_cub *cub, int i, int j)
 {
-	int **ref;
+	int	**ref;
 
 	ref = cub->map.map;
 	if (i == 0 || i >= cub->map.ysize - 1)
-		display_error(cub, "Map not closed!");
+		display_error(cub, "Map not closed!0y");
 	if (j == 0 || j >= cub->map.xsize - 1)
-		display_error(cub, "Map not closed!");
+		display_error(cub, "Map not closed!0x");
 	if (ref[i + 1][j] == ' ' || ref[i - 1][j] == ' ')
-		display_error(cub, "Map not closed!");
-	if (ref[i][j + 1] == ' ' || ref[i][j + 1] == ' ')
-		display_error(cub, "Map not closed!");
-	/*if (ref[i + 1][j + 1] == ' ' || ref[i - 1][j - 1] == ' ')
-		display_error(cub, "Map not closed!");
-	if (ref[i - 1][j + 1] == ' ' || ref[i + 1][j - 1] == ' ')
-		display_error(cub, "Map not closed!");*/
-	if (ref[i][j] == '0')
-		ref[i][j] -= 48;
+		display_error(cub, "Map not closed!0y");
+	if (ref[i][j + 1] == ' ' || ref[i][j - 1] == ' ')
+		display_error(cub, "Map not closed!0x");
+	if (ref[i][j] == 3)
+		ref[i][j] -= 3;
 }
 
 void	check_map(t_cub *cub)
@@ -42,10 +38,10 @@ void	check_map(t_cub *cub)
 	j = 0;
 	while (i < cub->map.ysize)
 	{
-		ft_putchar(i + 48);
 		while (j < cub->map.xsize)
 		{
-			if (cub->map.map[i][j] == '0' || cub->map.map[i][j] == 2)
+			if (cub->map.map[i][j] == 0 || cub->map.map[i][j] == 2
+				|| cub->map.map[i][j] == 3)
 				check_open(cub, i, j);
 			j++;
 		}
@@ -54,7 +50,7 @@ void	check_map(t_cub *cub)
 	}
 }
 
-int		**allocate_map(t_cub *cub, int index, int max)
+int	**allocate_map(t_cub *cub, int index, int max)
 {
 	int	i;
 	int	**map;
@@ -62,7 +58,7 @@ int		**allocate_map(t_cub *cub, int index, int max)
 	i = 0;
 	if (index <= 0 || max <= 0)
 		display_error(cub, "Critical error when allocating map!");
-	if ((map = (int**)malloc(sizeof(int*) * (index + 1))) == NULL)
+	if ((map = (int **)malloc(sizeof(int *) * (index + 1))) == NULL)
 		display_error(cub, "Critical error when allocating map!");
 	while (i < index)
 	{

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:35:17 by alelaval          #+#    #+#             */
-/*   Updated: 2021/01/05 17:19:20 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:35:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-int		get_max_len(t_map *ref)
+int	get_max_len(t_map *ref)
 {
 	int	len;
 	int	max_len;
@@ -52,13 +52,21 @@ void	set_orientation(t_cub *cub, char c)
 		ft_set_orient(cub, (t_vec_d){0.0, 1.0}, (t_vec_d){0.66, 0.0});
 }
 
-int		*store_line_map(t_cub *cub, t_map *ref, int index)
+void	write_char(int *line, int i, char c)
+{
+	if (c != ' ')
+		line[i] = c - 48;
+	else
+		line[i] = ' ';
+}
+
+int	*store_line_map(t_cub *cub, t_map *ref, int index)
 {
 	int	i;
 	int	*line;
 
 	i = 0;
-	line = (int*)malloc(sizeof(int) * cub->map.xsize);
+	line = (int *)malloc(sizeof(int) * cub->map.xsize);
 	while (i < cub->map.xsize && ref->map[i] != '\0')
 	{
 		if (ref->map[i] == 'N' || ref->map[i] == 'S'
@@ -69,10 +77,9 @@ int		*store_line_map(t_cub *cub, t_map *ref, int index)
 			cub->camera.posy = (double)(i + 1);
 			cub->camera.posy -= 0.5;
 			set_orientation(cub, ref->map[i]);
-			ref->map[i] = '0';
+			ref->map[i] = '3';
 		}
-		if (ref->map[i] != ' ' && ref->map[i] != '0')
-			line[i] = ref->map[i] - 48;
+		write_char(line, i, ref->map[i]);
 		i++;
 	}
 	while (i < cub->map.xsize)

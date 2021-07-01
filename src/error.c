@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:19:46 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/17 14:49:48 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/01 17:30:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	display_error(t_cub *cub, const char *error)
 {
 	ft_putstr("Error\n");
-	ft_putstr((char*)error);
+	ft_putstr((char *)error);
 	ft_putchar('\n');
 	close_game(cub);
 }

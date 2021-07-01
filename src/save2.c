@@ -6,19 +6,19 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:41 by alelaval          #+#    #+#             */
-/*   Updated: 2021/03/31 16:21:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/01 17:55:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void					write_metadata(t_cub *cub, int fd, t_bmp file)
+void	write_metadata(t_cub *cub, int fd, t_bmp file)
 {
 	write_file(cub, fd, file.file_header);
 	write_info(cub, fd, file.info_header);
 }
 
-void					save(t_cub *cub, char const *filename)
+void	save(t_cub *cub, char const *filename)
 {
 	int		fd;
 	int		size;
