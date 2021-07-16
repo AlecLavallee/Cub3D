@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:43:19 by alelaval          #+#    #+#             */
-/*   Updated: 2021/07/01 19:57:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/16 18:43:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,33 @@ int	ft_secure(char **stock, char **line, int i)
 	return (0);
 }
 
+int	stock_check(char ***line, char **stock)
+{
+	if (!stock[0])
+	{
+		stock[0] = malloc(sizeof(char));
+		if (!*line[0] || !stock[0])
+			return (-1);
+		*stock[0] = '\0';
+	}
+	return (0);
+}
+
 int	get_next_line(int fd, char **line)
 {
 	int				i;
 	static char		*stock = NULL;
 	char			tmp[BUFFER_SIZE + 1];
 
-	if (!stock)
-	{
-		if ((read(fd, tmp, 0) == -1) || !line ||
-			!(stock = malloc(sizeof(char))))
-			return (-1);
-		stock[0] = '\0';
-	}
-	while ((ft_strclen(stock, '\n') == -1) &&
-		(i = read(fd, tmp, BUFFER_SIZE)) > 0)
+	if (stock_check(&line, &stock))
+		return (-1);
+	i = read(fd, tmp, BUFFER_SIZE);
+	while (i > 0)
 	{
 		tmp[i] = '\0';
 		stock = ft_strcat(stock, tmp);
+		if (ft_strclen(stock, '\n' == -1))
+			i = read(fd, tmp, BUFFER_SIZE);
 	}
 	if (ft_strclen(stock, '\n') != -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:16:47 by alelaval          #+#    #+#             */
-/*   Updated: 2021/07/01 17:55:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/16 19:04:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ t_s	*get_sprites(t_cub *cub)
 	int	j;
 
 	count = count_sprites(cub);
-	if (!(sprites = (t_s *)malloc(sizeof(t_s) * count)))
+	sprites = (t_s *)malloc(sizeof(t_s) * count);
+	if (!sprites)
 		return (NULL);
-	i = 0;
-	while (i < cub->map.ysize)
+	i = -1;
+	while (++i < cub->map.ysize)
 	{
-		j = 0;
-		while (j < cub->map.xsize)
+		j = -1;
+		while (++j < cub->map.xsize)
 		{
 			if (cub->map.map[i][j] == 2)
 			{
@@ -74,9 +75,7 @@ t_s	*get_sprites(t_cub *cub)
 				sprites[count].dist = \
 				get_sprite_dist(cub, sprites[count].pos);
 			}
-			j++;
 		}
-		i++;
 	}
 	return (sprites);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:39:22 by alelaval          #+#    #+#             */
-/*   Updated: 2021/07/01 18:39:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/16 18:52:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ int	raycast(t_cub *cub)
 	i = 0;
 	mlx_clear_img(cub->image.img_ptr, cub->mlx.screenheight);
 	player_move(cub);
-	if (!(cub->camera.zbuffer
-		= (double *)malloc(sizeof(double) * cub->mlx.screenwidth)))
+	cub->camera.zbuffer
+		= (double *)malloc(sizeof(double) * cub->mlx.screenwidth);
+	if (!cub->camera.zbuffer)
 		display_error(cub, "Zbuffer allocation failed!");
 	while (i < cub->mlx.screenwidth)
 		raycast_core(cub, &i);
