@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:01:35 by alelaval          #+#    #+#             */
-/*   Updated: 2021/07/16 18:54:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/19 13:58:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_texture	load_tex(t_cub *cub, char *path)
 
 	while (ft_isspace(*path))
 		path++;
-	ft_putstr(path);
-	ft_putstr("\n");
 	test = open(path, O_RDONLY);
 	if (test == -1)
 		display_error(cub, "Texture path invalid!");

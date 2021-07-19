@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 01:26:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/07/16 18:53:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/19 14:26:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	check_open(t_cub *cub, int i, int j)
 
 	ref = cub->map.map;
 	if (i == 0 || i >= cub->map.ysize - 1)
-		display_error(cub, "Map not closed!0y");
+		display_error(cub, "Map not closed!");
 	if (j == 0 || j >= cub->map.xsize - 1)
-		display_error(cub, "Map not closed!0x");
+		display_error(cub, "Map not closed!");
 	if (ref[i + 1][j] == ' ' || ref[i - 1][j] == ' ')
-		display_error(cub, "Map not closed!0y");
+		display_error(cub, "Map not closed!");
 	if (ref[i][j + 1] == ' ' || ref[i][j - 1] == ' ')
-		display_error(cub, "Map not closed!0x");
+		display_error(cub, "Map not closed!");
 	if (ref[i][j] == 3)
 		ref[i][j] -= 3;
 }

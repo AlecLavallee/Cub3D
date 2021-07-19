@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:37:57 by alelaval          #+#    #+#             */
-/*   Updated: 2021/07/01 18:20:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/19 14:11:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	read_file(t_cub *cub, char *path)
 {
 	char	*line;
 
+	line = (char *)malloc(sizeof(char));
+	free(line);
 	cub->map.ysize = 0;
 	cub->file.mapping = 0;
 	cub->file.orientation = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:38:23 by alelaval          #+#    #+#             */
-/*   Updated: 2021/02/07 18:11:24 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/19 14:20:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 # define STRUCT_H
 
-typedef struct		s_vec
+typedef struct s_vec
 {
 	int				x;
 	int				y;
 }					t_vec;
 
-typedef struct		s_vec_d
+typedef struct s_vec_d
 {
 	double			x;
 	double			y;
 }					t_vec_d;
 
-typedef struct		s_s
+typedef struct s_s
 {
 	t_vec_d			pos;
 	double			dist;
 }					t_s;
 
-typedef struct		s_sprite
+typedef struct s_sprite
 {
 	int				spritescreenx;
 	double			spritex;
@@ -49,7 +49,7 @@ typedef struct		s_sprite
 	int				drawendx;
 }					t_sprite;
 
-typedef struct		s_mlx
+typedef struct s_mlx
 {
 	void			*mlx;
 	void			*window;
@@ -57,7 +57,7 @@ typedef struct		s_mlx
 	int				screenwidth;
 }					t_mlx;
 
-typedef struct		s_image
+typedef struct s_image
 {
 	void			*img_ptr;
 	int				*img_data;
@@ -67,7 +67,7 @@ typedef struct		s_image
 	int				linecount;
 }					t_image;
 
-typedef struct		s_texture
+typedef struct s_texture
 {
 	t_image			image;
 	char			path[255 + 1];
@@ -75,7 +75,7 @@ typedef struct		s_texture
 	int				height;
 }					t_texture;
 
-typedef struct		s_textures
+typedef struct s_textures
 {
 	t_texture		no;
 	t_texture		so;
@@ -84,7 +84,7 @@ typedef struct		s_textures
 	t_texture		sprite;
 }					t_textures;
 
-typedef struct		s_player
+typedef struct s_player
 {
 	int				mvmtup;
 	int				mvmtdown;
@@ -99,7 +99,7 @@ typedef struct		s_player
 	double			rotspeed;
 }					t_player;
 
-typedef struct		s_camera
+typedef struct s_camera
 {
 	int				mapx;
 	int				mapy;
@@ -136,7 +136,7 @@ typedef struct		s_camera
 	double			*zbuffer;
 }					t_camera;
 
-typedef struct		s_map_cub
+typedef struct s_map_cub
 {
 	int				**map;
 	t_vec			resolution;
@@ -148,7 +148,7 @@ typedef struct		s_map_cub
 	char			*line;
 }					t_map_cub;
 
-typedef struct		s_file
+typedef struct s_file
 {
 	int				fd;
 	int				mapping;
@@ -156,7 +156,7 @@ typedef struct		s_file
 	t_map			*lstmap;
 }					t_file;
 
-typedef struct		s_cub
+typedef struct s_cub
 {
 	int				flags;
 	int				save;

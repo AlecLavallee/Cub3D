@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alelaval <alelaval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:59:44 by alelaval          #+#    #+#             */
-/*   Updated: 2020/09/29 05:14:18 by alelaval         ###   ########.fr       */
+/*   Updated: 2021/07/19 14:12:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include "get_next_line.h"
 
-typedef struct		s_map
+typedef struct s_map
 {
 	char			*map;
 	struct s_map	*prev;
@@ -25,8 +25,8 @@ typedef struct		s_map
 int					ft_lstsize(t_map *lst);
 t_map				*ft_lstnew(void *content);
 t_map				*ft_lstlast(t_map *lst);
-t_map				*ft_lstmap(t_map *lst, void *(*f)(void*)
-					, void (*del)(void *));
+t_map				*ft_lstmap(t_map *lst, void *(*f)(void*),
+						void (*del)(void *));
 void				ft_lstadd_front(t_map **alst, t_map *new);
 void				ft_lstadd_back(t_map **alst, t_map *new);
 void				ft_lstdelone(t_map *lst, void (*del)(void *));
